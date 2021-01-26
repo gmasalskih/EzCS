@@ -4,6 +4,7 @@ import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -19,6 +20,8 @@ import androidx.compose.ui.unit.dp
 import dev.chrisbanes.accompanist.coil.CoilImage
 import java.util.*
 import ru.gmasalskikh.ezcs.R
+import ru.gmasalskikh.ezcs.ui.theme.orange
+import ru.gmasalskikh.ezcs.ui.theme.transparent
 
 @Composable
 fun PreviewItem(
@@ -26,32 +29,31 @@ fun PreviewItem(
 //    imageBitmap: ImageBitmap,
 ) {
     Column(
-        modifier = Modifier.fillMaxSize().padding(start = 20.dp, end = 20.dp),
+        modifier = Modifier.fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
-        Text(
-            modifier = Modifier.padding(10.dp),
-            text = name.toUpperCase(Locale.getDefault()),
-            textAlign = TextAlign.Center,
-            color = Color.White
-        )
         Surface(
             modifier = Modifier
-                .aspectRatio(0.5f)
+                // aspectRatio 9:16 = 0.5625f
+                .aspectRatio(0.5625f)
                 .fillMaxSize(),
             border = BorderStroke(
-                width = 5.dp,
-                color = Color.Red
+                width = 4.dp,
+                color = orange
             ),
-            shape = RoundedCornerShape(10.dp)
+            shape = RoundedCornerShape(10.dp),
+            color = transparent
         ) {
-            CoilImage(
-                data = R.drawable.ct_logo,
-                contentScale = ContentScale.FillHeight
-            )
-                
-            
+//            CoilImage(
+//                data = R.drawable.ct_logo,
+//                contentScale = ContentScale.FillHeight,
+//                loading = {
+//                    CircularProgressIndicator()
+//                }
+//            )
+
+
 //            Image(
 //                modifier = Modifier.fillMaxHeight(),
 //                contentScale = ContentScale.FillHeight,

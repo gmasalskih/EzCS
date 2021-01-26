@@ -18,18 +18,19 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.navigate
-import androidx.navigation.compose.rememberNavController
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import ru.gmasalskikh.ezcs.R
 import ru.gmasalskikh.ezcs.ui.widget.AppBackground
 import ru.gmasalskikh.ezcs.navigation.TargetNavigation
+import ru.gmasalskikh.ezcs.utils.AmbientNavController
 import ru.gmasalskikh.ezcs.utils.DELAY_SPLASH_SCREEN
 
 @Composable
 fun SplashScreenView(
-    navController: NavController = rememberNavController(),
+    navController: NavController = AmbientNavController.current
 ) {
+
     Box(
         modifier = Modifier
             .fillMaxSize()

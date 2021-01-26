@@ -6,6 +6,7 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.font.font
 import androidx.compose.ui.text.font.fontFamily
+import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.sp
 import ru.gmasalskikh.ezcs.R
 
@@ -21,6 +22,14 @@ val VerdanaBold = fontFamily(
         font(R.font.verdana_bold),
     )
 )
+
+val fontSize8Sp = TextUnit.Sp(8)
+val fontSize10Sp = TextUnit.Sp(10)
+val fontSize12Sp = TextUnit.Sp(10)
+val fontSize14Sp = TextUnit.Sp(14)
+val fontSize16Sp = TextUnit.Sp(16)
+val fontSize18Sp = TextUnit.Sp(18)
+val fontSize20Sp = TextUnit.Sp(20)
 
 // Set of Material typography styles to start with
 val typography = Typography(
