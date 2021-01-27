@@ -2,4 +2,6 @@
     <string name="app_name">EzCS</string>
     <string name="app_description">Guide for Counter-Strike: Global Offensive</string>
     <string name="skip">skip</string>
+    <string name="menu">menu</string>
+    <string name="shared_preferences" translatable="false">shared_preferences</string>
 </resources>

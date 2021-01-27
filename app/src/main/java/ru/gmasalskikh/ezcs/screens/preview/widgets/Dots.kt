@@ -9,10 +9,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import ru.gmasalskikh.ezcs.ui.theme.orange
 
 @Composable
 fun Dots(
@@ -39,7 +37,7 @@ fun Dots(
 
 @Composable
 private fun Dot(
-    size: Dp = 10.dp,
+    size: Dp,
     color: Color,
 ) {
     Surface(
@@ -48,10 +46,4 @@ private fun Dot(
         shape = CircleShape,
         content = {}
     )
-}
-
-@Preview(showBackground = true)
-@Composable
-fun P() {
-    Dot(color = orange)
 }

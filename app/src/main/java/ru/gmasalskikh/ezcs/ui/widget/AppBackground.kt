@@ -12,7 +12,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.imageFromResource
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.AmbientContext
-import androidx.compose.ui.tooling.preview.Preview
 import ru.gmasalskikh.ezcs.R
 
 @Composable
@@ -39,12 +38,5 @@ fun AppBackground(
             )
             content()
         }
-    }
-}
-
-@Preview(showBackground = true)
-@Composable
-fun PreviewAppBackground(){
-    AppBackground {
     }
 }

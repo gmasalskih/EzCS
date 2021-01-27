@@ -1,44 +1,62 @@
 package ru.gmasalskikh.ezcs.ui.theme
 
-import androidx.compose.foundation.isSystemInDarkTheme
+import androidx.compose.foundation.BorderStroke
+import androidx.compose.material.Colors
 import androidx.compose.material.MaterialTheme
-import androidx.compose.material.darkColors
-import androidx.compose.material.lightColors
+import androidx.compose.material.Shapes
+import androidx.compose.material.Typography
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.ComposableContract
+import androidx.compose.runtime.Providers
+import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.unit.dp
+import ru.gmasalskikh.ezcs.utils.AmbientAppTheme
 
-private val DarkColorPalette = darkColors(
-    primary = purple200,
-    primaryVariant = purple700,
-    secondary = teal200
+
+data class Paddings(
+    val small: Dp = 5.dp,
+    val medium: Dp = 10.dp,
+    val large: Dp = 20.dp
 )
 
-private val LightColorPalette = lightColors(
-    primary = purple500,
-    primaryVariant = purple700,
-    secondary = teal200,
-
-    /* Other default colors to override
-background = Color.White,
-surface = Color.White,
-onPrimary = Color.White,
-onSecondary = Color.Black,
-onBackground = Color.Black,
-onSurface = Color.Black,
-*/
+data class Borders(
+    val thin: BorderStroke = BorderStroke(
+        width = 2.dp,
+        color = EzCSColorPalette.primary
+    ),
+    val medium: BorderStroke = BorderStroke(
+        width = 4.dp,
+        color = EzCSColorPalette.primary
+    ),
+    val bold: BorderStroke = BorderStroke(
+        width = 6.dp,
+        color = EzCSColorPalette.primary
+    )
 )
+
+data class Elevations(
+    val small: Dp = 2.dp,
+    val medium: Dp = 6.dp,
+    val large: Dp = 10.dp
+)
+
+object EzCSTheme : AppTheme {
+    override val colors: Colors = EzCSColorPalette
+    override val typography: Typography = EzCSTypography
+    override val shapes: Shapes = EzCSShapes
+    override val borders: Borders = Borders()
+    override val paddings: Paddings = Paddings()
+    override val elevations: Elevations = Elevations()
+}
 
 @Composable
-fun EzCSTheme(darkTheme: Boolean = isSystemInDarkTheme(), content: @Composable() () -> Unit) {
-    val colors = if (darkTheme) {
-        DarkColorPalette
-    } else {
-        LightColorPalette
+fun EzCSTheme(content: @Composable () -> Unit) {
+    Providers(AmbientAppTheme provides EzCSTheme) {
+        MaterialTheme(
+            colors = EzCSTheme.colors,
+            typography = EzCSTheme.typography,
+            shapes = EzCSTheme.shapes,
+            content = content
+        )
     }
-
-    MaterialTheme(
-        colors = colors,
-        typography = typography,
-        shapes = shapes,
-        content = content
-    )
 }

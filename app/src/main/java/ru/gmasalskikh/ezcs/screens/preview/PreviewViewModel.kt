@@ -4,13 +4,11 @@ import androidx.compose.runtime.*
 import androidx.lifecycle.ViewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.navigate
-import androidx.navigation.compose.popUpTo
+import androidx.navigation.compose.*
 import ru.gmasalskikh.ezcs.navigation.TargetNavigation
 import ru.gmasalskikh.ezcs.screens.preview.widgets.PagerState
 
-class PreviewViewModel(
-    private val navController: NavController
-) : ViewModel() {
+class PreviewViewModel : ViewModel() {
     var viewState by mutableStateOf(PreviewViewState())
         private set
 
@@ -32,12 +30,9 @@ class PreviewViewModel(
         return viewState.pagerState
     }
 
-    fun navigateToMainMenu() {
+    fun navigateToMainMenu(navController: NavController) {
         navController.navigate(TargetNavigation.MAIN_MENU.name) {
-            this.popUpTo(TargetNavigation.SPLASH_SCREEN.name){
-//                this.inclusive = true
-            }
-            launchSingleTop = true
+            popUpTo(TargetNavigation.PREVIEW.name) { inclusive = true }
         }
     }
 

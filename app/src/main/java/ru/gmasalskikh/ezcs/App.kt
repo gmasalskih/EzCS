@@ -4,7 +4,8 @@ import android.app.Application
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin
-import ru.gmasalskikh.ezcs.di.appModule
+import ru.gmasalskikh.ezcs.di.viewModelModule
+import ru.gmasalskikh.ezcs.di.providerModule
 
 class App : Application() {
 
@@ -14,7 +15,8 @@ class App : Application() {
             androidLogger()
             androidContext(this@App)
             modules(
-                appModule
+                viewModelModule,
+                providerModule
             )
         }
     }
