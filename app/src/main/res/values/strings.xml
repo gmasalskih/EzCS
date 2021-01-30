@@ -3,5 +3,9 @@
     <string name="app_description">Guide for Counter-Strike: Global Offensive</string>
     <string name="skip">skip</string>
     <string name="menu">menu</string>
-    <string name="shared_preferences" translatable="false">shared_preferences</string>
+    <string name="map_callouts">map callouts</string>
+    <string name="compare_weapons">compare weapons</string>
+    <string name="grenades_practice">grenades practice</string>
+    <string name="weapon_characteristics">weapon characteristics</string>
+    <string name="ranks">ranks</string>
 </resources>

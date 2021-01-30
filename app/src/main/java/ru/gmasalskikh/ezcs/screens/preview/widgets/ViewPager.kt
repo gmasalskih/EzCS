@@ -198,7 +198,6 @@ fun getPagerState() = run {
     remember(clock) { PagerState(clock) }
 }
 
-
 @Composable
 fun <I : Any> ViewPager(
     modifier: Modifier = Modifier,
@@ -211,7 +210,7 @@ fun <I : Any> ViewPager(
         modifier = modifier
     ) {
         Pager(state = pagerState) {
-            content(this, items[currentPage])
+            content(this, items[page])
         }
     }
 }

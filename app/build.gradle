@@ -29,6 +29,7 @@ android {
     }
     kotlinOptions {
         jvmTarget = '1.8'
+        freeCompilerArgs += ["-Xallow-jvm-ir-dependencies"]
         useIR = true
     }
     buildFeatures {
@@ -36,7 +37,7 @@ android {
     }
     composeOptions {
         kotlinCompilerExtensionVersion compose_version
-        kotlinCompilerVersion '1.4.21'
+        kotlinCompilerVersion kotlin_version
     }
 }
 
@@ -74,7 +75,7 @@ dependencies {
 
     //Coil
     def coil = "0.4.2"
-    implementation "dev.chrisbanes.accompanist:accompanist-coil:$coil"
+    implementation "dev.chrisbanes.accompanist:accompanist-coil:0.5.0"
 
     //Test
     testImplementation 'junit:junit:4.+'

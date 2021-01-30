@@ -19,7 +19,7 @@ fun ComposeNavigation() {
     Providers(AmbientNavController provides navController) {
         NavHost(
             navController = navController,
-            startDestination = TargetNavigation.SPLASH_SCREEN.name
+            startDestination = TargetNavigation.PREVIEW.name
         ) {
             composable(TargetNavigation.SPLASH_SCREEN.name) {
                 AppBackground(false) {

@@ -57,7 +57,8 @@ fun TopAppBar(
                                     if (onBackPressed != null) onBackPressed() else navController.popBackStack()
                                 }),
                             imageVector = Icons.Filled.KeyboardArrowLeft,
-                            colorFilter = ColorFilter.tint(contentColor)
+                            colorFilter = ColorFilter.tint(contentColor),
+                            contentDescription = null
                         )
                     }
                 }

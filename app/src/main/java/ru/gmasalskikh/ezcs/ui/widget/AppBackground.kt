@@ -34,7 +34,8 @@ fun AppBackground(
                     AmbientContext.current.resources,
                     if (isBlur) R.drawable.background_blur else R.drawable.background
                 ),
-                alpha = if (isBlur) 0.8f else 1f
+                alpha = if (isBlur) 0.8f else 1f,
+                contentDescription = null
             )
             content()
         }

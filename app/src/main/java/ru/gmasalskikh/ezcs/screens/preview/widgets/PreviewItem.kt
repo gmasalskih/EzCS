@@ -13,7 +13,8 @@ import androidx.compose.ui.graphics.Color
 fun PreviewItem(
     border: BorderStroke,
     shape: CornerBasedShape,
-    backgroundColor: Color
+    backgroundColor: Color,
+    content: @Composable ()->Unit
 ) {
     Column(
         modifier = Modifier.fillMaxSize(),
@@ -29,13 +30,7 @@ fun PreviewItem(
             shape = shape,
             color = backgroundColor
         ) {
-//            CoilImage(
-//                data = R.drawable.ct_logo,
-//                contentScale = ContentScale.FillHeight,
-//                loading = {
-//                    CircularProgressIndicator()
-//                }
-//            )
+            content()
         }
     }
 }

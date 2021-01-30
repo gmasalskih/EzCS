@@ -2,30 +2,26 @@ package ru.gmasalskikh.ezcs.screens.preview
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import kotlinx.coroutines.CoroutineScope
+import dev.chrisbanes.accompanist.coil.CoilImage
 import org.koin.androidx.compose.getViewModel
-import ru.gmasalskikh.ezcs.screens.preview.widgets.Dots
-import ru.gmasalskikh.ezcs.screens.preview.widgets.PreviewItem
-import ru.gmasalskikh.ezcs.screens.preview.widgets.ViewPager
-import ru.gmasalskikh.ezcs.screens.preview.widgets.getPagerState
 import ru.gmasalskikh.ezcs.R
+import ru.gmasalskikh.ezcs.screens.preview.widgets.*
 import ru.gmasalskikh.ezcs.ui.theme.*
 import ru.gmasalskikh.ezcs.utils.AmbientAppTheme
 import ru.gmasalskikh.ezcs.utils.AmbientNavController
-
+import java.util.*
 
 @Composable
 fun PreviewView(
     navController: NavController = AmbientNavController.current,
-    cs: CoroutineScope = rememberCoroutineScope(),
     theme: AppTheme = AmbientAppTheme.current,
     vm: PreviewViewModel = getViewModel()
 ) {
@@ -37,7 +33,7 @@ fun PreviewView(
         ) {
             Text(
                 modifier = Modifier.align(Alignment.Center),
-                text = vm.getCurrentItem().toUpperCase(),
+                text = stringResource(id = vm.getCurrentTopicRes()).toUpperCase(Locale.getDefault()),
                 color = theme.colors.onBackground
             )
         }
@@ -47,11 +43,21 @@ fun PreviewView(
             pagerState = vm.getPagerState() ?: getPagerState()
         ) { scope, item ->
             vm.setPagerState(scope.currentPagerState)
+            vm.getCurrentTopicRes()
             PreviewItem(
                 border = theme.borders.medium,
                 shape = theme.shapes.medium,
                 backgroundColor = theme.colors.surface
-            )
+            ) {
+                CoilImage(
+                    modifier = Modifier.padding(vertical = 10.dp),
+                    data = item.drawableRes,
+                    contentDescription = null,
+                    loading = {
+                        CircularProgressIndicator()
+                    }
+                )
+            }
         }
         Box(
             modifier = Modifier
@@ -70,7 +76,7 @@ fun PreviewView(
                     .align(Alignment.CenterEnd)
                     .clickable(onClick = { vm.navigateToMainMenu(navController) })
                     .padding(end = 20.dp),
-                text = "${stringResource(R.string.skip).toUpperCase()} >",
+                text = "${stringResource(R.string.skip).toUpperCase(Locale.getDefault())} >",
                 color = theme.colors.primary,
                 fontSize = theme.typography.body2.fontSize
             )
