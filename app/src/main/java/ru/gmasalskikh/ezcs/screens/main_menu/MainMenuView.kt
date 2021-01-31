@@ -1,5 +1,7 @@
 package ru.gmasalskikh.ezcs.screens.main_menu
 
+import androidx.annotation.DrawableRes
+import androidx.annotation.StringRes
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -21,6 +23,30 @@ import ru.gmasalskikh.ezcs.ui.common_widget.TopAppBar
 import ru.gmasalskikh.ezcs.utils.AmbientAppTheme
 import ru.gmasalskikh.ezcs.utils.AmbientNavController
 
+private fun getPairRes(mainMenuItemType: MainMenuItemType): Pair<Int, Int> =
+    when (mainMenuItemType) {
+        MainMenuItemType.MAP_CALLOUTS -> {
+            R.string.map_callouts to R.drawable.main_menu_map_callouts
+        }
+        MainMenuItemType.GRENADES_PRACTICE -> {
+            R.string.grenades_practice to R.drawable.main_menu_grenades_practice
+        }
+        MainMenuItemType.WEAPON_CHARACTERISTICS -> {
+            R.string.weapon_characteristics to R.drawable.main_menu_weapon_characteristics
+        }
+        MainMenuItemType.RANKS -> {
+            R.string.ranks to R.drawable.main_menu_ranks
+        }
+    }
+
+@StringRes
+private fun getMainMenuItemLabelRes(mainMenuItemType: MainMenuItemType): Int =
+    getPairRes(mainMenuItemType = mainMenuItemType).first
+
+@DrawableRes
+private fun getMainMenuItemBackgroundRes(mainMenuItemType: MainMenuItemType): Int =
+    getPairRes(mainMenuItemType = mainMenuItemType).second
+
 @Composable
 fun MainMenuView(
     navController: NavController = AmbientNavController.current,
@@ -41,20 +67,6 @@ fun MainMenuView(
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             items(vm.viewState.menuListItem) { mainMenuItem ->
-                val mainMenuItemPairRes = when (mainMenuItem.mainMenuItemType) {
-                    MainMenuItemType.MAP_CALLOUTS -> {
-                        R.string.map_callouts to R.drawable.main_menu_map_callouts
-                    }
-                    MainMenuItemType.GRENADES_PRACTICE -> {
-                        R.string.grenades_practice to R.drawable.main_menu_grenades_practice
-                    }
-                    MainMenuItemType.WEAPON_CHARACTERISTICS -> {
-                        R.string.weapon_characteristics to R.drawable.main_menu_weapon_characteristics
-                    }
-                    MainMenuItemType.RANKS -> {
-                        R.string.ranks to R.drawable.main_menu_ranks
-                    }
-                }
                 MenuItem(
                     backgroundColor = theme.colors.surface,
                     elevation = theme.elevations.medium,
@@ -63,8 +75,8 @@ fun MainMenuView(
                     onClick = { /*TODO*/ }
                 ) {
                     MainMenuItemContent(
-                        label = stringResource(id = mainMenuItemPairRes.first),
-                        backgroundRes = mainMenuItemPairRes.second
+                        label = stringResource(id = getMainMenuItemLabelRes(mainMenuItem.mainMenuItemType)),
+                        backgroundRes = getMainMenuItemBackgroundRes(mainMenuItem.mainMenuItemType)
                     )
                 }
             }

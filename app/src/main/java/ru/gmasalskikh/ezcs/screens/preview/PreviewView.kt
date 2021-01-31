@@ -1,5 +1,6 @@
 package ru.gmasalskikh.ezcs.screens.preview
 
+import androidx.annotation.DrawableRes
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.CircularProgressIndicator
@@ -19,6 +20,15 @@ import ru.gmasalskikh.ezcs.ui.theme.*
 import ru.gmasalskikh.ezcs.utils.AmbientAppTheme
 import ru.gmasalskikh.ezcs.utils.AmbientNavController
 import java.util.*
+
+@DrawableRes
+private fun getPreviewItemDrawableRes(itemType: PreviewItemType): Int = when (itemType) {
+    PreviewItemType.MAP_CALLOUTS -> R.drawable.preview_map_callouts
+    PreviewItemType.COMPARE_WEAPONS -> R.drawable.preview_compare_weapons
+    PreviewItemType.GRENADES_PRACTICE -> R.drawable.preview_grenades_practice
+    PreviewItemType.WEAPON_CHARACTERISTICS -> R.drawable.preview_weapon_characteristics
+    PreviewItemType.RANKS -> R.drawable.preview_rangs
+}
 
 @Composable
 fun PreviewView(
@@ -45,13 +55,6 @@ fun PreviewView(
         ) { scope, item ->
             vm.setPagerState(scope.currentPagerState)
             vm.getCurrentTopicRes()
-            val previewImageRes = when (item.type) {
-                PreviewItemType.MAP_CALLOUTS -> R.drawable.preview_map_callouts
-                PreviewItemType.COMPARE_WEAPONS -> R.drawable.preview_compare_weapons
-                PreviewItemType.GRENADES_PRACTICE -> R.drawable.preview_grenades_practice
-                PreviewItemType.WEAPON_CHARACTERISTICS -> R.drawable.preview_weapon_characteristics
-                PreviewItemType.RANKS -> R.drawable.preview_rangs
-            }
             PreviewItem(
                 border = theme.borders.medium,
                 shape = theme.shapes.medium,
@@ -59,7 +62,7 @@ fun PreviewView(
             ) {
                 CoilImage(
                     modifier = Modifier.padding(vertical = 10.dp),
-                    data = previewImageRes,
+                    data = getPreviewItemDrawableRes(item.type),
                     contentDescription = null,
                     loading = {
                         CircularProgressIndicator()
