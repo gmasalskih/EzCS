@@ -6,12 +6,10 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Shapes
 import androidx.compose.material.Typography
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.ComposableContract
 import androidx.compose.runtime.Providers
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import ru.gmasalskikh.ezcs.utils.AmbientAppTheme
-
 
 data class Paddings(
     val small: Dp = 5.dp,

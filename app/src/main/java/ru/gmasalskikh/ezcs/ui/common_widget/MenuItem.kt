@@ -1,4 +1,4 @@
-package ru.gmasalskikh.ezcs.ui.widget
+package ru.gmasalskikh.ezcs.ui.common_widget
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.clickable
@@ -31,9 +31,7 @@ fun MenuItem(
         border = border
     ) {
         Box(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(10.dp)
+            modifier = Modifier.fillMaxSize()
         ) {
             content()
         }

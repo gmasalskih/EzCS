@@ -9,7 +9,7 @@ import androidx.navigation.compose.rememberNavController
 import ru.gmasalskikh.ezcs.screens.main_menu.MainMenuView
 import ru.gmasalskikh.ezcs.screens.preview.PreviewView
 import ru.gmasalskikh.ezcs.screens.splash_screen.SplashScreenView
-import ru.gmasalskikh.ezcs.ui.widget.AppBackground
+import ru.gmasalskikh.ezcs.ui.common_widget.AppBackground
 import ru.gmasalskikh.ezcs.utils.AmbientNavController
 
 @SuppressLint("RestrictedApi")

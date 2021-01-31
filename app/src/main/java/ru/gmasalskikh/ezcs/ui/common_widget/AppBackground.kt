@@ -1,4 +1,4 @@
-package ru.gmasalskikh.ezcs.ui.widget
+package ru.gmasalskikh.ezcs.ui.common_widget
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Box

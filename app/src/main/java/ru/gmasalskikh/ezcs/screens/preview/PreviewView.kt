@@ -13,6 +13,7 @@ import androidx.navigation.NavController
 import dev.chrisbanes.accompanist.coil.CoilImage
 import org.koin.androidx.compose.getViewModel
 import ru.gmasalskikh.ezcs.R
+import ru.gmasalskikh.ezcs.data.model.preview.PreviewItemType
 import ru.gmasalskikh.ezcs.screens.preview.widgets.*
 import ru.gmasalskikh.ezcs.ui.theme.*
 import ru.gmasalskikh.ezcs.utils.AmbientAppTheme
@@ -44,6 +45,13 @@ fun PreviewView(
         ) { scope, item ->
             vm.setPagerState(scope.currentPagerState)
             vm.getCurrentTopicRes()
+            val previewImageRes = when (item.type) {
+                PreviewItemType.MAP_CALLOUTS -> R.drawable.preview_map_callouts
+                PreviewItemType.COMPARE_WEAPONS -> R.drawable.preview_compare_weapons
+                PreviewItemType.GRENADES_PRACTICE -> R.drawable.preview_grenades_practice
+                PreviewItemType.WEAPON_CHARACTERISTICS -> R.drawable.preview_weapon_characteristics
+                PreviewItemType.RANKS -> R.drawable.preview_rangs
+            }
             PreviewItem(
                 border = theme.borders.medium,
                 shape = theme.shapes.medium,
@@ -51,7 +59,7 @@ fun PreviewView(
             ) {
                 CoilImage(
                     modifier = Modifier.padding(vertical = 10.dp),
-                    data = item.drawableRes,
+                    data = previewImageRes,
                     contentDescription = null,
                     loading = {
                         CircularProgressIndicator()
