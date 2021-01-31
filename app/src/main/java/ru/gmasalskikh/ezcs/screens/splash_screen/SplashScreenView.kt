@@ -54,7 +54,7 @@ fun SplashScreenView(
             modifier = Modifier
                 .preferredSize(240.dp)
                 .align(Alignment.BottomCenter),
-            bitmap = imageFromResource(AmbientContext.current.resources, R.drawable.app_logo),
+            bitmap = imageFromResource(AmbientContext.current.resources, R.mipmap.app_logo_foreground),
             contentDescription = null
         )
     }
