@@ -1,14 +1,20 @@
 package ru.gmasalskikh.ezcs.ui.theme
 
 import androidx.compose.material.Typography
-import androidx.compose.ui.text.font.font
-import androidx.compose.ui.text.font.fontFamily
+import androidx.compose.ui.text.font.Font
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.unit.sp
 import ru.gmasalskikh.ezcs.R
 
-val Verdana = fontFamily(
+val verdana_regular = FontFamily(
     fonts = listOf(
-        font(R.font.verdana_regular)
+        Font(R.font.verdana_regular)
+    )
+)
+
+val verdana_bold = FontFamily(
+    fonts = listOf(
+        Font(R.font.verdana_bold)
     )
 )
 
@@ -21,5 +27,5 @@ val fontSize18Sp = 18.sp
 val fontSize20Sp = 20.sp
 
 val EzCSTypography = Typography(
-    defaultFontFamily = Verdana,
+//    defaultFontFamily = verdana_regular,
 )

@@ -1,6 +1,5 @@
 package ru.gmasalskikh.ezcs.screens.preview
 
-import androidx.annotation.DrawableRes
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.CircularProgressIndicator
@@ -12,29 +11,22 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import dev.chrisbanes.accompanist.coil.CoilImage
+import org.koin.androidx.compose.get
 import org.koin.androidx.compose.getViewModel
 import ru.gmasalskikh.ezcs.R
-import ru.gmasalskikh.ezcs.data.model.preview.PreviewItemType
+import ru.gmasalskikh.ezcs.providers.mapper.ResourceMapper
 import ru.gmasalskikh.ezcs.screens.preview.widgets.*
 import ru.gmasalskikh.ezcs.ui.theme.*
 import ru.gmasalskikh.ezcs.utils.AmbientAppTheme
 import ru.gmasalskikh.ezcs.utils.AmbientNavController
 import java.util.*
 
-@DrawableRes
-private fun getPreviewItemDrawableRes(itemType: PreviewItemType): Int = when (itemType) {
-    PreviewItemType.MAP_CALLOUTS -> R.drawable.preview_map_callouts
-    PreviewItemType.COMPARE_WEAPONS -> R.drawable.preview_compare_weapons
-    PreviewItemType.GRENADES_PRACTICE -> R.drawable.preview_grenades_practice
-    PreviewItemType.WEAPON_CHARACTERISTICS -> R.drawable.preview_weapon_characteristics
-    PreviewItemType.RANKS -> R.drawable.preview_rangs
-}
-
 @Composable
 fun PreviewView(
     navController: NavController = AmbientNavController.current,
     theme: AppTheme = AmbientAppTheme.current,
-    vm: PreviewViewModel = getViewModel()
+    vm: PreviewViewModel = getViewModel(),
+    resourceMapper: ResourceMapper = get()
 ) {
     Column {
         Box(
@@ -62,7 +54,7 @@ fun PreviewView(
             ) {
                 CoilImage(
                     modifier = Modifier.padding(vertical = 10.dp),
-                    data = getPreviewItemDrawableRes(item.type),
+                    data = resourceMapper.getDrawableRes(item.type),
                     contentDescription = null,
                     loading = {
                         CircularProgressIndicator()

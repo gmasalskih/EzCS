@@ -8,4 +8,8 @@
     <string name="grenades_practice">grenades practice</string>
     <string name="weapon_characteristics">weapon characteristics</string>
     <string name="ranks">ranks</string>
+    <string name="competitive">competitive</string>
+    <string name="wingman">wingman</string>
+    <string name="danger_zone">danger zone</string>
+    <string name="profile_rank">profile rank</string>
 </resources>

@@ -2,6 +2,7 @@ package ru.gmasalskikh.ezcs.screens
 
 import android.graphics.Color
 import android.os.Bundle
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.ui.platform.*
 import ru.gmasalskikh.ezcs.navigation.ComposeNavigation

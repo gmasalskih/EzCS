@@ -9,4 +9,8 @@
     <string name="grenades_practice">раскидки гранат</string>
     <string name="weapon_characteristics">характеристики оружия</string>
     <string name="ranks">ранги</string>
+    <string name="competitive">соревновательный</string>
+    <string name="wingman">напарники</string>
+    <string name="danger_zone">запретная зона</string>
+    <string name="profile_rank">ранг профиля</string>
 </resources>

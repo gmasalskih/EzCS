@@ -4,4 +4,5 @@ enum class TargetNavigation {
     SPLASH_SCREEN,
     PREVIEW,
     MAIN_MENU,
+    RANKS
 }
