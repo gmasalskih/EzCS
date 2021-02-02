@@ -2,9 +2,9 @@ package ru.gmasalskikh.ezcs.providers.mapper
 
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
-import ru.gmasalskikh.ezcs.data.model.main_menu.MainMenuItemType
-import ru.gmasalskikh.ezcs.data.model.preview.PreviewItemType
-import ru.gmasalskikh.ezcs.data.model.ranks.RanksBottomAppBarItemType
+import ru.gmasalskikh.ezcs.data.types.MainMenuItemType
+import ru.gmasalskikh.ezcs.data.types.PreviewItemType
+import ru.gmasalskikh.ezcs.data.types.RanksBottomAppBarItemType
 
 interface ResourceMapper {
     @StringRes

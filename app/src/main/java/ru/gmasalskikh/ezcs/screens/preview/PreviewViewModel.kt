@@ -7,7 +7,7 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.navigate
 import androidx.navigation.compose.*
 import ru.gmasalskikh.ezcs.R
-import ru.gmasalskikh.ezcs.data.model.preview.PreviewItemType
+import ru.gmasalskikh.ezcs.data.types.PreviewItemType
 import ru.gmasalskikh.ezcs.navigation.TargetNavigation
 import ru.gmasalskikh.ezcs.screens.preview.widgets.PagerState
 

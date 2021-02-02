@@ -1,4 +1,4 @@
-package ru.gmasalskikh.ezcs.data.model.preview
+package ru.gmasalskikh.ezcs.data.types
 
 enum class PreviewItemType {
     MAP_CALLOUTS,

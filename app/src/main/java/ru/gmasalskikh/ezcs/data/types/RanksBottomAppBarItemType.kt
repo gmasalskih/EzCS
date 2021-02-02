@@ -1,4 +1,4 @@
-package ru.gmasalskikh.ezcs.data.model.ranks
+package ru.gmasalskikh.ezcs.data.types
 
 enum class RanksBottomAppBarItemType {
     COMPETITIVE,

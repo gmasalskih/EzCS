@@ -1,7 +1,7 @@
 package ru.gmasalskikh.ezcs.screens.ranks
 
-import ru.gmasalskikh.ezcs.data.model.ranks.RankBottomAppBarItem
-import ru.gmasalskikh.ezcs.data.model.ranks.RanksBottomAppBarItemType
+import ru.gmasalskikh.ezcs.data.items.RankBottomAppBarItem
+import ru.gmasalskikh.ezcs.data.types.RanksBottomAppBarItemType
 
 data class RanksViewState(
     val selectedRank: RanksBottomAppBarItemType = RanksBottomAppBarItemType.COMPETITIVE,

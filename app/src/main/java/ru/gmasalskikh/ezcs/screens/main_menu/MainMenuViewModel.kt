@@ -4,7 +4,7 @@ import androidx.compose.runtime.*
 import androidx.lifecycle.ViewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.navigate
-import ru.gmasalskikh.ezcs.data.model.main_menu.MainMenuItemType
+import ru.gmasalskikh.ezcs.data.types.MainMenuItemType
 import ru.gmasalskikh.ezcs.navigation.TargetNavigation
 
 class MainMenuViewModel : ViewModel() {

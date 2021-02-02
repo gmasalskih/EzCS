@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.SharedPreferences
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
+import ru.gmasalskikh.ezcs.providers.coroutines.ViewCoroutineScope
 import ru.gmasalskikh.ezcs.providers.mapper.ResourceMapper
 import ru.gmasalskikh.ezcs.providers.mapper.ResourceMapperImpl
 import ru.gmasalskikh.ezcs.screens.main_menu.MainMenuViewModel
@@ -17,6 +18,7 @@ val providerModule = module {
         get<Context>().getSharedPreferences(SHARED_PREFERENCES_NAME, Context.MODE_PRIVATE)
     }
     single<ResourceMapper> { ResourceMapperImpl() }
+    factory { ViewCoroutineScope() }
 }
 
 val viewModelModule = module {

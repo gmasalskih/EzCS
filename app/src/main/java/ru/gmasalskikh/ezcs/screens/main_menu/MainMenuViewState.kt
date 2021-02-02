@@ -1,7 +1,7 @@
 package ru.gmasalskikh.ezcs.screens.main_menu
 
-import ru.gmasalskikh.ezcs.data.model.main_menu.MainMenuItem
-import ru.gmasalskikh.ezcs.data.model.main_menu.MainMenuItemType
+import ru.gmasalskikh.ezcs.data.items.MainMenuItem
+import ru.gmasalskikh.ezcs.data.types.MainMenuItemType
 
 data class MainMenuViewState(
     val menuListItem: List<MainMenuItem> = listOf(

@@ -3,10 +3,10 @@ package ru.gmasalskikh.ezcs.navigation
 import android.annotation.SuppressLint
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Providers
-import androidx.navigation.activity
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import org.koin.androidx.compose.getViewModel
 import ru.gmasalskikh.ezcs.screens.main_menu.MainMenuView
 import ru.gmasalskikh.ezcs.screens.preview.PreviewView
 import ru.gmasalskikh.ezcs.screens.ranks.Ranks
@@ -25,7 +25,7 @@ fun ComposeNavigation() {
         ) {
             composable(TargetNavigation.SPLASH_SCREEN.name) {
                 AppBackground(false) {
-                    SplashScreenView()
+                    SplashScreenView(getViewModel()).Screen()
                 }
             }
             composable(TargetNavigation.PREVIEW.name) {

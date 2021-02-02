@@ -1,7 +1,7 @@
 package ru.gmasalskikh.ezcs.screens.preview
 
-import ru.gmasalskikh.ezcs.data.model.preview.PreviewItem
-import ru.gmasalskikh.ezcs.data.model.preview.PreviewItemType
+import ru.gmasalskikh.ezcs.data.items.PreviewItem
+import ru.gmasalskikh.ezcs.data.types.PreviewItemType
 import ru.gmasalskikh.ezcs.screens.preview.widgets.PagerState
 
 data class PreviewViewState(

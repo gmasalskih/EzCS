@@ -16,10 +16,9 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import dev.chrisbanes.accompanist.coil.CoilImage
-import ru.gmasalskikh.ezcs.data.model.ranks.RankBottomAppBarItem
-import ru.gmasalskikh.ezcs.data.model.ranks.RanksBottomAppBarItemType
+import ru.gmasalskikh.ezcs.data.items.RankBottomAppBarItem
+import ru.gmasalskikh.ezcs.data.types.RanksBottomAppBarItemType
 import ru.gmasalskikh.ezcs.providers.mapper.ResourceMapper
-import ru.gmasalskikh.ezcs.ui.theme.fontSize10Sp
 import ru.gmasalskikh.ezcs.ui.theme.fontSize12Sp
 import java.util.*
 

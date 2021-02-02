@@ -1,4 +1,4 @@
-package ru.gmasalskikh.ezcs.data.model.main_menu
+package ru.gmasalskikh.ezcs.data.types
 
 enum class MainMenuItemType {
     MAP_CALLOUTS,
