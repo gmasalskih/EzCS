@@ -3,18 +3,30 @@ package ru.gmasalskikh.ezcs.screens
 import android.util.Log
 import androidx.lifecycle.ViewModel
 
-abstract class BaseViewModel<VS : ViewState> : ViewModel() {
+abstract class BaseViewModel<SS : ScreenState<*>> : ViewModel() {
 
-    protected abstract val defaultViewState: VS
+    protected abstract val defaultViewState: SS
 
-    abstract var viewState: VS
+    abstract var screenState: SS
         protected set
+
+    open fun showDate() {
+
+    }
+
+    open fun showLoading() {
+
+    }
+
+    open fun showErr(err: Throwable) {
+
+    }
 
     open fun onViewCreate() {
         Log.d("---", "onViewCreate ${this::class.java.simpleName}")
     }
 
-    open fun onViewDestroy(){
+    open fun onViewDestroy() {
         Log.d("---", "onViewDestroy ${this::class.java.simpleName}")
     }
 

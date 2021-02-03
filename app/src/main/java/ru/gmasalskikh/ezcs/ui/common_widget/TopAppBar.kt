@@ -25,7 +25,7 @@ fun TopAppBar(
     elevation: Dp,
     isNavigableBack: Boolean = AmbientNavController.current.previousBackStackEntry != null,
     onBackPressed: (() -> Unit)? = null,
-    additionActionContent: @Composable (() -> Unit)? = null,
+    additionActionContent: (@Composable BoxScope.() -> Unit)? = null,
     content: @Composable () -> Unit
 ) {
     val navController = AmbientNavController.current
@@ -78,7 +78,7 @@ fun TopAppBar(
                         .aspectRatio(1f)
                         .fillMaxSize()
                 ) {
-                    additionActionContent?.invoke()
+                    additionActionContent?.invoke(this)
                 }
             }
         }
