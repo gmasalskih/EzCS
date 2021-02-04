@@ -4,8 +4,8 @@ import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import ru.gmasalskikh.ezcs.R
 import ru.gmasalskikh.ezcs.data.types.MainMenuItemType
-import ru.gmasalskikh.ezcs.data.types.PreviewItemType
 import ru.gmasalskikh.ezcs.data.types.RanksBottomAppBarItemType
+import ru.gmasalskikh.ezcs.screens.preview.PreviewViewState
 
 class ResourceMapperImpl : ResourceMapper {
 
@@ -50,12 +50,12 @@ class ResourceMapperImpl : ResourceMapper {
         getMainMenuItemPairRes(mainMenuItemType = mainMenuItemType).second
 
     @DrawableRes
-    override fun getDrawableRes(itemType: PreviewItemType): Int = when (itemType) {
-        PreviewItemType.MAP_CALLOUTS -> R.drawable.preview_map_callouts
-        PreviewItemType.COMPARE_WEAPONS -> R.drawable.preview_compare_weapons
-        PreviewItemType.GRENADES_PRACTICE -> R.drawable.preview_grenades_practice
-        PreviewItemType.WEAPON_CHARACTERISTICS -> R.drawable.preview_weapon_characteristics
-        PreviewItemType.RANKS -> R.drawable.preview_rangs
+    override fun getDrawableRes(itemType: PreviewViewState.PreviewItemType): Int = when (itemType) {
+        PreviewViewState.PreviewItemType.MAP_CALLOUTS -> R.drawable.preview_map_callouts
+        PreviewViewState.PreviewItemType.COMPARE_WEAPONS -> R.drawable.preview_compare_weapons
+        PreviewViewState.PreviewItemType.GRENADES_PRACTICE -> R.drawable.preview_grenades_practice
+        PreviewViewState.PreviewItemType.WEAPON_CHARACTERISTICS -> R.drawable.preview_weapon_characteristics
+        PreviewViewState.PreviewItemType.RANKS -> R.drawable.preview_rangs
     }
 
     @StringRes

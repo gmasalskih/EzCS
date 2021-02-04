@@ -1,6 +1,5 @@
 package ru.gmasalskikh.ezcs.screens
 
-import android.annotation.SuppressLint
 import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -31,14 +30,20 @@ import ru.gmasalskikh.ezcs.utils.AmbientAppTheme
 import ru.gmasalskikh.ezcs.utils.AmbientNavController
 
 @KoinApiExtension
-abstract class BaseView<VM : BaseViewModel<*>> : KoinComponent {
-    protected abstract val vm: VM
+abstract class BaseView<VM : BaseViewModel<*>>(
+    private val vm: VM
+) : KoinComponent {
+
     protected val cs: ViewCoroutineScope by inject()
+
     protected lateinit var theme: AppTheme
         private set
+
     protected lateinit var navController: NavController
         private set
+
     private lateinit var lifecycleOwner: LifecycleOwner
+
     private var lifecycleObserver: LifecycleObserver? = null
 
     @Composable
@@ -46,7 +51,9 @@ abstract class BaseView<VM : BaseViewModel<*>> : KoinComponent {
         LaunchedEffect(key1 = Unit) { onViewCreate() }
         DisposableEffect(key1 = Unit) { onDispose(::onViewDestroy) }
         theme = AmbientAppTheme.current
-        navController = AmbientNavController.current
+        navController = AmbientNavController.current.also { navController ->
+            vm.addOnDestinationChangedListener(navController)
+        }
         lifecycleOwner = AmbientLifecycleOwner.current
         lifecycleObserver = object : LifecycleObserver {
             @OnLifecycleEvent(Lifecycle.Event.ON_ANY)
@@ -63,9 +70,7 @@ abstract class BaseView<VM : BaseViewModel<*>> : KoinComponent {
             }
         }.also { observer -> lifecycleOwner.lifecycle.addObserver(observer) }
         when (val screenType = vm.screenState.screenType) {
-            is ScreenType.FullScreen -> {
-                RenderViewStateType(theme)
-            }
+            is ScreenType.FullScreen -> RenderViewStateType(theme)
             is ScreenType.WithAppBar -> {
                 TopAppBar(
                     title = screenType.appBarTitle,
@@ -80,14 +85,13 @@ abstract class BaseView<VM : BaseViewModel<*>> : KoinComponent {
         }
     }
 
-    @SuppressLint("ComposableNaming")
     @Composable
-    protected abstract fun setContent()
+    protected abstract fun SetContent()
 
     @Composable
     private fun RenderViewStateType(theme: AppTheme) {
-        setContent()
-        when (val viewStateType = vm.screenState.viewSate.viewStateType) {
+        SetContent()
+        when (val viewStateType = vm.screenState.viewStateType) {
             is ViewStateType.Loading -> {
                 Box(
                     modifier = Modifier

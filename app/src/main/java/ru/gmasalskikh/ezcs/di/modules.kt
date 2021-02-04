@@ -11,19 +11,24 @@ import ru.gmasalskikh.ezcs.screens.main_menu.MainMenuViewModel
 import ru.gmasalskikh.ezcs.screens.preview.PreviewViewModel
 import ru.gmasalskikh.ezcs.screens.ranks.RanksViewModel
 import ru.gmasalskikh.ezcs.screens.splash_screen.SplashScreenViewModel
+import ru.gmasalskikh.ezcs.screens.splash_screen.SplashScreenViewState
 import ru.gmasalskikh.ezcs.utils.SHARED_PREFERENCES_NAME
 
 val providerModule = module {
     single<SharedPreferences> {
         get<Context>().getSharedPreferences(SHARED_PREFERENCES_NAME, Context.MODE_PRIVATE)
     }
-    single<ResourceMapper> { ResourceMapperImpl() }
     factory { ViewCoroutineScope() }
+    factory<ResourceMapper> { ResourceMapperImpl() }
 }
 
 val viewModelModule = module {
-    viewModel { SplashScreenViewModel(get()) }
+    viewModel { (navId: Int) -> SplashScreenViewModel(get(), get(), navId) }
     viewModel { PreviewViewModel() }
     viewModel { MainMenuViewModel() }
     viewModel { RanksViewModel() }
+}
+
+val viewStateModule = module {
+    factory { SplashScreenViewState() }
 }

@@ -1,8 +1,14 @@
 package ru.gmasalskikh.ezcs.screens.splash_screen
 
-import ru.gmasalskikh.ezcs.data.types.ViewStateType
+import androidx.annotation.DrawableRes
+import androidx.annotation.StringRes
+import ru.gmasalskikh.ezcs.R
 import ru.gmasalskikh.ezcs.screens.ViewState
 
 data class SplashScreenViewState(
-    override val viewStateType: ViewStateType = ViewStateType.Data,
+    @StringRes
+    val appDescriptionRes: Int = R.string.app_description,
+
+    @DrawableRes
+    val appLogoRes: Int = R.drawable.logo
 ) : ViewState

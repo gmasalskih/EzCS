@@ -3,8 +3,8 @@ package ru.gmasalskikh.ezcs.providers.mapper
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import ru.gmasalskikh.ezcs.data.types.MainMenuItemType
-import ru.gmasalskikh.ezcs.data.types.PreviewItemType
 import ru.gmasalskikh.ezcs.data.types.RanksBottomAppBarItemType
+import ru.gmasalskikh.ezcs.screens.preview.PreviewViewState
 
 interface ResourceMapper {
     @StringRes
@@ -17,7 +17,7 @@ interface ResourceMapper {
     fun getDrawableRes(mainMenuItemType: MainMenuItemType):Int
 
     @DrawableRes
-    fun getDrawableRes(itemType: PreviewItemType):Int
+    fun getDrawableRes(itemType: PreviewViewState.PreviewItemType):Int
 
     @DrawableRes
     fun getDrawableRes(ranksBottomAppBarItemType: RanksBottomAppBarItemType):Int

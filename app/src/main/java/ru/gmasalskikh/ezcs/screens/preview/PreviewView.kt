@@ -15,6 +15,7 @@ import org.koin.androidx.compose.get
 import org.koin.androidx.compose.getViewModel
 import ru.gmasalskikh.ezcs.R
 import ru.gmasalskikh.ezcs.providers.mapper.ResourceMapper
+import ru.gmasalskikh.ezcs.screens.BaseView
 import ru.gmasalskikh.ezcs.screens.preview.widgets.*
 import ru.gmasalskikh.ezcs.ui.theme.*
 import ru.gmasalskikh.ezcs.utils.AmbientAppTheme
@@ -26,7 +27,7 @@ fun PreviewView(
     navController: NavController = AmbientNavController.current,
     theme: AppTheme = AmbientAppTheme.current,
     vm: PreviewViewModel = getViewModel(),
-    resourceMapper: ResourceMapper = get()
+//    resourceMapper: ResourceMapper = get()
 ) {
     Column {
         Box(
@@ -36,7 +37,8 @@ fun PreviewView(
         ) {
             Text(
                 modifier = Modifier.align(Alignment.Center),
-                text = stringResource(id = vm.getCurrentTopicRes()).toUpperCase(Locale.getDefault()),
+//                text = stringResource(id = vm.getCurrentTopicRes()).toUpperCase(Locale.getDefault()),
+                text = "stringResource(id = vm.getCurrentTopicRes()).toUpperCase(Locale.getDefault())",
                 color = theme.colors.onBackground
             )
         }
@@ -46,7 +48,7 @@ fun PreviewView(
             pagerState = vm.getPagerState() ?: getPagerState()
         ) { scope, item ->
             vm.setPagerState(scope.currentPagerState)
-            vm.getCurrentTopicRes()
+//            vm.getCurrentTopicRes()
             PreviewItem(
                 border = theme.borders.medium,
                 shape = theme.shapes.medium,
@@ -54,7 +56,7 @@ fun PreviewView(
             ) {
                 CoilImage(
                     modifier = Modifier.padding(vertical = 10.dp),
-                    data = resourceMapper.getDrawableRes(item.type),
+                    data = item.imageRes,
                     contentDescription = null,
                     loading = {
                         CircularProgressIndicator()

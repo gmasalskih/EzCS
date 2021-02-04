@@ -1,21 +1,26 @@
 package ru.gmasalskikh.ezcs.screens.splash_screen
 
 import android.content.SharedPreferences
-import android.util.Log
-import androidx.compose.runtime.*
 import androidx.navigation.NavController
 import androidx.navigation.compose.navigate
 import androidx.navigation.compose.popUpTo
+import ru.gmasalskikh.ezcs.data.types.ViewStateType
 import ru.gmasalskikh.ezcs.navigation.TargetNavigation
 import ru.gmasalskikh.ezcs.screens.BaseViewModel
 import ru.gmasalskikh.ezcs.utils.IS_LAUNCH_FIRST_TIME
 
 class SplashScreenViewModel(
-    private val sp: SharedPreferences
-) : BaseViewModel<SplashScreenViewState>() {
+    private val sp: SharedPreferences,
+    viewState: SplashScreenViewState,
+    navId: Int
+) : BaseViewModel<SplashScreenViewState>(viewState, navId) {
 
-    override val defaultViewState: SplashScreenViewState = SplashScreenViewState()
-    override var viewState: SplashScreenViewState by mutableStateOf(defaultViewState)
+    override fun onViewCreate() {
+        this.
+        screenState = screenState.copy(
+            viewStateType = ViewStateType.Data
+        )
+    }
 
     fun navigate(navController: NavController) {
         if (sp.getBoolean(IS_LAUNCH_FIRST_TIME, true)) {

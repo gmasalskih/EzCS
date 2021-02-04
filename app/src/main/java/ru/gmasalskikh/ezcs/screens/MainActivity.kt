@@ -10,7 +10,6 @@ import ru.gmasalskikh.ezcs.ui.theme.EzCSTheme
 class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
-
         super.onCreate(savedInstanceState)
         window.statusBarColor = Color.BLACK
         window.navigationBarColor = Color.BLACK

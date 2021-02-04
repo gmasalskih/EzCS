@@ -6,6 +6,7 @@ import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin
 import ru.gmasalskikh.ezcs.di.viewModelModule
 import ru.gmasalskikh.ezcs.di.providerModule
+import ru.gmasalskikh.ezcs.di.viewStateModule
 
 class App : Application() {
 
@@ -16,7 +17,8 @@ class App : Application() {
             androidContext(this@App)
             modules(
                 viewModelModule,
-                providerModule
+                providerModule,
+                viewStateModule
             )
         }
     }
