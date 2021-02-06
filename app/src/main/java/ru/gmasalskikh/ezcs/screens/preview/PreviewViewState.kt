@@ -36,6 +36,7 @@ data class PreviewViewState(
     ),
     val pagerState: PagerState? = null
 ) : ViewState {
+
     data class PreviewItem(
         val type: PreviewItemType,
 

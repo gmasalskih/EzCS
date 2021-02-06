@@ -17,45 +17,33 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.OnLifecycleEvent
 import androidx.navigation.NavController
 import org.koin.core.component.KoinApiExtension
-import org.koin.core.component.KoinComponent
-import org.koin.core.component.inject
 import ru.gmasalskikh.ezcs.R
 import ru.gmasalskikh.ezcs.data.types.ScreenType
 import ru.gmasalskikh.ezcs.data.types.ViewStateType
-import ru.gmasalskikh.ezcs.providers.coroutines.ViewCoroutineScope
 import ru.gmasalskikh.ezcs.ui.common_widget.TopAppBar
-import ru.gmasalskikh.ezcs.ui.theme.AppTheme
 import ru.gmasalskikh.ezcs.ui.theme.fontSize8Sp
 import ru.gmasalskikh.ezcs.utils.AmbientAppTheme
 import ru.gmasalskikh.ezcs.utils.AmbientNavController
 
 @KoinApiExtension
-abstract class BaseView<VM : BaseViewModel<*>>(
-    private val vm: VM
-) : KoinComponent {
+abstract class BaseView<VM : BaseViewModel<*>> {
 
-    protected val cs: ViewCoroutineScope by inject()
+    protected abstract val vm: VM
 
-    protected lateinit var theme: AppTheme
-        private set
-
-    protected lateinit var navController: NavController
-        private set
-
-    private lateinit var lifecycleOwner: LifecycleOwner
-
-    private var lifecycleObserver: LifecycleObserver? = null
+    @Composable
+    protected abstract fun SetContent()
 
     @Composable
     fun Screen() {
-        LaunchedEffect(key1 = Unit) { onViewCreate() }
-        DisposableEffect(key1 = Unit) { onDispose(::onViewDestroy) }
-        theme = AmbientAppTheme.current
-        navController = AmbientNavController.current.also { navController ->
-            vm.addOnDestinationChangedListener(navController)
+        val theme = AmbientAppTheme.current
+        val navController = AmbientNavController.current
+        DisposableEffect(key1 = Unit) {
+            onViewCreate(navController)
+            onDispose {
+                onViewDestroy()
+            }
         }
-        lifecycleOwner = AmbientLifecycleOwner.current
-        lifecycleObserver = object : LifecycleObserver {
+        AmbientLifecycleOwner.current.lifecycle.addObserver(object : LifecycleObserver {
             @OnLifecycleEvent(Lifecycle.Event.ON_ANY)
             fun onLifecycleListener(lifecycleOwner: LifecycleOwner, event: Lifecycle.Event) {
                 when (event) {
@@ -64,13 +52,15 @@ abstract class BaseView<VM : BaseViewModel<*>>(
                     Lifecycle.Event.ON_RESUME -> onActivityResume()
                     Lifecycle.Event.ON_PAUSE -> onActivityPause()
                     Lifecycle.Event.ON_STOP -> onActivityStop()
-                    Lifecycle.Event.ON_DESTROY -> onActivityDestroy()
+                    Lifecycle.Event.ON_DESTROY -> {
+                        lifecycleOwner.lifecycle.removeObserver(this)
+                    }
                     else -> Unit
                 }
             }
-        }.also { observer -> lifecycleOwner.lifecycle.addObserver(observer) }
+        })
         when (val screenType = vm.screenState.screenType) {
-            is ScreenType.FullScreen -> RenderViewStateType(theme)
+            is ScreenType.FullScreen -> RenderViewStateType()
             is ScreenType.WithAppBar -> {
                 TopAppBar(
                     title = screenType.appBarTitle,
@@ -79,17 +69,15 @@ abstract class BaseView<VM : BaseViewModel<*>>(
                     elevation = theme.elevations.medium,
                     additionActionContent = screenType.additionActionContent
                 ) {
-                    RenderViewStateType(theme)
+                    RenderViewStateType()
                 }
             }
         }
     }
 
     @Composable
-    protected abstract fun SetContent()
-
-    @Composable
-    private fun RenderViewStateType(theme: AppTheme) {
+    private fun RenderViewStateType() {
+        val theme = AmbientAppTheme.current
         SetContent()
         when (val viewStateType = vm.screenState.viewStateType) {
             is ViewStateType.Loading -> {
@@ -131,14 +119,9 @@ abstract class BaseView<VM : BaseViewModel<*>>(
         }
     }
 
-    protected open fun onViewCreate() {
-        vm.onViewCreate()
-    }
-
-    protected open fun onViewDestroy() {
-        lifecycleObserver?.let { observer -> lifecycleOwner.lifecycle.removeObserver(observer) }
-        lifecycleObserver = null
-        vm.onViewDestroy()
+    protected open fun onViewCreate(navController: NavController) {
+        vm.onViewCreate(navController)
+        Log.d("---", "onViewCreate")
     }
 
     protected open fun onActivityCreate() {
@@ -150,7 +133,6 @@ abstract class BaseView<VM : BaseViewModel<*>>(
     }
 
     protected open fun onActivityResume() {
-        cs.onStart()
         Log.d("---", "onActivityResume")
     }
 
@@ -159,11 +141,15 @@ abstract class BaseView<VM : BaseViewModel<*>>(
     }
 
     protected open fun onActivityStop() {
-        cs.onStop()
         Log.d("---", "onActivityStop")
     }
 
     protected open fun onActivityDestroy() {
         Log.d("---", "onActivityDestroy")
+    }
+
+    protected open fun onViewDestroy() {
+        vm.onViewDestroy()
+        Log.d("---", "onViewDestroy")
     }
 }

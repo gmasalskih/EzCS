@@ -3,24 +3,25 @@ package ru.gmasalskikh.ezcs.providers.mapper
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import ru.gmasalskikh.ezcs.R
-import ru.gmasalskikh.ezcs.data.types.MainMenuItemType
+
 import ru.gmasalskikh.ezcs.data.types.RanksBottomAppBarItemType
+import ru.gmasalskikh.ezcs.screens.main_menu.MainMenuViewState
 import ru.gmasalskikh.ezcs.screens.preview.PreviewViewState
 
 class ResourceMapperImpl : ResourceMapper {
 
-    private fun getMainMenuItemPairRes(mainMenuItemType: MainMenuItemType): Pair<Int, Int> =
+    private fun getMainMenuItemPairRes(mainMenuItemType: MainMenuViewState.MainMenuItemType): Pair<Int, Int> =
         when (mainMenuItemType) {
-            MainMenuItemType.MAP_CALLOUTS -> {
+            MainMenuViewState.MainMenuItemType.MAP_CALLOUTS -> {
                 R.string.map_callouts to R.drawable.main_menu_map_callouts
             }
-            MainMenuItemType.GRENADES_PRACTICE -> {
+            MainMenuViewState.MainMenuItemType.GRENADES_PRACTICE -> {
                 R.string.grenades_practice to R.drawable.main_menu_grenades_practice
             }
-            MainMenuItemType.WEAPON_CHARACTERISTICS -> {
+            MainMenuViewState.MainMenuItemType.WEAPON_CHARACTERISTICS -> {
                 R.string.weapon_characteristics to R.drawable.main_menu_weapon_characteristics
             }
-            MainMenuItemType.RANKS -> {
+            MainMenuViewState.MainMenuItemType.RANKS -> {
                 R.string.ranks to R.drawable.main_menu_ranks
             }
         }
@@ -42,11 +43,11 @@ class ResourceMapperImpl : ResourceMapper {
         }
 
     @StringRes
-    override fun getStringRes(mainMenuItemType: MainMenuItemType): Int =
+    override fun getStringRes(mainMenuItemType: MainMenuViewState.MainMenuItemType): Int =
         getMainMenuItemPairRes(mainMenuItemType = mainMenuItemType).first
 
     @DrawableRes
-    override fun getDrawableRes(mainMenuItemType: MainMenuItemType): Int =
+    override fun getDrawableRes(mainMenuItemType: MainMenuViewState.MainMenuItemType): Int =
         getMainMenuItemPairRes(mainMenuItemType = mainMenuItemType).second
 
     @DrawableRes

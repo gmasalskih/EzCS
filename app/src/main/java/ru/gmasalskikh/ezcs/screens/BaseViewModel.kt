@@ -1,48 +1,36 @@
 package ru.gmasalskikh.ezcs.screens
 
-import android.os.Bundle
 import android.util.Log
-import androidx.compose.runtime.*
 import androidx.lifecycle.ViewModel
 import androidx.navigation.NavController
-import androidx.navigation.NavDestination
-import ru.gmasalskikh.ezcs.data.types.ScreenType
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
 import ru.gmasalskikh.ezcs.data.types.ViewStateType
+import ru.gmasalskikh.ezcs.navigation.TargetNavigation
+import kotlin.coroutines.CoroutineContext
 
-abstract class BaseViewModel<VS : ViewState>(
-    private val defaultViewState: VS,
-    private val navId: Int
-) : ViewModel() {
+abstract class BaseViewModel<VS : ViewState> : ViewModel() {
 
-    private var destinationChangedListener: NavController.OnDestinationChangedListener? = null
+    private var isViewModelAttach: Boolean = false
+    protected abstract val currentTargetNavigation: TargetNavigation
+    protected abstract val defaultViewState: VS
+    protected val customViewModelScope = object : CustomViewModelCoroutineScope {
+        private var job = Job()
+        override val coroutineContext: CoroutineContext
+            get() = Dispatchers.Main + job
 
-    var screenState: ScreenState<VS> by mutableStateOf(
-        ScreenState(
-            screenType = ScreenType.FullScreen,
-            viewStateType = ViewStateType.Loading,
-            viewState = defaultViewState
-        )
-    )
-        protected set
+        override fun onStart() {
+            job = Job()
+        }
 
-    fun addOnDestinationChangedListener(navController: NavController) {
-        if (destinationChangedListener == null){
-            val dcl = object : NavController.OnDestinationChangedListener{
-                override fun onDestinationChanged(
-                    controller: NavController,
-                    destination: NavDestination,
-                    arguments: Bundle?
-                ) {
-                    if (destination.id != navId) {
-                        onDestinationChanged()
-                        controller.removeOnDestinationChangedListener(this)
-                    }
-                }
-            }
-            destinationChangedListener = dcl
-            navController.addOnDestinationChangedListener(dcl)
+        override fun onStop() {
+            job.cancel()
         }
     }
+
+    abstract var screenState: ScreenState<VS>
+        protected set
 
     open fun setDefaultState() {
         screenState = screenState.copy(viewState = defaultViewState)
@@ -62,15 +50,37 @@ abstract class BaseViewModel<VS : ViewState>(
         )
     }
 
-    open fun onViewCreate() {
-        Log.d("---", "onViewCreate ${this::class.java.simpleName}")
+    open fun onViewCreate(navController: NavController) {
+        addOnDestinationChangedListener(navController)
     }
 
     open fun onViewDestroy() {
-        Log.d("---", "onViewDestroy ${this::class.java.simpleName}")
+
     }
 
-    protected open fun onDestinationChanged() {
-        Log.d("---", "onDestinationChanged ${this::class.java.simpleName}")
+    protected open fun onViewModelAttach() {
+        isViewModelAttach = true
+        customViewModelScope.onStart()
+        Log.d("---", "onViewModelAttach ${this::class.java.simpleName}")
+    }
+
+    protected open fun onViewModelDetach() {
+        isViewModelAttach = false
+        customViewModelScope.onStop()
+        Log.d("---", "onViewModelDetach ${this::class.java.simpleName}")
+    }
+
+    private fun addOnDestinationChangedListener(navController: NavController) {
+        if (!isViewModelAttach) {
+            onViewModelAttach()
+            navController.addOnDestinationChangedListener { _, destination, _ ->
+                if (destination.id != currentTargetNavigation.navId) onViewModelDetach()
+            }
+        }
+    }
+
+    protected interface CustomViewModelCoroutineScope : CoroutineScope {
+        fun onStart()
+        fun onStop()
     }
 }

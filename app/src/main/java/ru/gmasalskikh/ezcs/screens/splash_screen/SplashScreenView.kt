@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -15,34 +16,35 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import dev.chrisbanes.accompanist.coil.CoilImage
-import kotlinx.coroutines.*
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import org.koin.core.component.KoinApiExtension
 import ru.gmasalskikh.ezcs.R
 import ru.gmasalskikh.ezcs.screens.BaseView
+import ru.gmasalskikh.ezcs.utils.AmbientAppTheme
+import ru.gmasalskikh.ezcs.utils.AmbientNavController
 import ru.gmasalskikh.ezcs.utils.DELAY_SPLASH_SCREEN
 import ru.gmasalskikh.ezcs.utils.bitmapFromResources
 
 @KoinApiExtension
 class SplashScreenView(
-    private val vm: SplashScreenViewModel,
-) : BaseView<SplashScreenViewModel>(vm) {
+    override val vm: SplashScreenViewModel,
+) : BaseView<SplashScreenViewModel>() {
 
     @Composable
     override fun SetContent() {
+        val theme = AmbientAppTheme.current
+        val navController = AmbientNavController.current
+        rememberCoroutineScope().launch {
+            delay(DELAY_SPLASH_SCREEN)
+            vm.navigate(navController)
+        }
         SplashScreenContent(
             appDescription = stringResource(id = vm.screenState.viewState.appDescriptionRes),
             appLogo = bitmapFromResources(id = vm.screenState.viewState.appLogoRes),
             appDescriptionColor = theme.colors.onBackground,
             onClick = { vm.navigate(navController) },
         )
-    }
-
-    override fun onActivityResume() {
-        super.onActivityResume()
-        cs.launch {
-            delay(DELAY_SPLASH_SCREEN)
-            vm.navigate(navController)
-        }
     }
 }
 

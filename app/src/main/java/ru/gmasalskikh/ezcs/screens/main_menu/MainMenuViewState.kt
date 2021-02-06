@@ -1,8 +1,5 @@
 package ru.gmasalskikh.ezcs.screens.main_menu
 
-import ru.gmasalskikh.ezcs.data.items.MainMenuItem
-import ru.gmasalskikh.ezcs.data.types.MainMenuItemType
-
 data class MainMenuViewState(
     val menuListItem: List<MainMenuItem> = listOf(
         MainMenuItem(
@@ -18,4 +15,14 @@ data class MainMenuViewState(
             mainMenuItemType = MainMenuItemType.RANKS
         )
     )
-)
+){
+    data class MainMenuItem(
+        val mainMenuItemType: MainMenuItemType
+    )
+    enum class MainMenuItemType {
+        MAP_CALLOUTS,
+        GRENADES_PRACTICE,
+        WEAPON_CHARACTERISTICS,
+        RANKS
+    }
+}

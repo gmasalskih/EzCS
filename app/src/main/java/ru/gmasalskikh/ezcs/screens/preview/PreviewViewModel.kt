@@ -39,8 +39,8 @@ class PreviewViewModel : ViewModel() {
 
 
     fun navigateToMainMenu(navController: NavController) {
-        navController.navigate(TargetNavigation.MAIN_MENU.name) {
-            popUpTo(TargetNavigation.PREVIEW.name) { inclusive = true }
+        navController.navigate(TargetNavigation.MainMenu.path) {
+            popUpTo(TargetNavigation.Preview.path) { inclusive = true }
         }
     }
 

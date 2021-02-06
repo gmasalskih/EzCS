@@ -7,7 +7,6 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import org.koin.androidx.compose.getViewModel
 import org.koin.core.component.KoinApiExtension
-import org.koin.core.parameter.parametersOf
 import ru.gmasalskikh.ezcs.screens.main_menu.MainMenuView
 import ru.gmasalskikh.ezcs.screens.preview.PreviewView
 import ru.gmasalskikh.ezcs.screens.ranks.Ranks
@@ -22,24 +21,24 @@ fun ComposeNavigation() {
     Providers(AmbientNavController provides navController) {
         NavHost(
             navController = navController,
-            startDestination = TargetNavigation.SPLASH_SCREEN.name
+            startDestination = TargetNavigation.SplashScreen.path
         ) {
-            composable(TargetNavigation.SPLASH_SCREEN.name) {
+            composable(TargetNavigation.SplashScreen.path) {
                 AppBackground(false) {
-                    SplashScreenView(getViewModel { parametersOf(it.destination.id) }).Screen()
+                    SplashScreenView(getViewModel()).Screen()
                 }
             }
-            composable(TargetNavigation.PREVIEW.name) {
+            composable(TargetNavigation.Preview.path) {
                 AppBackground(true) {
                     PreviewView()
                 }
             }
-            composable(TargetNavigation.MAIN_MENU.name) {
+            composable(TargetNavigation.MainMenu.path) {
                 AppBackground(true) {
                     MainMenuView()
                 }
             }
-            composable(TargetNavigation.RANKS.name) {
+            composable(TargetNavigation.Ranks.path) {
                 AppBackground(true) {
                     Ranks()
                 }
