@@ -40,8 +40,8 @@ class SplashScreenView(
             vm.navigate(navController)
         }
         SplashScreenContent(
-            appDescription = stringResource(id = vm.screenState.viewState.appDescriptionRes),
-            appLogo = bitmapFromResources(id = vm.screenState.viewState.appLogoRes),
+            appDescription = stringResource(id = vm.viewState.appDescriptionRes),
+            appLogo = bitmapFromResources(id = vm.viewState.appLogoRes),
             appDescriptionColor = theme.colors.onBackground,
             onClick = { vm.navigate(navController) },
         )

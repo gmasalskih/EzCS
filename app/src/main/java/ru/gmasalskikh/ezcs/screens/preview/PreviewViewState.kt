@@ -10,27 +10,27 @@ data class PreviewViewState(
     val items: List<PreviewItem> = listOf(
         PreviewItem(
             type = PreviewItemType.MAP_CALLOUTS,
-            descriptionRes = R.string.map_callouts,
+            topicRes = R.string.preview_topic_map_callouts,
             imageRes = R.drawable.preview_map_callouts,
         ),
         PreviewItem(
             type = PreviewItemType.COMPARE_WEAPONS,
-            descriptionRes = R.string.compare_weapons,
+            topicRes = R.string.preview_topic_compare_weapons,
             imageRes = R.drawable.preview_compare_weapons,
         ),
         PreviewItem(
             type = PreviewItemType.GRENADES_PRACTICE,
-            descriptionRes = R.string.grenades_practice,
+            topicRes = R.string.preview_topic_grenades_practice,
             imageRes = R.drawable.preview_grenades_practice,
         ),
         PreviewItem(
             type = PreviewItemType.WEAPON_CHARACTERISTICS,
-            descriptionRes = R.string.weapon_characteristics,
+            topicRes = R.string.preview_topic_weapon_characteristics,
             imageRes = R.drawable.preview_weapon_characteristics,
         ),
         PreviewItem(
             type = PreviewItemType.RANKS,
-            descriptionRes = R.string.ranks,
+            topicRes = R.string.preview_topic_ranks,
             imageRes = R.drawable.preview_rangs,
         )
     ),
@@ -41,7 +41,7 @@ data class PreviewViewState(
         val type: PreviewItemType,
 
         @StringRes
-        val descriptionRes: Int,
+        val topicRes: Int,
 
         @DrawableRes
         val imageRes: Int

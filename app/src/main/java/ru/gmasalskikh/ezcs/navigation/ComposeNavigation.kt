@@ -30,12 +30,12 @@ fun ComposeNavigation() {
             }
             composable(TargetNavigation.Preview.path) {
                 AppBackground(true) {
-                    PreviewView()
+                    PreviewView(getViewModel()).Screen()
                 }
             }
             composable(TargetNavigation.MainMenu.path) {
                 AppBackground(true) {
-                    MainMenuView()
+                    MainMenuView(getViewModel()).Screen()
                 }
             }
             composable(TargetNavigation.Ranks.path) {

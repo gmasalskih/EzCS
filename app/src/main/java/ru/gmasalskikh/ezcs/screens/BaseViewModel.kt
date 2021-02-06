@@ -1,20 +1,42 @@
 package ru.gmasalskikh.ezcs.screens
 
 import android.util.Log
+import androidx.compose.runtime.*
 import androidx.lifecycle.ViewModel
 import androidx.navigation.NavController
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
+import ru.gmasalskikh.ezcs.data.types.ScreenType
 import ru.gmasalskikh.ezcs.data.types.ViewStateType
 import ru.gmasalskikh.ezcs.navigation.TargetNavigation
 import kotlin.coroutines.CoroutineContext
 
-abstract class BaseViewModel<VS : ViewState> : ViewModel() {
+abstract class BaseViewModel<VS : ViewState>(
+    private val currentTargetNavigation: TargetNavigation,
+    private val defaultViewState: VS,
+    screenType: ScreenType,
+    viewStateType: ViewStateType
+) : ViewModel() {
+
+    private var screenState: ScreenState<VS> by mutableStateOf(
+        ScreenState(
+            screenType = screenType,
+            viewStateType = viewStateType,
+            viewState = defaultViewState
+        )
+    )
+
+    var viewState: VS
+        get() = screenState.viewState
+        protected set(value) {
+            screenState = screenState.copy(viewState = value)
+        }
+
+    val screenType = screenState.screenType
+    val viewStateType = screenState.viewStateType
 
     private var isViewModelAttach: Boolean = false
-    protected abstract val currentTargetNavigation: TargetNavigation
-    protected abstract val defaultViewState: VS
     protected val customViewModelScope = object : CustomViewModelCoroutineScope {
         private var job = Job()
         override val coroutineContext: CoroutineContext
@@ -28,9 +50,6 @@ abstract class BaseViewModel<VS : ViewState> : ViewModel() {
             job.cancel()
         }
     }
-
-    abstract var screenState: ScreenState<VS>
-        protected set
 
     open fun setDefaultState() {
         screenState = screenState.copy(viewState = defaultViewState)

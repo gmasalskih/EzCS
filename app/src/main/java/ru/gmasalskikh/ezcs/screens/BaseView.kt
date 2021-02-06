@@ -24,6 +24,7 @@ import ru.gmasalskikh.ezcs.ui.common_widget.TopAppBar
 import ru.gmasalskikh.ezcs.ui.theme.fontSize8Sp
 import ru.gmasalskikh.ezcs.utils.AmbientAppTheme
 import ru.gmasalskikh.ezcs.utils.AmbientNavController
+import java.util.*
 
 @KoinApiExtension
 abstract class BaseView<VM : BaseViewModel<*>> {
@@ -59,11 +60,11 @@ abstract class BaseView<VM : BaseViewModel<*>> {
                 }
             }
         })
-        when (val screenType = vm.screenState.screenType) {
+        when (val screenType = vm.screenType) {
             is ScreenType.FullScreen -> RenderViewStateType()
             is ScreenType.WithAppBar -> {
                 TopAppBar(
-                    title = screenType.appBarTitle,
+                    title = stringResource(id = screenType.appBarTitle).toLowerCase(Locale.getDefault()),
                     backgroundColor = theme.colors.primary,
                     contentColor = theme.colors.onPrimary,
                     elevation = theme.elevations.medium,
@@ -79,7 +80,7 @@ abstract class BaseView<VM : BaseViewModel<*>> {
     private fun RenderViewStateType() {
         val theme = AmbientAppTheme.current
         SetContent()
-        when (val viewStateType = vm.screenState.viewStateType) {
+        when (val viewStateType = vm.viewStateType) {
             is ViewStateType.Loading -> {
                 Box(
                     modifier = Modifier

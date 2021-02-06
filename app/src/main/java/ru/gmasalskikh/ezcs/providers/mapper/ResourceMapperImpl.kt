@@ -13,16 +13,16 @@ class ResourceMapperImpl : ResourceMapper {
     private fun getMainMenuItemPairRes(mainMenuItemType: MainMenuViewState.MainMenuItemType): Pair<Int, Int> =
         when (mainMenuItemType) {
             MainMenuViewState.MainMenuItemType.MAP_CALLOUTS -> {
-                R.string.map_callouts to R.drawable.main_menu_map_callouts
+                R.string.preview_topic_map_callouts to R.drawable.main_menu_background_map_callouts
             }
             MainMenuViewState.MainMenuItemType.GRENADES_PRACTICE -> {
-                R.string.grenades_practice to R.drawable.main_menu_grenades_practice
+                R.string.preview_topic_grenades_practice to R.drawable.main_menu_background_grenades_practice
             }
             MainMenuViewState.MainMenuItemType.WEAPON_CHARACTERISTICS -> {
-                R.string.weapon_characteristics to R.drawable.main_menu_weapon_characteristics
+                R.string.preview_topic_weapon_characteristics to R.drawable.main_menu_background_weapon_characteristics
             }
             MainMenuViewState.MainMenuItemType.RANKS -> {
-                R.string.ranks to R.drawable.main_menu_ranks
+                R.string.preview_topic_ranks to R.drawable.main_menu_background_ranks
             }
         }
 

@@ -4,7 +4,6 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
@@ -33,7 +32,7 @@ fun Ranks(
     resourceMapper: ResourceMapper = get()
 ) {
     TopAppBar(
-        title = stringResource(R.string.ranks),
+        title = stringResource(R.string.preview_topic_ranks),
         backgroundColor = theme.colors.primary,
         contentColor = theme.colors.onPrimary,
         elevation = theme.elevations.medium,

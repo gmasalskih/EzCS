@@ -3,15 +3,20 @@
     <string name="app_name">EzCS</string>
     <string name="app_description">Guide for Counter-Strike: Global Offensive</string>
     <string name="skip">пропустить</string>
-    <string name="menu">меню</string>
-    <string name="map_callouts">позиции на картах</string>
-    <string name="compare_weapons">сравнение оружия</string>
-    <string name="grenades_practice">раскидки гранат</string>
-    <string name="weapon_characteristics">характеристики оружия</string>
-    <string name="ranks">ранги</string>
+    <string name="app_bar_title_menu">меню</string>
+    <string name="preview_topic_map_callouts">позиции на картах</string>
+    <string name="preview_topic_compare_weapons">сравнение оружия</string>
+    <string name="preview_topic_grenades_practice">раскидки гранат</string>
+    <string name="preview_topic_weapon_characteristics">характеристики оружия</string>
+    <string name="preview_topic_ranks">ранги</string>
     <string name="competitive">соревновательный</string>
     <string name="wingman">напарники</string>
     <string name="danger_zone">запретная зона</string>
     <string name="profile_rank">ранг профиля</string>
     <string name="ok">ок</string>
+    <string name="main_menu_item_name_map_callouts">позиции на картах</string>
+    <string name="main_menu_item_name_compare_weapons">сравнение оружия</string>
+    <string name="main_menu_item_name_grenades_practice">раскидки гранат</string>
+    <string name="main_menu_item_name_weapon_characteristics">характеристики оружия</string>
+    <string name="main_menu_item_name_ranks">ранги</string>
 </resources>
