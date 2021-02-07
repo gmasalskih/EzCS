@@ -4,6 +4,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.material.BottomNavigation
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
@@ -12,6 +13,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.navigation.NavController
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.KEY_ROUTE
 import kotlinx.coroutines.CoroutineScope
 import org.koin.androidx.compose.get
 import org.koin.androidx.compose.getViewModel
@@ -31,38 +34,31 @@ fun Ranks(
     vm: RanksViewModel = getViewModel(),
     resourceMapper: ResourceMapper = get()
 ) {
-    TopAppBar(
-        title = stringResource(R.string.preview_topic_ranks),
-        backgroundColor = theme.colors.primary,
-        contentColor = theme.colors.onPrimary,
-        elevation = theme.elevations.medium,
+    Column(
+        modifier = Modifier.fillMaxSize()
     ) {
-        Column(
-            modifier = Modifier.fillMaxSize()
+        Box(
+            modifier = Modifier
+                .weight(1f)
+                .fillMaxSize()
         ) {
-            Box(
-                modifier = Modifier
-                    .weight(1f)
-                    .fillMaxSize()
-            ) {
-                Text(
-                    modifier = Modifier.align(Alignment.Center),
-                    text = vm.viewState.selectedRank.name,
-                    textAlign = TextAlign.Center
-                )
-            }
-            RanksBottomAppBar(
-                modifier = Modifier.fillMaxWidth(),
-                onBottomBarItemClick = { selectedRank ->
-                    if (vm.viewState.selectedRank != selectedRank) vm.setSelectedRank(selectedRank)
-                },
-                itemsBackgroundColor = theme.colors.primary,
-                list = vm.viewState.listRankBottomAppBarItem,
-                currentSelectedItem = vm.viewState.selectedRank,
-                activeItemColor = theme.colors.onPrimary,
-                passiveItemColor = theme.colors.background.copy(alpha = 0.4f),
-                resourceMapper = resourceMapper
+            Text(
+                modifier = Modifier.align(Alignment.Center),
+                text = vm.viewState.selectedRank.name,
+                textAlign = TextAlign.Center
             )
         }
+        RanksBottomAppBar(
+            modifier = Modifier.fillMaxWidth(),
+            onBottomBarItemClick = { selectedRank ->
+                if (vm.viewState.selectedRank != selectedRank) vm.setSelectedRank(selectedRank)
+            },
+            itemsBackgroundColor = theme.colors.primary,
+            list = vm.viewState.listRankBottomAppBarItem,
+            currentSelectedItem = vm.viewState.selectedRank,
+            activeItemColor = theme.colors.onPrimary,
+            passiveItemColor = theme.colors.background.copy(alpha = 0.4f),
+            resourceMapper = resourceMapper
+        )
     }
 }

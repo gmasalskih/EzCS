@@ -7,8 +7,7 @@ val orange = Color(0xFFFEB02A)
 val gray = Color(0xFF4C4C4C)
 val black = Color(0xFF000000)
 val white = Color(0xFFFFFFFF)
-val transparent = Color(0x98000000)
-
+val transparent = Color(0x99000000)
 
 val EzCSColorPalette = Colors(
     primary = orange,

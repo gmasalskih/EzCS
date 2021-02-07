@@ -15,16 +15,11 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.OnLifecycleEvent
-import androidx.navigation.NavController
 import org.koin.core.component.KoinApiExtension
 import ru.gmasalskikh.ezcs.R
-import ru.gmasalskikh.ezcs.data.types.ScreenType
 import ru.gmasalskikh.ezcs.data.types.ViewStateType
-import ru.gmasalskikh.ezcs.ui.common_widget.TopAppBar
 import ru.gmasalskikh.ezcs.ui.theme.fontSize8Sp
 import ru.gmasalskikh.ezcs.utils.AmbientAppTheme
-import ru.gmasalskikh.ezcs.utils.AmbientNavController
-import java.util.*
 
 @KoinApiExtension
 abstract class BaseView<VM : BaseViewModel<*>> {
@@ -37,9 +32,8 @@ abstract class BaseView<VM : BaseViewModel<*>> {
     @Composable
     fun Screen() {
         val theme = AmbientAppTheme.current
-        val navController = AmbientNavController.current
         DisposableEffect(key1 = Unit) {
-            onViewCreate(navController)
+            onViewCreate()
             onDispose {
                 onViewDestroy()
             }
@@ -60,20 +54,7 @@ abstract class BaseView<VM : BaseViewModel<*>> {
                 }
             }
         })
-        when (val screenType = vm.screenType) {
-            is ScreenType.FullScreen -> RenderViewStateType()
-            is ScreenType.WithAppBar -> {
-                TopAppBar(
-                    title = stringResource(id = screenType.appBarTitle).toLowerCase(Locale.getDefault()),
-                    backgroundColor = theme.colors.primary,
-                    contentColor = theme.colors.onPrimary,
-                    elevation = theme.elevations.medium,
-                    additionActionContent = screenType.additionActionContent
-                ) {
-                    RenderViewStateType()
-                }
-            }
-        }
+        RenderViewStateType()
     }
 
     @Composable
@@ -120,8 +101,8 @@ abstract class BaseView<VM : BaseViewModel<*>> {
         }
     }
 
-    protected open fun onViewCreate(navController: NavController) {
-        vm.onViewCreate(navController)
+    protected open fun onViewCreate() {
+        vm.onViewCreate()
         Log.d("---", "onViewCreate")
     }
 

@@ -11,7 +11,6 @@ import ru.gmasalskikh.ezcs.screens.BaseViewModel
 import ru.gmasalskikh.ezcs.screens.preview.widgets.PagerState
 
 class PreviewViewModel : BaseViewModel<PreviewViewState>(
-    currentTargetNavigation = TargetNavigation.Preview,
     defaultViewState = PreviewViewState(),
     screenType = ScreenType.FullScreen,
     viewStateType = ViewStateType.Data

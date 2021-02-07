@@ -9,7 +9,6 @@ import ru.gmasalskikh.ezcs.R
 import ru.gmasalskikh.ezcs.data.types.ViewStateType
 
 class MainMenuViewModel : BaseViewModel<MainMenuViewState>(
-    currentTargetNavigation = TargetNavigation.MainMenu,
     defaultViewState = MainMenuViewState(),
     screenType = ScreenType.WithAppBar(appBarTitle = R.string.app_bar_title_menu),
     viewStateType = ViewStateType.Data
@@ -26,7 +25,9 @@ class MainMenuViewModel : BaseViewModel<MainMenuViewState>(
             }
             MainMenuViewState.MainMenuItemType.WEAPON_CHARACTERISTICS -> {
             }
-            MainMenuViewState.MainMenuItemType.RANKS -> navController.navigate(TargetNavigation.Ranks.path)
+            MainMenuViewState.MainMenuItemType.RANKS -> navController.navigate(TargetNavigation.Ranks.path) {
+                launchSingleTop = true
+            }
 
         }
     }

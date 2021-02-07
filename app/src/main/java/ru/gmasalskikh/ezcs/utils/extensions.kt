@@ -7,8 +7,12 @@ import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
 import androidx.annotation.DrawableRes
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.platform.AmbientContext
 import androidx.core.content.res.ResourcesCompat
+import androidx.navigation.NavController
+import androidx.navigation.compose.KEY_ROUTE
+import androidx.navigation.compose.currentBackStackEntryAsState
 import java.io.InputStream
 
 @Composable
@@ -27,5 +31,13 @@ fun bitmapFromResources(@DrawableRes id: Int): Bitmap = BitmapFactory.decodeReso
 @Composable
 fun bitmapFromInputStream(inputStream: InputStream): Bitmap =
     BitmapFactory.decodeStream(inputStream)
+
+@Composable
+inline fun NavController.CurrentRoute(callBack: (String) -> Unit) {
+    val navBackStackEntry by currentBackStackEntryAsState()
+    navBackStackEntry?.arguments?.getString(KEY_ROUTE)?.let { currentPath ->
+        callBack(currentPath)
+    }
+}
 
 
