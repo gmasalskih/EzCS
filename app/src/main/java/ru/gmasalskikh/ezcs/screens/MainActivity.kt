@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.ui.platform.*
 import org.koin.core.component.KoinApiExtension
 import ru.gmasalskikh.ezcs.navigation.ComposeNavigation
+import ru.gmasalskikh.ezcs.screens.app_screen.AppScreen
 import ru.gmasalskikh.ezcs.ui.theme.EzCSTheme
 
 class MainActivity : AppCompatActivity() {
@@ -17,7 +18,9 @@ class MainActivity : AppCompatActivity() {
         window.navigationBarColor = Color.BLACK
         setContent {
             EzCSTheme {
-                ComposeNavigation()
+                AppScreen(
+                    content = { ComposeNavigation() }
+                )
             }
         }
     }

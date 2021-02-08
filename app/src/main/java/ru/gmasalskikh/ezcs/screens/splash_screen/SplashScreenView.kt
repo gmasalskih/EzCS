@@ -44,23 +44,12 @@ class SplashScreenView(
             delay(DELAY_SPLASH_SCREEN)
             vm.navigate(navController)
         }
-        currentRoute(navController = navController)?.let {
-            Log.d("---", ">>>>>>>> $it <<<<<<<<<<<<<")
-        }
         SplashScreenContent(
             appDescription = stringResource(id = vm.viewState.appDescriptionRes),
             appLogo = bitmapFromResources(id = vm.viewState.appLogoRes),
             appDescriptionColor = theme.colors.onBackground,
-            onClick = { vm.navigate(navController) },
         )
     }
-}
-
-@Composable
-private fun currentRoute(navController: NavController): String? {
-    navController.currentBackStackEntryAsState()
-    return navController.currentBackStackEntry?.arguments?.getString(KEY_ROUTE)
-//    return navBackStackEntry?.arguments?.getString(KEY_ROUTE)
 }
 
 @Composable
@@ -68,13 +57,11 @@ private fun SplashScreenContent(
     appDescription: String,
     appLogo: Bitmap,
     appDescriptionColor: Color,
-    onClick: () -> Unit = {}
 ) {
     Box(
         modifier = Modifier
             .fillMaxSize()
             .padding(20.dp)
-            .clickable(onClick = onClick)
     ) {
         Text(
             modifier = Modifier.align(Alignment.TopCenter),

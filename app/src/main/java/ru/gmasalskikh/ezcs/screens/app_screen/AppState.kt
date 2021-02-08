@@ -17,7 +17,6 @@ data class AppState(
         object BottomBarGone : BottomBarState()
         data class BottomBar(val listBottomItem: List<BottomItem> = listOf()): BottomBarState()
     }
-
     data class BottomItem(
         @StringRes
         val itemName: Int,
