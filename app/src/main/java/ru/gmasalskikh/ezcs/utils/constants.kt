@@ -1,5 +1,5 @@
 package ru.gmasalskikh.ezcs.utils
 
-const val DELAY_SPLASH_SCREEN = 3000L
+const val DELAY_SPLASH_SCREEN = 30000L
 const val SHARED_PREFERENCES_NAME = "SHARED_PREFERENCES"
 const val IS_LAUNCH_FIRST_TIME = "IS_LAUNCH_FIRST_TIME"

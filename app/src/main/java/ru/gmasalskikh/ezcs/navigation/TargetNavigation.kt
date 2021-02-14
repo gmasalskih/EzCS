@@ -10,10 +10,8 @@ sealed class TargetNavigation(
     val navOptions: NavOptions? = null,
     val navigatorExtras: Navigator.Extras? = null
 ) {
-
     val navId: Int
         get() = "android-app://androidx.navigation.compose/$path".hashCode()
-
     object SplashScreen : TargetNavigation("SPLASH_SCREEN")
     object Preview : TargetNavigation("PREVIEW")
     object MainMenu : TargetNavigation("MAIN_MENU")

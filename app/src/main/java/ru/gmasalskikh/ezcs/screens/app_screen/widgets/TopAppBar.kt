@@ -1,4 +1,4 @@
-package ru.gmasalskikh.ezcs.ui.common_widget
+package ru.gmasalskikh.ezcs.screens.app_screen.widgets
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Surface
@@ -10,6 +10,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import java.util.*
 
 @Composable
 fun TopAppBar(
@@ -46,7 +47,7 @@ fun TopAppBar(
             ) {
                 Text(
                     modifier = Modifier.align(Alignment.Center),
-                    text = title.toUpperCase(),
+                    text = title.toUpperCase(Locale.getDefault()),
                     textAlign = TextAlign.Center,
                 )
             }

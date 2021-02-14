@@ -9,7 +9,7 @@ import ru.gmasalskikh.ezcs.screens.main_menu.MainMenuView
 import ru.gmasalskikh.ezcs.screens.preview.PreviewView
 import ru.gmasalskikh.ezcs.screens.ranks.Ranks
 import ru.gmasalskikh.ezcs.screens.splash_screen.SplashScreenView
-import ru.gmasalskikh.ezcs.ui.common_widget.AppBackground
+import ru.gmasalskikh.ezcs.screens.app_screen.widgets.AppBackground
 import ru.gmasalskikh.ezcs.utils.AmbientNavController
 
 @SuppressLint("RestrictedApi")
