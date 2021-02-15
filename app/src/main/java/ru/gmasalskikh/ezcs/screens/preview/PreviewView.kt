@@ -14,7 +14,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import dev.chrisbanes.accompanist.coil.CoilImage
-import org.koin.core.component.KoinApiExtension
 import ru.gmasalskikh.ezcs.screens.BaseView
 import ru.gmasalskikh.ezcs.R
 import ru.gmasalskikh.ezcs.screens.preview.widgets.*
@@ -23,7 +22,6 @@ import ru.gmasalskikh.ezcs.utils.AmbientAppTheme
 import ru.gmasalskikh.ezcs.utils.AmbientNavController
 import java.util.*
 
-@KoinApiExtension
 class PreviewView(
     override val vm: PreviewViewModel
 ) : BaseView<PreviewViewModel>() {

@@ -8,8 +8,7 @@ import androidx.compose.material.icons.filled.Menu
 import androidx.compose.ui.graphics.vector.ImageVector
 
 data class AppState(
-    val isDrawerEnable: Boolean = true,
-    val isDrawerOpen: Boolean = false,
+    val drawerGesturesEnabled: Boolean = false,
     val isAppBackgroundBlur: Boolean = false,
     val appBarState: AppBarState = AppBarState.AppBarGone,
     val bottomBarState: BottomBarState = BottomBarState.BottomBarGone
@@ -17,7 +16,8 @@ data class AppState(
     sealed class AppBarState {
         object AppBarGone : AppBarState()
         data class AppBar(
-            val title: String,
+            @StringRes
+            val titleRes: Int,
             val navContentType: AppBarNavContentType
         ) : AppBarState() {
             enum class AppBarNavContentType(val image: ImageVector) {

@@ -2,25 +2,27 @@ package ru.gmasalskikh.ezcs.screens
 
 import android.graphics.Color
 import android.os.Bundle
-import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.ui.platform.*
 import androidx.lifecycle.lifecycleScope
-import kotlinx.coroutines.flow.collect
-import org.koin.core.component.KoinApiExtension
-import ru.gmasalskikh.ezcs.screens.app_screen.AppStateHolderImpl
+import kotlinx.coroutines.flow.FlowCollector
+import kotlinx.coroutines.launch
+import org.koin.android.ext.android.inject
+import org.koin.core.qualifier.named
 import ru.gmasalskikh.ezcs.screens.app_screen.AppView
 import ru.gmasalskikh.ezcs.ui.theme.EzCSTheme
+import ru.gmasalskikh.ezcs.providers.lifecycle_keeper.LifecycleKeeper.*
+import ru.gmasalskikh.ezcs.providers.lifecycle_keeper.LifecycleKeeper.LifecycleActivityEvent.*
 
 class MainActivity : AppCompatActivity() {
 
-    override fun onDestroy() {
-        super.onDestroy()
-    }
+    private val lifecycleEmitter by inject<FlowCollector<LifecycleActivityEvent>>(
+        named("lifecycleEmitter")
+    )
 
-    @KoinApiExtension
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        lifecycleScope.launch { lifecycleEmitter.emit(ON_CREATE) }
         window.statusBarColor = Color.BLACK
         window.navigationBarColor = Color.BLACK
         setContent {
@@ -28,5 +30,35 @@ class MainActivity : AppCompatActivity() {
                 AppView().Render()
             }
         }
+    }
+
+    override fun onStart() {
+        super.onStart()
+        lifecycleScope.launch { lifecycleEmitter.emit(ON_START) }
+    }
+
+    override fun onRestart() {
+        super.onRestart()
+        lifecycleScope.launch { lifecycleEmitter.emit(ON_RESTART) }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        lifecycleScope.launch { lifecycleEmitter.emit(ON_RESUME) }
+    }
+
+    override fun onPause() {
+        super.onPause()
+        lifecycleScope.launch { lifecycleEmitter.emit(ON_PAUSE) }
+    }
+
+    override fun onStop() {
+        super.onStop()
+        lifecycleScope.launch { lifecycleEmitter.emit(ON_STOP) }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        lifecycleScope.launch { lifecycleEmitter.emit(ON_DESTROY) }
     }
 }

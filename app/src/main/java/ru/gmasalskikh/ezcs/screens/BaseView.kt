@@ -8,20 +8,13 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.AmbientLifecycleOwner
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.LifecycleObserver
-import androidx.lifecycle.LifecycleOwner
-import androidx.lifecycle.OnLifecycleEvent
-import org.koin.core.component.KoinApiExtension
 import ru.gmasalskikh.ezcs.R
 import ru.gmasalskikh.ezcs.data.types.ViewStateType
 import ru.gmasalskikh.ezcs.ui.theme.fontSize8Sp
 import ru.gmasalskikh.ezcs.utils.AmbientAppTheme
 
-@KoinApiExtension
 abstract class BaseView<VM : BaseViewModel<*>> {
 
     protected abstract val vm: VM
@@ -31,34 +24,12 @@ abstract class BaseView<VM : BaseViewModel<*>> {
 
     @Composable
     fun Screen() {
-        val theme = AmbientAppTheme.current
-        DisposableEffect(key1 = Unit) {
+        DisposableEffect(key1 = null) {
             onViewCreate()
             onDispose {
                 onViewDestroy()
             }
         }
-        AmbientLifecycleOwner.current.lifecycle.addObserver(object : LifecycleObserver {
-            @OnLifecycleEvent(Lifecycle.Event.ON_ANY)
-            fun onLifecycleListener(lifecycleOwner: LifecycleOwner, event: Lifecycle.Event) {
-                when (event) {
-                    Lifecycle.Event.ON_CREATE -> onActivityCreate()
-                    Lifecycle.Event.ON_START -> onActivityStart()
-                    Lifecycle.Event.ON_RESUME -> onActivityResume()
-                    Lifecycle.Event.ON_PAUSE -> onActivityPause()
-                    Lifecycle.Event.ON_STOP -> onActivityStop()
-                    Lifecycle.Event.ON_DESTROY -> {
-                        lifecycleOwner.lifecycle.removeObserver(this)
-                    }
-                    else -> Unit
-                }
-            }
-        })
-        RenderViewStateType()
-    }
-
-    @Composable
-    private fun RenderViewStateType() {
         val theme = AmbientAppTheme.current
         SetContent()
         when (val viewStateType = vm.viewStateType) {
@@ -104,30 +75,6 @@ abstract class BaseView<VM : BaseViewModel<*>> {
     protected open fun onViewCreate() {
         vm.onViewCreate()
         Log.d("---", "onViewCreate")
-    }
-
-    protected open fun onActivityCreate() {
-        Log.d("---", "onActivityCreate")
-    }
-
-    protected open fun onActivityStart() {
-        Log.d("---", "onActivityStart")
-    }
-
-    protected open fun onActivityResume() {
-        Log.d("---", "onActivityResume")
-    }
-
-    protected open fun onActivityPause() {
-        Log.d("---", "onActivityPause")
-    }
-
-    protected open fun onActivityStop() {
-        Log.d("---", "onActivityStop")
-    }
-
-    protected open fun onActivityDestroy() {
-        Log.d("---", "onActivityDestroy")
     }
 
     protected open fun onViewDestroy() {

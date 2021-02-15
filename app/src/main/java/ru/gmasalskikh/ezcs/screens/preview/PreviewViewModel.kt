@@ -1,21 +1,35 @@
 package ru.gmasalskikh.ezcs.screens.preview
 
+import android.util.Log
 import androidx.annotation.StringRes
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavController
 import androidx.navigation.compose.navigate
 import androidx.navigation.compose.*
-import ru.gmasalskikh.ezcs.data.types.ScreenType
+import kotlinx.coroutines.flow.SharedFlow
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 import ru.gmasalskikh.ezcs.data.types.ViewStateType
 import ru.gmasalskikh.ezcs.navigation.TargetNavigation
+import ru.gmasalskikh.ezcs.providers.lifecycle_keeper.LifecycleKeeper
 import ru.gmasalskikh.ezcs.screens.BaseViewModel
 import ru.gmasalskikh.ezcs.screens.preview.widgets.PagerState
 
-class PreviewViewModel : BaseViewModel<PreviewViewState>(
+class PreviewViewModel(
+    private val lifecycle: SharedFlow<LifecycleKeeper.LifecycleActivityEvent>
+) : BaseViewModel<PreviewViewState>(
     defaultViewState = PreviewViewState(),
-    screenType = ScreenType.FullScreen,
-    viewStateType = ViewStateType.Data
+    initViewStateType = ViewStateType.Data
 ) {
 
+    init {
+        viewModelScope.launch {
+            lifecycle.collect { event ->
+                Log.d("---", event.name)
+            }
+        }
+    }
 
     fun getCurrentIndexPage(): Int {
         return viewState.pagerState?.currentPage ?: 0
@@ -36,8 +50,8 @@ class PreviewViewModel : BaseViewModel<PreviewViewState>(
     }
 
     fun navigateToMainMenu(navController: NavController) {
-        navController.navigate(TargetNavigation.MainMenu.path) {
-            popUpTo(TargetNavigation.Preview.path) { inclusive = true }
+        navController.navigate(TargetNavigation.MainMenu().path) {
+            popUpTo(TargetNavigation.Preview().path) { inclusive = true }
         }
     }
 

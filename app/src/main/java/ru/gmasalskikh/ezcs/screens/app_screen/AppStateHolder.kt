@@ -1,18 +1,22 @@
 package ru.gmasalskikh.ezcs.screens.app_screen
 
 import androidx.compose.runtime.Composable
-import kotlinx.coroutines.flow.MutableSharedFlow
-import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.FlowCollector
 import ru.gmasalskikh.ezcs.navigation.TargetNavigation
 
 interface AppStateHolder {
     val appState: AppState
-    val navEvent: MutableStateFlow<TargetNavigation>
-    val appViewEvent: MutableSharedFlow<AppViewEvent>
-    fun setTargetNavigation(targetNavigation: TargetNavigation)
-    suspend fun navigateTo(targetNavigation: TargetNavigation)
+    val navEventEmitter: FlowCollector<TargetNavigation>
+    val viewEventEmitter: FlowCollector<ViewEvent>
     fun onViewCreate()
     fun onViewDestroy()
+
     @Composable
     fun SetComposableScope()
+
+    sealed class ViewEvent {
+        object OnBackClick : ViewEvent()
+        object OnMenuClick : ViewEvent()
+    }
+
 }

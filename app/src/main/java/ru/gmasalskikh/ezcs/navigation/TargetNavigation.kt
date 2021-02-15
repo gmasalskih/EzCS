@@ -6,15 +6,41 @@ import androidx.navigation.Navigator
 
 sealed class TargetNavigation(
     val path: String,
-    val args: Bundle? = null,
-    val navOptions: NavOptions? = null,
-    val navigatorExtras: Navigator.Extras? = null
-) {
+) : TargetNavigationContract {
+
     val navId: Int
         get() = "android-app://androidx.navigation.compose/$path".hashCode()
-    object SplashScreen : TargetNavigation("SPLASH_SCREEN")
-    object Preview : TargetNavigation("PREVIEW")
-    object MainMenu : TargetNavigation("MAIN_MENU")
-    object Ranks : TargetNavigation("RANKS")
 
+    data class SplashScreen(
+        override val params: TargetNavigationParams? = null
+    ) : TargetNavigation("SPLASH_SCREEN")
+
+    data class Preview(
+        override val params: TargetNavigationParams? = null
+    ) : TargetNavigation("PREVIEW")
+
+    data class MainMenu(
+        override val params: TargetNavigationParams? = null
+    ) : TargetNavigation("MAIN_MENU")
+
+    data class Ranks(
+        override val params: TargetNavigationParams? = null
+    ) : TargetNavigation("RANKS")
+
+}
+
+private interface TargetNavigationContract {
+    val params: TargetNavigationParams?
+}
+
+data class NavigationParams(
+    override val args: Bundle? = null,
+    override val navOptions: NavOptions? = null,
+    override val navigatorExtras: Navigator.Extras? = null
+) : TargetNavigationParams
+
+interface TargetNavigationParams {
+    val args: Bundle?
+    val navOptions: NavOptions?
+    val navigatorExtras: Navigator.Extras?
 }

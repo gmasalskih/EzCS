@@ -6,9 +6,10 @@ import ru.gmasalskikh.ezcs.R
 import ru.gmasalskikh.ezcs.screens.ViewState
 
 data class SplashScreenViewState(
+
     @StringRes
     val appDescriptionRes: Int = R.string.app_description,
 
     @DrawableRes
-    val appLogoRes: Int = R.drawable.logo
+    val appLogoRes: Int = R.drawable.logo,
 ) : ViewState
