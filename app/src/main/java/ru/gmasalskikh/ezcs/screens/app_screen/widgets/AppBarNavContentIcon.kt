@@ -8,14 +8,18 @@ import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.graphics.vector.ImageVector
 
 @Composable
 fun AppBarNavContentIcon(
     modifier: Modifier = Modifier,
     imageVector: ImageVector,
+    tintColor: Color,
     onClick: () -> Unit
 ) {
+
     Box(
         modifier = modifier
             .fillMaxSize()
@@ -26,6 +30,7 @@ fun AppBarNavContentIcon(
                 .fillMaxHeight()
                 .aspectRatio(1f),
             imageVector = imageVector,
+            colorFilter = ColorFilter.tint(tintColor),
             contentDescription = null
         )
     }

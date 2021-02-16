@@ -9,24 +9,24 @@ import ru.gmasalskikh.ezcs.screens.preview.widgets.PagerState
 data class PreviewViewState(
     val items: List<PreviewItem> = listOf(
         PreviewItem(
-            type = PreviewItemType.MAP_CALLOUTS,
-            topicRes = R.string.preview_topic_map_callouts,
-            imageRes = R.drawable.preview_map_callouts,
-        ),
-        PreviewItem(
-            type = PreviewItemType.COMPARE_WEAPONS,
-            topicRes = R.string.preview_topic_compare_weapons,
-            imageRes = R.drawable.preview_compare_weapons,
-        ),
-        PreviewItem(
             type = PreviewItemType.GRENADES_PRACTICE,
             topicRes = R.string.preview_topic_grenades_practice,
             imageRes = R.drawable.preview_grenades_practice,
         ),
         PreviewItem(
+            type = PreviewItemType.MAP_CALLOUTS,
+            topicRes = R.string.preview_topic_map_callouts,
+            imageRes = R.drawable.preview_map_callouts,
+        ),
+        PreviewItem(
             type = PreviewItemType.WEAPON_CHARACTERISTICS,
             topicRes = R.string.preview_topic_weapon_characteristics,
             imageRes = R.drawable.preview_weapon_characteristics,
+        ),
+        PreviewItem(
+            type = PreviewItemType.COMPARE_WEAPONS,
+            topicRes = R.string.preview_topic_compare_weapons,
+            imageRes = R.drawable.preview_compare_weapons,
         ),
         PreviewItem(
             type = PreviewItemType.RANKS,

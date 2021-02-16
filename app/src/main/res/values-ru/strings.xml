@@ -19,4 +19,5 @@
     <string name="main_menu_item_name_grenades_practice">раскидки гранат</string>
     <string name="main_menu_item_name_weapon_characteristics">характеристики оружия</string>
     <string name="main_menu_item_name_ranks">ранги</string>
+    <string name="app_bar_title_ranks">ранги</string>
 </resources>

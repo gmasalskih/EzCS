@@ -24,7 +24,8 @@ fun AppBar() {
                 navigationContent = {
                     AppBarNavContent(
                         modifier = Modifier.align(Alignment.Center),
-                        appBarNavContentType = appBarState.navContentType
+                        appBarNavContentType = appBarState.navContentType,
+                        contentColor = theme.colors.onPrimary
                     )
                 }
             )

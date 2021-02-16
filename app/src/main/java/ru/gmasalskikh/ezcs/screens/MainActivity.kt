@@ -13,11 +13,12 @@ import ru.gmasalskikh.ezcs.screens.app_screen.AppView
 import ru.gmasalskikh.ezcs.ui.theme.EzCSTheme
 import ru.gmasalskikh.ezcs.providers.lifecycle_keeper.LifecycleKeeper.*
 import ru.gmasalskikh.ezcs.providers.lifecycle_keeper.LifecycleKeeper.LifecycleActivityEvent.*
+import ru.gmasalskikh.ezcs.di.NamesOfDependencies.*
 
 class MainActivity : AppCompatActivity() {
 
     private val lifecycleEmitter by inject<FlowCollector<LifecycleActivityEvent>>(
-        named("lifecycleEmitter")
+        named(LIFECYCLE_EMITTER)
     )
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -27,7 +28,7 @@ class MainActivity : AppCompatActivity() {
         window.navigationBarColor = Color.BLACK
         setContent {
             EzCSTheme {
-                AppView().Render()
+                AppView()
             }
         }
     }

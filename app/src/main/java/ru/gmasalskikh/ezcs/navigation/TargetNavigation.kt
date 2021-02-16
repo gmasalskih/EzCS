@@ -12,35 +12,29 @@ sealed class TargetNavigation(
         get() = "android-app://androidx.navigation.compose/$path".hashCode()
 
     data class SplashScreen(
-        override val params: TargetNavigationParams? = null
+        override val params: NavigationParams? = null
     ) : TargetNavigation("SPLASH_SCREEN")
 
     data class Preview(
-        override val params: TargetNavigationParams? = null
+        override val params: NavigationParams? = null
     ) : TargetNavigation("PREVIEW")
 
     data class MainMenu(
-        override val params: TargetNavigationParams? = null
+        override val params: NavigationParams? = null
     ) : TargetNavigation("MAIN_MENU")
 
     data class Ranks(
-        override val params: TargetNavigationParams? = null
+        override val params: NavigationParams? = null
     ) : TargetNavigation("RANKS")
 
 }
 
 private interface TargetNavigationContract {
-    val params: TargetNavigationParams?
+    val params: NavigationParams?
 }
 
 data class NavigationParams(
-    override val args: Bundle? = null,
-    override val navOptions: NavOptions? = null,
-    override val navigatorExtras: Navigator.Extras? = null
-) : TargetNavigationParams
-
-interface TargetNavigationParams {
-    val args: Bundle?
-    val navOptions: NavOptions?
-    val navigatorExtras: Navigator.Extras?
-}
+    val args: Bundle? = null,
+    val navOptions: NavOptions? = null,
+    val navigatorExtras: Navigator.Extras? = null
+)

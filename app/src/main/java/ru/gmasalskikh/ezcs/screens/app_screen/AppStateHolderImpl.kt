@@ -2,11 +2,6 @@ package ru.gmasalskikh.ezcs.screens.app_screen
 
 import androidx.compose.material.ScaffoldState
 import androidx.compose.runtime.*
-import androidx.compose.ui.platform.AmbientLifecycleOwner
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.LifecycleObserver
-import androidx.lifecycle.LifecycleOwner
-import androidx.lifecycle.OnLifecycleEvent
 import androidx.navigation.NavHostController
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -22,9 +17,12 @@ import ru.gmasalskikh.ezcs.utils.AmbientScaffoldState
 import ru.gmasalskikh.ezcs.screens.app_screen.AppStateHolder.*
 import ru.gmasalskikh.ezcs.screens.app_screen.AppState.AppBarState.AppBar.AppBarNavContentType.*
 import ru.gmasalskikh.ezcs.R
+import ru.gmasalskikh.ezcs.providers.custom_coroutine_scope.CustomCoroutineScope
 
 @Suppress("ObjectPropertyName")
-object AppStateHolderImpl : AppStateHolder {
+class AppStateHolderImpl(
+    private val cs: CustomCoroutineScope
+) : AppStateHolder {
 
     private val _appViewEvent = MutableSharedFlow<ViewEvent>()
     override val viewEventEmitter: FlowCollector<ViewEvent>
@@ -50,26 +48,6 @@ object AppStateHolderImpl : AppStateHolder {
         cs.onStop()
     }
 
-    private val cs = object : AppStateHolderCoroutineScope {
-        var job: Job = Job()
-        override val coroutineContext: CoroutineContext
-            get() = Dispatchers.Main + job
-
-        override fun onStart() {
-            MutableStateFlow("")
-            job = Job()
-        }
-
-        override fun onStop() {
-            job.cancel()
-        }
-    }
-
-    private interface AppStateHolderCoroutineScope : CoroutineScope {
-        fun onStart()
-        fun onStop()
-    }
-
     @Composable
     override fun SetComposableScope() {
         navController = AmbientNavController.current
@@ -92,28 +70,28 @@ object AppStateHolderImpl : AppStateHolder {
                     appState = appState.copy(
                         drawerGesturesEnabled = false,
                         isAppBackgroundBlur = true,
-                        appBarState = AppBar(titleRes = R.string.app_bar_title_menu, MENU),
+                        appBarState = AppBarGone,
                         bottomBarState = BottomBarGone
                     )
                 }
                 is TargetNavigation.MainMenu -> {
-
+                    appState = appState.copy(
+                        drawerGesturesEnabled = true,
+                        isAppBackgroundBlur = true,
+                        appBarState = AppBar(titleRes = R.string.app_bar_title_menu, MENU),
+                        bottomBarState = BottomBarGone
+                    )
                 }
                 is TargetNavigation.Ranks -> {
-
+                    appState = appState.copy(
+                        drawerGesturesEnabled = false,
+                        isAppBackgroundBlur = false,
+                        appBarState = AppBar(titleRes = R.string.app_bar_title_ranks, ARROW_BACK),
+                        bottomBarState = BottomBarGone
+                    )
                 }
             }
-            navigateTo(event)
         }
-    }
-
-    private fun navigateTo(targetNavigation: TargetNavigation) {
-        navController.navigate(
-            targetNavigation.navId,
-            targetNavigation.params?.args,
-            targetNavigation.params?.navOptions,
-            targetNavigation.params?.navigatorExtras
-        )
     }
 
     private fun subscribeToViewEvent() = cs.launch {

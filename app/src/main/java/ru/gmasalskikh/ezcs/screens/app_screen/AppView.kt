@@ -5,36 +5,33 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.Providers
 import androidx.navigation.compose.rememberNavController
+import org.koin.androidx.compose.get
 import ru.gmasalskikh.ezcs.utils.AmbientNavController
 import ru.gmasalskikh.ezcs.utils.AmbientScaffoldState
 import ru.gmasalskikh.ezcs.screens.app_screen.widgets.AppScreen
 import ru.gmasalskikh.ezcs.utils.AmbientAppStateHolder
 import ru.gmasalskikh.ezcs.screens.app_screen.widgets.*
+import ru.gmasalskikh.ezcs.ui.common_widget.AppDrawer
 
-class AppView {
-
-    private val appStateHolder: AppStateHolder = AppStateHolderImpl
-
-    @Composable
-    fun Render(stateHolder: AppStateHolder = appStateHolder) {
-        Providers(
-            AmbientNavController provides rememberNavController(),
-            AmbientScaffoldState provides rememberScaffoldState(),
-            AmbientAppStateHolder provides stateHolder
-        ) {
-            stateHolder.SetComposableScope()
-            DisposableEffect(key1 = null) {
-                stateHolder.onViewCreate()
-                onDispose {
-                    stateHolder.onViewDestroy()
-                }
+@Composable
+fun AppView(stateHolder: AppStateHolder = get()) {
+    Providers(
+        AmbientNavController provides rememberNavController(),
+        AmbientScaffoldState provides rememberScaffoldState(),
+        AmbientAppStateHolder provides stateHolder
+    ) {
+        stateHolder.SetComposableScope()
+        DisposableEffect(key1 = null) {
+            stateHolder.onViewCreate()
+            onDispose {
+                stateHolder.onViewDestroy()
             }
-            AppScreen(
-                isAppBackgroundBlur = stateHolder.appState.isAppBackgroundBlur,
-                topBar = { AppBar() },
-                drawerGesturesEnabled = stateHolder.appState.drawerGesturesEnabled,
-            )
         }
+        AppScreen(
+            isAppBackgroundBlur = stateHolder.appState.isAppBackgroundBlur,
+            topBar = { AppBar() },
+            drawerGesturesEnabled = stateHolder.appState.drawerGesturesEnabled,
+            drawerContent = { AppDrawer() }
+        )
     }
 }
-

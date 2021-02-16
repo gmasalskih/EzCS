@@ -1,18 +1,21 @@
 package ru.gmasalskikh.ezcs.screens.main_menu
 
+import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavController
 import androidx.navigation.compose.navigate
+import kotlinx.coroutines.flow.FlowCollector
+import kotlinx.coroutines.launch
 import ru.gmasalskikh.ezcs.navigation.TargetNavigation
 import ru.gmasalskikh.ezcs.screens.BaseViewModel
 import ru.gmasalskikh.ezcs.data.types.ViewStateType
 
-class MainMenuViewModel : BaseViewModel<MainMenuViewState>(
+class MainMenuViewModel(
+    private val navEventEmitter: FlowCollector<TargetNavigation>
+) : BaseViewModel<MainMenuViewState>(
     defaultViewState = MainMenuViewState(),
     initViewStateType = ViewStateType.Data
 ) {
-
     fun navigateTo(
-        navController: NavController,
         mainMenuItemType: MainMenuViewState.MainMenuItemType
     ) {
         when (mainMenuItemType) {
@@ -22,10 +25,10 @@ class MainMenuViewModel : BaseViewModel<MainMenuViewState>(
             }
             MainMenuViewState.MainMenuItemType.WEAPON_CHARACTERISTICS -> {
             }
-            MainMenuViewState.MainMenuItemType.RANKS -> navController.navigate(TargetNavigation.Ranks().path) {
-                launchSingleTop = true
+            MainMenuViewState.MainMenuItemType.RANKS -> viewModelScope.launch {
+                navEventEmitter.emit(TargetNavigation.Ranks())
             }
-
         }
+
     }
 }

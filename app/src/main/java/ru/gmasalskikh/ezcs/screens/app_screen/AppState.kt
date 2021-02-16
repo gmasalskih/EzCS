@@ -4,6 +4,7 @@ import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.filled.KeyboardArrowLeft
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.ui.graphics.vector.ImageVector
 
@@ -22,7 +23,7 @@ data class AppState(
         ) : AppBarState() {
             enum class AppBarNavContentType(val image: ImageVector) {
                 MENU(image = Icons.Filled.Menu),
-                ARROW_BACK(image = Icons.Filled.ArrowBack)
+                ARROW_BACK(image = Icons.Filled.KeyboardArrowLeft)
             }
         }
     }

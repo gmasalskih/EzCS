@@ -16,7 +16,6 @@ import ru.gmasalskikh.ezcs.ui.theme.AppTheme
 import ru.gmasalskikh.ezcs.utils.AmbientAppTheme
 import ru.gmasalskikh.ezcs.utils.AmbientScaffoldState
 
-
 @Composable
 fun AppScreen(
     isAppBackgroundBlur: Boolean = true,

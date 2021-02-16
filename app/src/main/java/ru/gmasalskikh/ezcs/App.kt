@@ -4,10 +4,7 @@ import android.app.Application
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin
-import ru.gmasalskikh.ezcs.di.appStateModule
-import ru.gmasalskikh.ezcs.di.viewModelModule
-import ru.gmasalskikh.ezcs.di.providerModule
-import ru.gmasalskikh.ezcs.di.viewStateModule
+import ru.gmasalskikh.ezcs.di.*
 
 class App : Application() {
 
@@ -20,7 +17,7 @@ class App : Application() {
                 appStateModule,
                 viewModelModule,
                 providerModule,
-                viewStateModule
+                emittersModule
             )
         }
     }

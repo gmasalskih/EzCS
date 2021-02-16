@@ -2,6 +2,7 @@ package ru.gmasalskikh.ezcs.screens.ranks
 
 import ru.gmasalskikh.ezcs.data.items.RankBottomAppBarItem
 import ru.gmasalskikh.ezcs.data.types.RanksBottomAppBarItemType
+import ru.gmasalskikh.ezcs.screens.ViewState
 
 data class RanksViewState(
     val selectedRank: RanksBottomAppBarItemType = RanksBottomAppBarItemType.COMPETITIVE,
@@ -25,4 +26,4 @@ data class RanksViewState(
         RanksBottomAppBarItemType.DANGER_ZONE.name,
         RanksBottomAppBarItemType.PROFILE_RANK.name
     )
-)
+) : ViewState

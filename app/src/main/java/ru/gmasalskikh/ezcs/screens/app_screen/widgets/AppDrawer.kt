@@ -15,9 +15,7 @@ import ru.gmasalskikh.ezcs.ui.theme.fontSize10Sp
 import ru.gmasalskikh.ezcs.utils.AmbientAppTheme
 
 @Composable
-fun AppDrawer(
-
-) {
+fun AppDrawer() {
     val theme = AmbientAppTheme.current
     val logoId = "logo"
     val spacerId = "spacer"
