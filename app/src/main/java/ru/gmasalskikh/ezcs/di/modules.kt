@@ -2,6 +2,7 @@ package ru.gmasalskikh.ezcs.di
 
 import android.content.Context
 import android.content.SharedPreferences
+import androidx.lifecycle.SavedStateHandle
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import org.koin.androidx.viewmodel.dsl.viewModel
@@ -54,10 +55,11 @@ val providerModule = module {
 }
 
 val viewModelModule = module {
-    viewModel {
+    viewModel { (savedStateHandle: SavedStateHandle) ->
         SplashScreenViewModel(
             sharedPreferences = get(),
-            navEventEmitter = get(named(NAV_EVENT_EMITTER))
+            navEventEmitter = get(named(NAV_EVENT_EMITTER)),
+            savedStateHandle = savedStateHandle
         )
     }
     viewModel {

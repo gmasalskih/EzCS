@@ -77,6 +77,12 @@ dependencies {
     def coil = "0.4.2"
     implementation "dev.chrisbanes.accompanist:accompanist-coil:0.5.0"
 
+    //OrbitMVI
+    def orbitMVI_version = "3.0.1"
+    implementation "org.orbit-mvi:orbit-core:$orbitMVI_version"
+    implementation "org.orbit-mvi:orbit-viewmodel:$orbitMVI_version"
+    testImplementation "org.orbit-mvi:orbit-test:$orbitMVI_version"
+
     //Test
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'

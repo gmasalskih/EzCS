@@ -7,6 +7,7 @@ import androidx.navigation.compose.*
 import kotlinx.coroutines.launch
 import org.koin.androidx.compose.get
 import org.koin.androidx.compose.getViewModel
+import org.koin.core.parameter.parametersOf
 import ru.gmasalskikh.ezcs.screens.app_screen.AppStateHolder
 import ru.gmasalskikh.ezcs.screens.main_menu.MainMenuView
 import ru.gmasalskikh.ezcs.screens.preview.PreviewView
@@ -36,7 +37,7 @@ fun ComposeNavigation(navigator: Navigator = get()) {
                     AppStateHolder.NavEvent(TargetNavigationPath.SPLASH_SCREEN)
                 )
             }
-            SplashScreenView(getViewModel()).Screen()
+            SplashScreenView(getViewModel { parametersOf(navBackStackEntry.savedStateHandle) }).Screen()
         }
         composable(TargetNavigationPath.PREVIEW.name) {
             cs.launch {
