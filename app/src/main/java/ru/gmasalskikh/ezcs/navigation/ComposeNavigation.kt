@@ -7,6 +7,7 @@ import androidx.navigation.compose.*
 import kotlinx.coroutines.launch
 import org.koin.androidx.compose.get
 import org.koin.androidx.compose.getViewModel
+import ru.gmasalskikh.ezcs.screens.app_screen.AppStateHolder
 import ru.gmasalskikh.ezcs.screens.main_menu.MainMenuView
 import ru.gmasalskikh.ezcs.screens.preview.PreviewView
 import ru.gmasalskikh.ezcs.screens.splash_screen.SplashScreenView
@@ -17,7 +18,7 @@ import ru.gmasalskikh.ezcs.utils.AmbientNavController
 @Composable
 fun ComposeNavigation(navigator: Navigator = get()) {
     val navController = AmbientNavController.current
-    val navEventEmitter = AmbientAppStateHolder.current.navEventEmitter
+    val navEventEmitter = AmbientAppStateHolder.current.stateChangeFromNavEventEmitter
     val cs = rememberCoroutineScope()
     DisposableEffect(key1 = null) {
         navigator.onAttach(navController)
@@ -27,22 +28,38 @@ fun ComposeNavigation(navigator: Navigator = get()) {
     }
     NavHost(
         navController = navController,
-        startDestination = TargetNavigation.SplashScreen().path
+        startDestination = TargetNavigationPath.SPLASH_SCREEN.name
     ) {
-        composable(TargetNavigation.SplashScreen().path) {
-            cs.launch { navEventEmitter.emit(TargetNavigation.SplashScreen()) }
+        composable(TargetNavigationPath.SPLASH_SCREEN.name) { navBackStackEntry ->
+            cs.launch {
+                navEventEmitter.emit(
+                    AppStateHolder.NavEvent(TargetNavigationPath.SPLASH_SCREEN)
+                )
+            }
             SplashScreenView(getViewModel()).Screen()
         }
-        composable(TargetNavigation.Preview().path) {
-            cs.launch { navEventEmitter.emit(TargetNavigation.Preview()) }
+        composable(TargetNavigationPath.PREVIEW.name) {
+            cs.launch {
+                navEventEmitter.emit(
+                    AppStateHolder.NavEvent(TargetNavigationPath.PREVIEW)
+                )
+            }
             PreviewView(getViewModel()).Screen()
         }
-        composable(TargetNavigation.MainMenu().path) {
-            cs.launch { navEventEmitter.emit(TargetNavigation.MainMenu()) }
+        composable(TargetNavigationPath.MAIN_MENU.name) {
+            cs.launch {
+                navEventEmitter.emit(
+                    AppStateHolder.NavEvent(TargetNavigationPath.MAIN_MENU)
+                )
+            }
             MainMenuView(getViewModel()).Screen()
         }
-        composable(TargetNavigation.Ranks().path) {
-            cs.launch { navEventEmitter.emit(TargetNavigation.Ranks()) }
+        composable(TargetNavigationPath.RANKS.name) {
+            cs.launch {
+                navEventEmitter.emit(
+                    AppStateHolder.NavEvent(TargetNavigationPath.RANKS)
+                )
+            }
             RanksView(getViewModel()).Screen()
         }
     }

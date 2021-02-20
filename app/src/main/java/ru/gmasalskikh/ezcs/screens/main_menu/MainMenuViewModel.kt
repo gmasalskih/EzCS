@@ -1,8 +1,6 @@
 package ru.gmasalskikh.ezcs.screens.main_menu
 
 import androidx.lifecycle.viewModelScope
-import androidx.navigation.NavController
-import androidx.navigation.compose.navigate
 import kotlinx.coroutines.flow.FlowCollector
 import kotlinx.coroutines.launch
 import ru.gmasalskikh.ezcs.navigation.TargetNavigation
@@ -26,7 +24,7 @@ class MainMenuViewModel(
             MainMenuViewState.MainMenuItemType.WEAPON_CHARACTERISTICS -> {
             }
             MainMenuViewState.MainMenuItemType.RANKS -> viewModelScope.launch {
-                navEventEmitter.emit(TargetNavigation.Ranks())
+                navEventEmitter.emit(TargetNavigation.Ranks)
             }
         }
 

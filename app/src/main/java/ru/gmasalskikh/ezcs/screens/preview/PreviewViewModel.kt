@@ -8,6 +8,7 @@ import kotlinx.coroutines.launch
 import ru.gmasalskikh.ezcs.data.types.ViewStateType
 import ru.gmasalskikh.ezcs.navigation.NavigationParams
 import ru.gmasalskikh.ezcs.navigation.TargetNavigation
+import ru.gmasalskikh.ezcs.navigation.TargetNavigationPath
 import ru.gmasalskikh.ezcs.screens.BaseViewModel
 import ru.gmasalskikh.ezcs.screens.preview.widgets.PagerState
 
@@ -40,7 +41,7 @@ class PreviewViewModel(
             TargetNavigation.MainMenu(
                 params = NavigationParams(
                     navOptions = NavOptions.Builder()
-                        .setPopUpTo(TargetNavigation.Preview().navId, true)
+                        .setPopUpTo(TargetNavigationPath.PREVIEW.navId, true)
                         .build()
                 )
             )

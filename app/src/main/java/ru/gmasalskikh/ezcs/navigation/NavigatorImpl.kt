@@ -26,12 +26,17 @@ class NavigatorImpl(
 
     private fun subscribeToNavEvent(navController: NavHostController) = cs.launch {
         _navEvent.collect { navTarget ->
-            navController.navigate(
-                navTarget.navId,
-                navTarget.params?.args,
-                navTarget.params?.navOptions,
-                navTarget.params?.navigatorExtras
-            )
+            when (navTarget) {
+                TargetNavigation.Back -> navController.popBackStack()
+                else -> {
+                    navController.navigate(
+                        navTarget.navId,
+                        navTarget.params?.args,
+                        navTarget.params?.navOptions,
+                        navTarget.params?.navigatorExtras
+                    )
+                }
+            }
         }
     }
 }

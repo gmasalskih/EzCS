@@ -34,7 +34,12 @@ val emittersModule = module {
 }
 
 val appStateModule = module {
-    single<AppStateHolder> { AppStateHolderImpl(get { parametersOf(Dispatchers.Main) }) }
+    single<AppStateHolder> {
+        AppStateHolderImpl(
+            cs = get { parametersOf(Dispatchers.Main) },
+            navEventEmitter = get(named(NAV_EVENT_EMITTER))
+        )
+    }
 }
 
 val providerModule = module {
