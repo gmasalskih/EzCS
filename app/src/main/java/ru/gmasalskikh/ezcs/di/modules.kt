@@ -23,6 +23,9 @@ import ru.gmasalskikh.ezcs.screens.app_screen.AppStateHolder
 import ru.gmasalskikh.ezcs.navigation.Navigator
 import ru.gmasalskikh.ezcs.navigation.NavigatorImpl
 import ru.gmasalskikh.ezcs.di.NamesOfDependencies.*
+import ru.gmasalskikh.ezcs.screens.grenades_practice.GrenadesPracticeViewModel
+import ru.gmasalskikh.ezcs.screens.map_callouts.MapCalloutsViewModel
+import ru.gmasalskikh.ezcs.screens.weapon_characteristics.WeaponCharacteristicsViewModel
 
 enum class NamesOfDependencies {
     LIFECYCLE_EMITTER,
@@ -67,5 +70,8 @@ val viewModelModule = module {
     viewModel {
         MainMenuViewModel(navEventEmitter = get(named(NAV_EVENT_EMITTER)))
     }
+    viewModel { MapCalloutsViewModel() }
+    viewModel { WeaponCharacteristicsViewModel() }
+    viewModel { GrenadesPracticeViewModel() }
     viewModel { RanksViewModel() }
 }

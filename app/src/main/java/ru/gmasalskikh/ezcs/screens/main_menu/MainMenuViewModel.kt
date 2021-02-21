@@ -21,9 +21,9 @@ class MainMenuViewModel(
         when (viewEvent) {
             is MainMenuViewEvent.NavigateTo -> viewModelScope.launch {
                 val targetNavigation = when (viewEvent.mainMenuItemType) {
-                    MainMenuViewState.MainMenuItemType.MAP_CALLOUTS -> TODO()
-                    MainMenuViewState.MainMenuItemType.GRENADES_PRACTICE -> TODO()
-                    MainMenuViewState.MainMenuItemType.WEAPON_CHARACTERISTICS -> TODO()
+                    MainMenuViewState.MainMenuItemType.MAP_CALLOUTS -> TargetNavigation.MapCallouts
+                    MainMenuViewState.MainMenuItemType.GRENADES_PRACTICE -> TargetNavigation.GrenadesPractice
+                    MainMenuViewState.MainMenuItemType.WEAPON_CHARACTERISTICS -> TargetNavigation.WeaponCharacteristics
                     MainMenuViewState.MainMenuItemType.RANKS -> TargetNavigation.Ranks
                 }
                 navEventEmitter.emit(targetNavigation)

@@ -4,22 +4,21 @@ import android.os.Bundle
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Immutable
 import kotlinx.coroutines.flow.FlowCollector
-import ru.gmasalskikh.ezcs.navigation.TargetNavigation
 import ru.gmasalskikh.ezcs.navigation.TargetNavigationPath
 
 interface AppStateHolder {
     val appState: AppState
-    val stateChangeFromNavEventEmitter: FlowCollector<NavEvent>
-    val viewEventEmitter: FlowCollector<ViewEvent>
+    val appStateChangeEmitter: FlowCollector<NavEvent>
+    val appViewEventEmitter: FlowCollector<AppViewEvent>
     fun onViewCreate()
     fun onViewDestroy()
 
     @Composable
     fun SetComposableScope()
 
-    sealed class ViewEvent {
-        object OnBackClick : ViewEvent()
-        object OnMenuClick : ViewEvent()
+    sealed class AppViewEvent {
+        object OnBackClick : AppViewEvent()
+        object OnMenuClick : AppViewEvent()
     }
 
     @Immutable

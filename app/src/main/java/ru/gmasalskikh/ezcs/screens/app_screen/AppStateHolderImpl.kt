@@ -2,10 +2,8 @@ package ru.gmasalskikh.ezcs.screens.app_screen
 
 import androidx.compose.material.ScaffoldState
 import androidx.compose.runtime.*
-import androidx.navigation.NavHostController
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
-import ru.gmasalskikh.ezcs.utils.AmbientNavController
 import ru.gmasalskikh.ezcs.screens.app_screen.AppState.AppBarState.*
 import ru.gmasalskikh.ezcs.screens.app_screen.AppState.BottomBarState.*
 import ru.gmasalskikh.ezcs.utils.AmbientScaffoldState
@@ -22,12 +20,12 @@ class AppStateHolderImpl(
     private val navEventEmitter: FlowCollector<TargetNavigation>
 ) : AppStateHolder {
 
-    private val _appViewEvent = MutableSharedFlow<ViewEvent>()
-    override val viewEventEmitter: FlowCollector<ViewEvent>
+    private val _appViewEvent = MutableSharedFlow<AppViewEvent>()
+    override val appViewEventEmitter: FlowCollector<AppViewEvent>
         get() = _appViewEvent
 
     private val _stateChangeFromNavEvent: MutableSharedFlow<NavEvent> = MutableSharedFlow()
-    override val stateChangeFromNavEventEmitter: FlowCollector<NavEvent>
+    override val appStateChangeEmitter: FlowCollector<NavEvent>
         get() = _stateChangeFromNavEvent
 
     private lateinit var scaffoldState: ScaffoldState
@@ -58,16 +56,16 @@ class AppStateHolderImpl(
                     appState.copy(
                         drawerGesturesEnabled = false,
                         isAppBackgroundBlur = false,
-                        appBarState = AppBarGone,
-                        bottomBarState = BottomBarGone
+                        appBarState = NoAppBar,
+                        bottomBarState = NoBottomBar
                     )
                 }
                 TargetNavigationPath.PREVIEW -> {
                     appState.copy(
                         drawerGesturesEnabled = false,
                         isAppBackgroundBlur = true,
-                        appBarState = AppBarGone,
-                        bottomBarState = BottomBarGone
+                        appBarState = NoAppBar,
+                        bottomBarState = NoBottomBar
                     )
                 }
                 TargetNavigationPath.MAIN_MENU -> {
@@ -75,7 +73,40 @@ class AppStateHolderImpl(
                         drawerGesturesEnabled = true,
                         isAppBackgroundBlur = true,
                         appBarState = AppBar(titleRes = R.string.app_bar_title_menu, MENU),
-                        bottomBarState = BottomBarGone
+                        bottomBarState = NoBottomBar
+                    )
+                }
+                TargetNavigationPath.MAP_CALLOUTS -> {
+                    appState.copy(
+                        drawerGesturesEnabled = false,
+                        isAppBackgroundBlur = true,
+                        appBarState = AppBar(
+                            titleRes = R.string.app_bar_title_map_callouts,
+                            ARROW_BACK
+                        ),
+                        bottomBarState = NoBottomBar
+                    )
+                }
+                TargetNavigationPath.WEAPON_CHARACTERISTICS -> {
+                    appState.copy(
+                        drawerGesturesEnabled = false,
+                        isAppBackgroundBlur = true,
+                        appBarState = AppBar(
+                            titleRes = R.string.app_bar_title_weapon_characteristics,
+                            ARROW_BACK
+                        ),
+                        bottomBarState = NoBottomBar
+                    )
+                }
+                TargetNavigationPath.GRENADES_PRACTICE -> {
+                    appState.copy(
+                        drawerGesturesEnabled = false,
+                        isAppBackgroundBlur = true,
+                        appBarState = AppBar(
+                            titleRes = R.string.app_bar_title_grenades_practice,
+                            ARROW_BACK
+                        ),
+                        bottomBarState = NoBottomBar
                     )
                 }
                 TargetNavigationPath.RANKS -> {
@@ -83,7 +114,7 @@ class AppStateHolderImpl(
                         drawerGesturesEnabled = false,
                         isAppBackgroundBlur = true,
                         appBarState = AppBar(titleRes = R.string.app_bar_title_ranks, ARROW_BACK),
-                        bottomBarState = BottomBarGone
+                        bottomBarState = NoBottomBar
                     )
                 }
                 TargetNavigationPath.BACK -> {
@@ -96,10 +127,10 @@ class AppStateHolderImpl(
     private fun subscribeToViewEvent() = cs.launch {
         _appViewEvent.collect { event ->
             when (event) {
-                ViewEvent.OnBackClick -> {
+                AppViewEvent.OnBackClick -> {
                     navEventEmitter.emit(TargetNavigation.Back)
                 }
-                ViewEvent.OnMenuClick -> {
+                AppViewEvent.OnMenuClick -> {
                     if (scaffoldState.drawerState.isOpen) scaffoldState.drawerState.close()
                     else scaffoldState.drawerState.open()
                 }

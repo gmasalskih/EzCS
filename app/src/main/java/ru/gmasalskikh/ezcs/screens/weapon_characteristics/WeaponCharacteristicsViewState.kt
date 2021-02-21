@@ -1,9 +1,9 @@
-package ru.gmasalskikh.ezcs.screens.ranks
+package ru.gmasalskikh.ezcs.screens.weapon_characteristics
 
 import ru.gmasalskikh.ezcs.screens.SideEffect
 import ru.gmasalskikh.ezcs.screens.ViewState
 
-data class RanksViewState(
-    val name: String = "Ranks",
+data class WeaponCharacteristicsViewState(
+    val name: String = "Weapon characteristics",
     override val currentSideEffect: SideEffect = SideEffect.Data
 ) : ViewState

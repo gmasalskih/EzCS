@@ -3,6 +3,7 @@ package ru.gmasalskikh.ezcs.screens.main_menu
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import ru.gmasalskikh.ezcs.R
+import ru.gmasalskikh.ezcs.screens.SideEffect
 import ru.gmasalskikh.ezcs.screens.ViewState
 
 data class MainMenuViewState(
@@ -27,7 +28,8 @@ data class MainMenuViewState(
             menuItemNameRes = R.string.main_menu_item_name_ranks,
             menuItemBackgroundImageRes = R.drawable.main_menu_background_ranks
         )
-    )
+    ),
+    override val currentSideEffect: SideEffect = SideEffect.Data
 ) : ViewState {
     data class MainMenuItem(
         val mainMenuItemType: MainMenuItemType,

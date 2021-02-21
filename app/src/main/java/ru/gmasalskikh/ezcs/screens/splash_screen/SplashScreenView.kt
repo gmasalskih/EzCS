@@ -12,7 +12,7 @@ import ru.gmasalskikh.ezcs.utils.DELAY_SPLASH_SCREEN
 import ru.gmasalskikh.ezcs.utils.bitmapFromResources
 
 class SplashScreenView(vm: SplashScreenViewModel) :
-    BaseView<SplashScreenViewEvent, SplashScreenViewState, SplashScreenViewModel>(vm) {
+    BaseView<SplashScreenViewState, SplashScreenViewEvent, SplashScreenViewModel>(vm) {
 
     @Composable
     override fun SetContent(viewState: SplashScreenViewState) {

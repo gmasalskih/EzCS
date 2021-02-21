@@ -1,5 +1,6 @@
 package ru.gmasalskikh.ezcs.screens
 
+
 sealed class SideEffect {
     object Data : SideEffect()
     object Loading : SideEffect()

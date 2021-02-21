@@ -19,4 +19,7 @@
     <string name="main_menu_item_name_weapon_characteristics">weapon characteristics</string>
     <string name="main_menu_item_name_ranks">ranks</string>
     <string name="app_bar_title_ranks">ranks</string>
+    <string name="app_bar_title_map_callouts">map callouts</string>
+    <string name="app_bar_title_weapon_characteristics">weapon characteristics</string>
+    <string name="app_bar_title_grenades_practice">grenades practice</string>
 </resources>

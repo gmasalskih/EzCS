@@ -3,6 +3,7 @@ package ru.gmasalskikh.ezcs.screens.preview
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import ru.gmasalskikh.ezcs.R
+import ru.gmasalskikh.ezcs.screens.SideEffect
 import ru.gmasalskikh.ezcs.screens.ViewState
 import ru.gmasalskikh.ezcs.screens.preview.widgets.PagerState
 
@@ -34,7 +35,8 @@ data class PreviewViewState(
             imageRes = R.drawable.preview_rangs,
         )
     ),
-    val pagerState: PagerState? = null
+    val pagerState: PagerState? = null,
+    override val currentSideEffect: SideEffect = SideEffect.Data
 ) : ViewState {
 
     data class PreviewItem(

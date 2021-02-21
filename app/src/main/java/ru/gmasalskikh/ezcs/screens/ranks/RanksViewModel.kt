@@ -12,7 +12,7 @@ class RanksViewModel : BaseViewModel<RanksViewState, RanksViewEvent>() {
     )
 
     override suspend fun onViewEvent(viewEvent: RanksViewEvent) {
-        TODO("Not yet implemented")
+
     }
 
 }

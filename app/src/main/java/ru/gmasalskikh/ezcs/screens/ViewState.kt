@@ -1,6 +1,5 @@
 package ru.gmasalskikh.ezcs.screens
 
-import android.os.Parcelable
-
-interface ViewState
-//    : Parcelable
+interface ViewState {
+    val currentSideEffect: SideEffect
+}
