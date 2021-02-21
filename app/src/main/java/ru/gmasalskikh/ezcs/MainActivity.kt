@@ -1,4 +1,4 @@
-package ru.gmasalskikh.ezcs.screens
+package ru.gmasalskikh.ezcs
 
 import android.graphics.Color
 import android.os.Bundle
