@@ -1,60 +1,33 @@
 package ru.gmasalskikh.ezcs.screens
 
-import androidx.compose.runtime.*
-import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
-import kotlinx.coroutines.flow.FlowCollector
-import kotlinx.coroutines.flow.MutableSharedFlow
-import org.orbitmvi.orbit.Container
+import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.launch
 import org.orbitmvi.orbit.ContainerHost
-import org.orbitmvi.orbit.syntax.simple.intent
-import org.orbitmvi.orbit.syntax.simple.postSideEffect
-import org.orbitmvi.orbit.viewmodel.container
-import ru.gmasalskikh.ezcs.data.types.ViewStateType
-import ru.gmasalskikh.ezcs.navigation.TargetNavigation
-import ru.gmasalskikh.ezcs.screens.splash_screen.SplashScreenViewState
 
-abstract class BaseViewModel<VS : ViewState>(
-    private val defaultViewState: VS,
-    initViewStateType: ViewStateType,
-    savedStateHandle: SavedStateHandle
-) : ViewModel(), ContainerHost<VS, SideEffect> {
+abstract class BaseViewModel<VS : ViewState, VE : ViewEvent> :
+    ViewModel(), ContainerHost<VS, SideEffect> {
 
-    private var screenState: ViewState.ScreenState<VS> by mutableStateOf(
-        ViewState.ScreenState(
-            viewStateType = initViewStateType,
-            viewState = defaultViewState
-        )
-    )
+    protected var job = Job()
 
-    protected val _viewEvent = MutableSharedFlow<ViewEvent>()
-    val viewEventEmitter: FlowCollector<ViewEvent>
-    get() = _viewEvent
+    protected abstract suspend fun onViewEvent(viewEvent: VE)
 
-    override val container: Container<VS, SideEffect> = container(
-        initialState = defaultViewState,
-        savedStateHandle = savedStateHandle
-    )
-
-    var viewState: VS
-        get() = screenState.viewState
-        protected set(value) {
-            screenState = screenState.copy(viewState = value)
-        }
-
-    val viewStateType
-        get() = screenState.viewStateType
-
-    open fun setDefaultState() {
-        screenState = screenState.copy(viewState = defaultViewState)
-    }
-
-    open fun navigateTo(targetNavigation: TargetNavigation) {
-    }
+    private val _viewEvent = MutableSharedFlow<VE>()
+    val viewEventEmitter: FlowCollector<VE>
+        get() = _viewEvent
 
     open fun onViewCreate() {
+        job = Job()
+        viewModelScope.launch(job) {
+            _viewEvent.collect { viewEvent ->
+                onViewEvent(viewEvent)
+            }
+        }
     }
 
     open fun onViewDestroy() {
+        job.cancel()
     }
 }

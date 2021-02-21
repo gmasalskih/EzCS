@@ -4,23 +4,32 @@ import android.util.Log
 import androidx.compose.runtime.*
 import androidx.compose.ui.res.stringResource
 import kotlinx.coroutines.flow.Flow
-import ru.gmasalskikh.ezcs.data.types.ViewStateType
+import kotlinx.coroutines.flow.FlowCollector
 import ru.gmasalskikh.ezcs.ui.common_widget.ErrorScreen
 import ru.gmasalskikh.ezcs.ui.common_widget.LoadingIndicator
 import ru.gmasalskikh.ezcs.utils.AmbientAppTheme
 import ru.gmasalskikh.ezcs.R
 
-abstract class BaseView<VM : BaseViewModel<*>> {
+abstract class BaseView<VE : ViewEvent, VS : ViewState, VM : BaseViewModel<VS, VE>>(
+    private val vm: VM
+) {
 
-    protected abstract val vm: VM
+    private val viewEventEmitter: FlowCollector<VE> = vm.viewEventEmitter
+    private val sideEffectFlow: Flow<SideEffect> = vm.container.sideEffectFlow
+    private val viewStateFlow: Flow<VS> = vm.container.stateFlow
+    private val currentViewState: VS = vm.container.currentState
+
+    protected suspend fun emit(viewEvent: VE) {
+        viewEventEmitter.emit(viewEvent)
+    }
 
     @Composable
-    protected abstract fun SetContent()
+    protected abstract fun SetContent(viewState: VS)
 
     @Composable
     fun Screen() {
-        val viewSideEffect =
-            vm.container.sideEffectFlow.collectAsState(initial = SideEffect.Data).value
+        val viewSideEffect = sideEffectFlow.collectAsState(initial = SideEffect.Data).value
+        val viewState = viewStateFlow.collectAsState(initial = currentViewState).value
         DisposableEffect(key1 = null) {
             onViewCreate()
             onDispose {
@@ -28,7 +37,7 @@ abstract class BaseView<VM : BaseViewModel<*>> {
             }
         }
         val theme = AmbientAppTheme.current
-        SetContent()
+        SetContent(viewState)
         when (viewSideEffect) {
             is SideEffect.Loading -> LoadingIndicator(color = theme.colors.primary)
             is SideEffect.Error -> {
@@ -42,17 +51,17 @@ abstract class BaseView<VM : BaseViewModel<*>> {
                     }
                 )
             }
-            else -> Unit
+            SideEffect.Data -> Unit
         }
     }
 
-    protected open fun onViewCreate() {
-        vm.onViewCreate()
+    private fun onViewCreate() {
         Log.d("---", "onViewCreate")
+        vm.onViewCreate()
     }
 
-    protected open fun onViewDestroy() {
-        vm.onViewDestroy()
+    private fun onViewDestroy() {
         Log.d("---", "onViewDestroy")
+        vm.onViewDestroy()
     }
 }

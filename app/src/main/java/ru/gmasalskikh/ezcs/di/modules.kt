@@ -55,11 +55,10 @@ val providerModule = module {
 }
 
 val viewModelModule = module {
-    viewModel { (savedStateHandle: SavedStateHandle) ->
+    viewModel {
         SplashScreenViewModel(
             sharedPreferences = get(),
             navEventEmitter = get(named(NAV_EVENT_EMITTER)),
-            savedStateHandle = savedStateHandle
         )
     }
     viewModel {

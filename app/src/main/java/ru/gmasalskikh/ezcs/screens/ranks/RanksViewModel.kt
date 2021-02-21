@@ -1,13 +1,18 @@
 package ru.gmasalskikh.ezcs.screens.ranks
 
 import org.orbitmvi.orbit.Container
-import ru.gmasalskikh.ezcs.data.types.ViewStateType
+import org.orbitmvi.orbit.viewmodel.container
 import ru.gmasalskikh.ezcs.screens.BaseViewModel
+import ru.gmasalskikh.ezcs.screens.SideEffect
 
-class RanksViewModel : BaseViewModel<RanksViewState, Nothing>(
-    defaultViewState = RanksViewState(),
-    initViewStateType = ViewStateType.Data
-) {
-    override val container: Container<RanksViewState, Nothing>
-        get() = TODO("Not yet implemented")
+class RanksViewModel : BaseViewModel<RanksViewState, RanksViewEvent>() {
+
+    override val container: Container<RanksViewState, SideEffect> = container(
+        initialState = RanksViewState()
+    )
+
+    override suspend fun onViewEvent(viewEvent: RanksViewEvent) {
+        TODO("Not yet implemented")
+    }
+
 }

@@ -1,54 +1,45 @@
 package ru.gmasalskikh.ezcs.screens.preview
 
-import androidx.annotation.StringRes
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavOptions
 import kotlinx.coroutines.flow.FlowCollector
 import kotlinx.coroutines.launch
 import org.orbitmvi.orbit.Container
-import ru.gmasalskikh.ezcs.data.types.ViewStateType
+import org.orbitmvi.orbit.syntax.simple.intent
+import org.orbitmvi.orbit.syntax.simple.reduce
+import org.orbitmvi.orbit.viewmodel.container
 import ru.gmasalskikh.ezcs.navigation.NavigationParams
 import ru.gmasalskikh.ezcs.navigation.TargetNavigation
 import ru.gmasalskikh.ezcs.navigation.TargetNavigationPath
 import ru.gmasalskikh.ezcs.screens.BaseViewModel
-import ru.gmasalskikh.ezcs.screens.preview.widgets.PagerState
+import ru.gmasalskikh.ezcs.screens.SideEffect
 
 class PreviewViewModel(
-    private val navEventEmitter: FlowCollector<TargetNavigation>
-) : BaseViewModel<PreviewViewState, Nothing>(
-    defaultViewState = PreviewViewState(),
-    initViewStateType = ViewStateType.Data
-) {
+    private val navEventEmitter: FlowCollector<TargetNavigation>,
+) : BaseViewModel<PreviewViewState, PreviewViewEvent>() {
 
-    fun getCurrentIndexPage(): Int {
-        return viewState.pagerState?.currentPage ?: 0
-    }
+    override val container: Container<PreviewViewState, SideEffect> = container(
+        initialState = PreviewViewState()
+    )
 
-    @StringRes
-    fun getCurrentTopic(): Int = viewState.items[getCurrentIndexPage()].topicRes
-
-    fun setPagerState(pagerState: PagerState) {
-        viewState = viewState.copy(
-            pagerState = pagerState
-        )
-    }
-
-    fun getPagerState(): PagerState? {
-        return viewState.pagerState
-    }
-
-    fun navigateToMainMenu() = viewModelScope.launch {
-        navEventEmitter.emit(
-            TargetNavigation.MainMenu(
-                params = NavigationParams(
-                    navOptions = NavOptions.Builder()
-                        .setPopUpTo(TargetNavigationPath.PREVIEW.navId, true)
-                        .build()
+    override suspend fun onViewEvent(viewEvent: PreviewViewEvent) {
+        when (viewEvent) {
+            is PreviewViewEvent.NavigateNext -> viewModelScope.launch(job) {
+                navEventEmitter.emit(
+                    TargetNavigation.MainMenu(
+                        params = NavigationParams(
+                            navOptions = NavOptions.Builder()
+                                .setPopUpTo(TargetNavigationPath.PREVIEW.navId, true)
+                                .build()
+                        )
+                    )
                 )
-            )
-        )
+            }
+            is PreviewViewEvent.SetPagerState -> intent {
+                reduce {
+                    state.copy(pagerState = viewEvent.pagerState)
+                }
+            }
+        }
     }
-
-    override val container: Container<PreviewViewState, Nothing>
-        get() = TODO("Not yet implemented")
 }

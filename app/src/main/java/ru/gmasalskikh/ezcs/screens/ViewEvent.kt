@@ -1,4 +1,3 @@
 package ru.gmasalskikh.ezcs.screens
 
-interface ViewEvent {
-}
+interface ViewEvent
