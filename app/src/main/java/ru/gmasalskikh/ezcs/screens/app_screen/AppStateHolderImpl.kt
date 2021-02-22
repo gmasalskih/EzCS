@@ -50,182 +50,170 @@ class AppStateHolderImpl(
         scaffoldState = AmbientScaffoldState.current
     }
 
+    private fun getSplashScreenState() = appState.copy(
+        drawerGesturesEnabled = false,
+        isAppBackgroundBlur = false,
+        appTopBarState = NoAppTopBar,
+        appBottomBarState = NoAppBottomBar
+    )
+
+    private fun getPreviewState() = appState.copy(
+        drawerGesturesEnabled = false,
+        isAppBackgroundBlur = true,
+        appTopBarState = NoAppTopBar,
+        appBottomBarState = NoAppBottomBar
+    )
+
+    private fun getMainMenuState() = appState.copy(
+        drawerGesturesEnabled = true,
+        isAppBackgroundBlur = true,
+        appTopBarState = AppTopBar(
+            titleRes = R.string.app_top_bar_title_menu,
+            MENU
+        ),
+        appBottomBarState = NoAppBottomBar
+    )
+
+    private fun getMapCalloutsState() = appState.copy(
+        drawerGesturesEnabled = false,
+        isAppBackgroundBlur = true,
+        appTopBarState = AppTopBar(
+            titleRes = R.string.app_top_bar_title_map_callouts,
+            ARROW_BACK
+        ),
+        appBottomBarState = NoAppBottomBar
+    )
+
+    private fun getWeaponCharacteristicsState() = appState.copy(
+        drawerGesturesEnabled = false,
+        isAppBackgroundBlur = true,
+        appTopBarState = AppTopBar(
+            titleRes = R.string.app_top_bar_title_weapon_characteristics,
+            ARROW_BACK
+        ),
+        appBottomBarState = NoAppBottomBar
+    )
+
+    private fun getGrenadesPracticeState() = appState.copy(
+        drawerGesturesEnabled = false,
+        isAppBackgroundBlur = true,
+        appTopBarState = AppTopBar(
+            titleRes = R.string.app_top_bar_title_grenades_practice,
+            ARROW_BACK
+        ),
+        appBottomBarState = NoAppBottomBar
+    )
+
+    private fun getRanksState(): AppState {
+        val navParams = NavigationParams(
+            navOptions = NavOptions.Builder()
+                .setPopUpTo(TargetNavigationPath.RANKS.navId, true)
+                .build()
+        )
+
+        fun onClickBottomBarRanksItem(targetNavigation: TargetNavigation) = cs.launch {
+            navEventEmitter.emit(targetNavigation)
+        }
+        return appState.copy(
+            drawerGesturesEnabled = false,
+            isAppBackgroundBlur = true,
+            appBottomBarState = AppBottomBar(
+                listOf(
+                    AppState.AppBottomBarItem(
+                        itemName = R.string.app_bottom_bar_ranks_competitive,
+                        itemIcon = R.drawable.icon_competitive,
+                        route = TargetNavigationPath.RANKS_COMPETITIVE,
+                        onClick = {
+                            onClickBottomBarRanksItem(
+                                TargetNavigation.RanksCompetitive(
+                                    navParams
+                                )
+                            )
+                        }
+                    ),
+                    AppState.AppBottomBarItem(
+                        itemName = R.string.app_bottom_bar_ranks_wingman,
+                        itemIcon = R.drawable.icon_wingman,
+                        route = TargetNavigationPath.RANKS_WINGMAN,
+                        onClick = {
+                            onClickBottomBarRanksItem(
+                                TargetNavigation.RanksWingman(navParams)
+                            )
+                        }
+                    ),
+                    AppState.AppBottomBarItem(
+                        itemName = R.string.app_bottom_bar_ranks_danger_zone,
+                        itemIcon = R.drawable.icon_danger_zone,
+                        route = TargetNavigationPath.RANKS_DANGER_ZONE,
+                        onClick = {
+                            onClickBottomBarRanksItem(
+                                TargetNavigation.RanksDangerZone(navParams)
+                            )
+                        }
+                    ),
+                    AppState.AppBottomBarItem(
+                        itemName = R.string.app_bottom_bar_ranks_profile_rank,
+                        itemIcon = R.drawable.icon_profile_rank,
+                        route = TargetNavigationPath.RANKS_PROFILE_RANK,
+                        onClick = {
+                            onClickBottomBarRanksItem(
+                                TargetNavigation.RanksProfileRank(navParams)
+                            )
+                        }
+                    )
+                )
+            )
+        )
+    }
+
+    private fun getRanksCompetitiveState() = appState.copy(
+        appTopBarState = AppTopBar(
+            titleRes = R.string.app_top_bar_title_ranks_competitive,
+            ARROW_BACK
+        )
+    )
+
+    private fun getRanksWingman() = appState.copy(
+        appTopBarState = AppTopBar(
+            titleRes = R.string.app_top_bar_title_ranks_wingman,
+            ARROW_BACK
+        )
+    )
+
+    private fun getRanksDangerZoneState() = appState.copy(
+        appTopBarState = AppTopBar(
+            titleRes = R.string.app_top_bar_title_ranks_danger_zone,
+            ARROW_BACK
+        )
+    )
+
+    private fun getRanksProfileRank() = appState.copy(
+        appTopBarState = AppTopBar(
+            titleRes = R.string.app_top_bar_title_ranks_profile_rank,
+            ARROW_BACK
+        )
+    )
+
     private fun subscribeToNavEvent() = cs.launch {
         _stateChangeFromNavEvent.collect { event ->
             scaffoldState.drawerState.close()
             appState = when (event.targetNavigationPath) {
-                TargetNavigationPath.SPLASH_SCREEN -> {
-                    appState.copy(
-                        drawerGesturesEnabled = false,
-                        isAppBackgroundBlur = false,
-                        appTopBarState = NoAppTopBar,
-                        appBottomBarState = NoAppBottomBar
-                    )
-                }
-                TargetNavigationPath.PREVIEW -> {
-                    appState.copy(
-                        drawerGesturesEnabled = false,
-                        isAppBackgroundBlur = true,
-                        appTopBarState = NoAppTopBar,
-                        appBottomBarState = NoAppBottomBar
-                    )
-                }
-                TargetNavigationPath.MAIN_MENU -> {
-                    appState.copy(
-                        drawerGesturesEnabled = true,
-                        isAppBackgroundBlur = true,
-                        appTopBarState = AppTopBar(
-                            titleRes = R.string.app_top_bar_title_menu,
-                            MENU
-                        ),
-                        appBottomBarState = NoAppBottomBar
-                    )
-                }
-                TargetNavigationPath.MAP_CALLOUTS -> {
-                    appState.copy(
-                        drawerGesturesEnabled = false,
-                        isAppBackgroundBlur = true,
-                        appTopBarState = AppTopBar(
-                            titleRes = R.string.app_top_bar_title_map_callouts,
-                            ARROW_BACK
-                        ),
-                        appBottomBarState = NoAppBottomBar
-                    )
-                }
-                TargetNavigationPath.WEAPON_CHARACTERISTICS -> {
-                    appState.copy(
-                        drawerGesturesEnabled = false,
-                        isAppBackgroundBlur = true,
-                        appTopBarState = AppTopBar(
-                            titleRes = R.string.app_top_bar_title_weapon_characteristics,
-                            ARROW_BACK
-                        ),
-                        appBottomBarState = NoAppBottomBar
-                    )
-                }
-                TargetNavigationPath.GRENADES_PRACTICE -> {
-                    appState.copy(
-                        drawerGesturesEnabled = false,
-                        isAppBackgroundBlur = true,
-                        appTopBarState = AppTopBar(
-                            titleRes = R.string.app_top_bar_title_grenades_practice,
-                            ARROW_BACK
-                        ),
-                        appBottomBarState = NoAppBottomBar
-                    )
-                }
-                TargetNavigationPath.RANKS -> {
-                    val navParams = NavigationParams(
-                        navOptions = NavOptions.Builder()
-                            .setPopUpTo(TargetNavigationPath.RANKS.navId, true)
-                            .build()
-                    )
-                    appState.copy(
-                        drawerGesturesEnabled = false,
-                        isAppBackgroundBlur = true,
-                        appBottomBarState = AppBottomBar(
-                            listOf(
-                                AppState.AppBottomBarItem(
-                                    itemName = R.string.app_bottom_bar_ranks_competitive,
-                                    itemIcon = R.drawable.icon_competitive,
-                                    route = TargetNavigationPath.RANKS_COMPETITIVE,
-                                    onClick = {
-                                        cs.launch {
-                                            navEventEmitter.emit(
-                                                TargetNavigation.RanksCompetitive(
-                                                    navParams
-                                                )
-                                            )
-                                        }
-                                    }
-                                ),
-                                AppState.AppBottomBarItem(
-                                    itemName = R.string.app_bottom_bar_ranks_wingman,
-                                    itemIcon = R.drawable.icon_wingman,
-                                    route = TargetNavigationPath.RANKS_WINGMAN,
-                                    onClick = {
-                                        cs.launch {
-                                            navEventEmitter.emit(
-                                                TargetNavigation.RanksWingman(
-                                                    navParams
-                                                )
-                                            )
-                                        }
-                                    }
-                                ),
-                                AppState.AppBottomBarItem(
-                                    itemName = R.string.app_bottom_bar_ranks_danger_zone,
-                                    itemIcon = R.drawable.icon_danger_zone,
-                                    route = TargetNavigationPath.RANKS_DANGER_ZONE,
-                                    onClick = {
-                                        cs.launch {
-                                            navEventEmitter.emit(
-                                                TargetNavigation.RanksDangerZone(
-                                                    navParams
-                                                )
-                                            )
-                                        }
-                                    }
-                                ),
-                                AppState.AppBottomBarItem(
-                                    itemName = R.string.app_bottom_bar_ranks_profile_rank,
-                                    itemIcon = R.drawable.icon_profile_rank,
-                                    route = TargetNavigationPath.RANKS_PROFILE_RANK,
-                                    onClick = {
-                                        cs.launch {
-                                            navEventEmitter.emit(
-                                                TargetNavigation.RanksProfileRank(
-                                                    navParams
-                                                )
-                                            )
-                                        }
-                                    }
-                                )
-                            )
-                        )
-                    )
-                }
-                TargetNavigationPath.RANKS_COMPETITIVE -> {
-                    appState.copy(
-                        appTopBarState = AppTopBar(
-                            titleRes = R.string.app_top_bar_title_ranks_competitive,
-                            ARROW_BACK
-                        )
-                    )
-                }
-                TargetNavigationPath.RANKS_WINGMAN -> {
-                    appState.copy(
-                        appTopBarState = AppTopBar(
-                            titleRes = R.string.app_top_bar_title_ranks_wingman,
-                            ARROW_BACK
-                        )
-                    )
-                }
-                TargetNavigationPath.RANKS_DANGER_ZONE -> {
-                    appState.copy(
-                        appTopBarState = AppTopBar(
-                            titleRes = R.string.app_top_bar_title_ranks_danger_zone,
-                            ARROW_BACK
-                        )
-                    )
-                }
-                TargetNavigationPath.RANKS_PROFILE_RANK -> {
-                    appState.copy(
-                        appTopBarState = AppTopBar(
-                            titleRes = R.string.app_top_bar_title_ranks_profile_rank,
-                            ARROW_BACK
-                        )
-                    )
-                }
+                TargetNavigationPath.SPLASH_SCREEN -> getSplashScreenState()
+                TargetNavigationPath.PREVIEW -> getPreviewState()
+                TargetNavigationPath.MAIN_MENU -> getMainMenuState()
+                TargetNavigationPath.MAP_CALLOUTS -> getMapCalloutsState()
+                TargetNavigationPath.WEAPON_CHARACTERISTICS -> getWeaponCharacteristicsState()
+                TargetNavigationPath.GRENADES_PRACTICE -> getGrenadesPracticeState()
+                TargetNavigationPath.RANKS -> getRanksState()
+                TargetNavigationPath.RANKS_COMPETITIVE -> getRanksCompetitiveState()
+                TargetNavigationPath.RANKS_WINGMAN -> getRanksWingman()
+                TargetNavigationPath.RANKS_DANGER_ZONE -> getRanksDangerZoneState()
+                TargetNavigationPath.RANKS_PROFILE_RANK -> getRanksProfileRank()
                 TargetNavigationPath.BACK -> {
                     appState.copy()
                 }
             }
         }
-    }
-
-    private fun navigateTo(targetNavigation: TargetNavigation) = cs.launch {
-        navEventEmitter.emit(targetNavigation)
     }
 
     private fun subscribeToViewEvent() = cs.launch {

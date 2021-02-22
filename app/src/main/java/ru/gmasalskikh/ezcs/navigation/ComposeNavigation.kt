@@ -1,7 +1,6 @@
 package ru.gmasalskikh.ezcs.navigation
 
 import android.os.Bundle
-import android.util.Log
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.rememberCoroutineScope
@@ -12,12 +11,15 @@ import org.koin.androidx.compose.getViewModel
 import ru.gmasalskikh.ezcs.screens.main_menu.MainMenuView
 import ru.gmasalskikh.ezcs.screens.preview.PreviewView
 import ru.gmasalskikh.ezcs.screens.splash_screen.SplashScreenView
-import ru.gmasalskikh.ezcs.screens.ranks.RanksView
 import ru.gmasalskikh.ezcs.utils.AmbientAppStateHolder
 import ru.gmasalskikh.ezcs.utils.AmbientNavController
 import ru.gmasalskikh.ezcs.screens.app_screen.AppStateHolder.NavEvent
 import ru.gmasalskikh.ezcs.screens.grenades_practice.GrenadesPracticeView
 import ru.gmasalskikh.ezcs.screens.map_callouts.MapCalloutsView
+import ru.gmasalskikh.ezcs.screens.ranks.competitive.CompetitiveView
+import ru.gmasalskikh.ezcs.screens.ranks.danger_zone.DangerZoneView
+import ru.gmasalskikh.ezcs.screens.ranks.profile_rank.ProfileRankView
+import ru.gmasalskikh.ezcs.screens.ranks.wingman.WingmanView
 import ru.gmasalskikh.ezcs.screens.weapon_characteristics.WeaponCharacteristicsView
 
 @Composable
@@ -72,25 +74,21 @@ fun ComposeNavigation(navigator: Navigator = get()) {
             route = TargetNavigationPath.RANKS.name
         ) {
             composable(TargetNavigationPath.RANKS_COMPETITIVE.name) {
-                Log.d("---", "RANKS_COMPETITIVE")
                 appStateChange(TargetNavigationPath.RANKS)
                 appStateChange(TargetNavigationPath.RANKS_COMPETITIVE)
-                RanksView(getViewModel()).Screen()
+                CompetitiveView(getViewModel()).Screen()
             }
             composable(TargetNavigationPath.RANKS_WINGMAN.name) {
-                Log.d("---", "RANKS_WINGMAN")
                 appStateChange(TargetNavigationPath.RANKS_WINGMAN)
-                RanksView(getViewModel()).Screen()
+                WingmanView(getViewModel()).Screen()
             }
             composable(TargetNavigationPath.RANKS_DANGER_ZONE.name) {
-                Log.d("---", "RANKS_DANGER_ZONE")
                 appStateChange(TargetNavigationPath.RANKS_DANGER_ZONE)
-                RanksView(getViewModel()).Screen()
+                DangerZoneView(getViewModel()).Screen()
             }
             composable(TargetNavigationPath.RANKS_PROFILE_RANK.name) {
-                Log.d("---", "RANKS_PROFILE_RANK")
                 appStateChange(TargetNavigationPath.RANKS_PROFILE_RANK)
-                RanksView(getViewModel()).Screen()
+                ProfileRankView(getViewModel()).Screen()
             }
         }
     }
