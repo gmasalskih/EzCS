@@ -10,20 +10,20 @@ import ru.gmasalskikh.ezcs.utils.AmbientAppStateHolder
 import ru.gmasalskikh.ezcs.utils.AmbientAppTheme
 
 @Composable
-fun AppBar() {
+fun AppTopBar() {
     val theme: AppTheme = AmbientAppTheme.current
-    when (val appBarState = AmbientAppStateHolder.current.appState.appBarState) {
-        AppState.AppBarState.NoAppBar -> {}
-        is AppState.AppBarState.AppBar -> {
-            TopAppBar(
+    when (val appBarState = AmbientAppStateHolder.current.appState.appTopBarState) {
+        AppState.AppTopBarState.NoAppTopBar -> {}
+        is AppState.AppTopBarState.AppTopBar -> {
+            TopBar(
                 title = stringResource(id = appBarState.titleRes),
                 backgroundColor = theme.colors.primary,
                 contentColor = theme.colors.onPrimary,
                 elevation = theme.elevations.medium,
                 navigationContent = {
-                    AppBarNavContent(
+                    AppTopBarNavContent(
                         modifier = Modifier.align(Alignment.Center),
-                        appBarNavContentType = appBarState.navContentType,
+                        appTopBarNavContentType = appBarState.navContentType,
                         contentColor = theme.colors.onPrimary
                     )
                 }

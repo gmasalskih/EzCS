@@ -8,6 +8,10 @@ enum class TargetNavigationPath {
     WEAPON_CHARACTERISTICS,
     GRENADES_PRACTICE,
     RANKS,
+    RANKS_COMPETITIVE,
+    RANKS_WINGMAN,
+    RANKS_DANGER_ZONE,
+    RANKS_PROFILE_RANK,
     BACK;
 
     val navId: Int

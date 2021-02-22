@@ -1,6 +1,7 @@
 package ru.gmasalskikh.ezcs.navigation
 
 import android.os.Bundle
+import android.util.Log
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.rememberCoroutineScope
@@ -68,9 +69,32 @@ fun ComposeNavigation(navigator: Navigator = get()) {
             appStateChange(TargetNavigationPath.GRENADES_PRACTICE)
             GrenadesPracticeView(getViewModel()).Screen()
         }
-        composable(TargetNavigationPath.RANKS.name) {
-            appStateChange(TargetNavigationPath.RANKS)
-            RanksView(getViewModel()).Screen()
+        navigation(
+            startDestination = TargetNavigationPath.RANKS_COMPETITIVE.name,
+            route = TargetNavigationPath.RANKS.name
+        ) {
+            composable(TargetNavigationPath.RANKS_COMPETITIVE.name) {
+                Log.d("---", "RANKS_COMPETITIVE")
+                appStateChange(TargetNavigationPath.RANKS)
+                appStateChange(TargetNavigationPath.RANKS_COMPETITIVE)
+                RanksView(getViewModel()).Screen()
+            }
+            composable(TargetNavigationPath.RANKS_WINGMAN.name) {
+                Log.d("---", "RANKS_WINGMAN")
+                appStateChange(TargetNavigationPath.RANKS_WINGMAN)
+                RanksView(getViewModel()).Screen()
+            }
+            composable(TargetNavigationPath.RANKS_DANGER_ZONE.name) {
+                Log.d("---", "RANKS_DANGER_ZONE")
+                appStateChange(TargetNavigationPath.RANKS_DANGER_ZONE)
+                RanksView(getViewModel()).Screen()
+            }
+            composable(TargetNavigationPath.RANKS_PROFILE_RANK.name) {
+                Log.d("---", "RANKS_PROFILE_RANK")
+                appStateChange(TargetNavigationPath.RANKS_PROFILE_RANK)
+                RanksView(getViewModel()).Screen()
+            }
+
         }
     }
 }

@@ -7,21 +7,21 @@ import androidx.compose.ui.graphics.Color
 import kotlinx.coroutines.launch
 import ru.gmasalskikh.ezcs.screens.app_screen.AppStateHolder.AppViewEvent.*
 import ru.gmasalskikh.ezcs.utils.AmbientAppStateHolder
-import ru.gmasalskikh.ezcs.screens.app_screen.AppState.AppBarState.AppBar.*
+import ru.gmasalskikh.ezcs.screens.app_screen.AppState.AppTopBarState.AppTopBar.*
 
 @Composable
-fun AppBarNavContent(
+fun AppTopBarNavContent(
     modifier: Modifier = Modifier,
-    appBarNavContentType: AppBarNavContentType,
+    appTopBarNavContentType: AppTopBarNavContentType,
     contentColor: Color
 ) {
     val appViewEvent = AmbientAppStateHolder.current.appViewEventEmitter
     val scope = rememberCoroutineScope()
-    when (appBarNavContentType) {
-        AppBarNavContentType.MENU -> {
-            AppBarNavContentIcon(
+    when (appTopBarNavContentType) {
+        AppTopBarNavContentType.MENU -> {
+            AppTopBarNavContentIcon(
                 modifier = modifier,
-                imageVector = appBarNavContentType.image,
+                imageVector = appTopBarNavContentType.image,
                 tintColor = contentColor
             ) {
                 scope.launch {
@@ -29,10 +29,10 @@ fun AppBarNavContent(
                 }
             }
         }
-        AppBarNavContentType.ARROW_BACK -> {
-            AppBarNavContentIcon(
+        AppTopBarNavContentType.ARROW_BACK -> {
+            AppTopBarNavContentIcon(
                 modifier = modifier,
-                imageVector = appBarNavContentType.image,
+                imageVector = appTopBarNavContentType.image,
                 tintColor = contentColor
             ) {
                 scope.launch {

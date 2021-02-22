@@ -13,7 +13,7 @@ import androidx.compose.ui.unit.dp
 import java.util.*
 
 @Composable
-fun TopAppBar(
+fun TopBar(
     title: String,
     backgroundColor: Color,
     contentColor: Color,

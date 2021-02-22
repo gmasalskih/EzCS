@@ -13,13 +13,12 @@ import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.graphics.vector.ImageVector
 
 @Composable
-fun AppBarNavContentIcon(
+fun AppTopBarNavContentIcon(
     modifier: Modifier = Modifier,
     imageVector: ImageVector,
     tintColor: Color,
     onClick: () -> Unit
 ) {
-
     Box(
         modifier = modifier
             .fillMaxSize()
