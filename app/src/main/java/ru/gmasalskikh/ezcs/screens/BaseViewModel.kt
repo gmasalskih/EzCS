@@ -12,7 +12,9 @@ abstract class BaseViewModel<VS : ViewState, VE : ViewEvent> :
 
     protected var job = Job()
 
-    protected abstract suspend fun onViewEvent(viewEvent: VE)
+    protected open suspend fun onViewEvent(viewEvent: VE) {
+
+    }
 
     private val _viewEvent = MutableSharedFlow<VE>()
     val viewEventEmitter: FlowCollector<VE>

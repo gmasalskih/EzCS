@@ -30,7 +30,7 @@ class NavigatorImpl(
                 TargetNavigation.Back -> navController.popBackStack()
                 else -> {
                     navController.navigate(
-                        navTarget.navId,
+                        navTarget.path.navId,
                         navTarget.params?.args,
                         navTarget.params?.navOptions,
                         navTarget.params?.navigatorExtras

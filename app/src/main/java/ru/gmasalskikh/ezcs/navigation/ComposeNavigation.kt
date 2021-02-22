@@ -11,12 +11,15 @@ import org.koin.androidx.compose.getViewModel
 import ru.gmasalskikh.ezcs.screens.main_menu.MainMenuView
 import ru.gmasalskikh.ezcs.screens.preview.PreviewView
 import ru.gmasalskikh.ezcs.screens.splash_screen.SplashScreenView
-import ru.gmasalskikh.ezcs.screens.ranks.RanksView
 import ru.gmasalskikh.ezcs.utils.AmbientAppStateHolder
 import ru.gmasalskikh.ezcs.utils.AmbientNavController
 import ru.gmasalskikh.ezcs.screens.app_screen.AppStateHolder.NavEvent
 import ru.gmasalskikh.ezcs.screens.grenades_practice.GrenadesPracticeView
 import ru.gmasalskikh.ezcs.screens.map_callouts.MapCalloutsView
+import ru.gmasalskikh.ezcs.screens.ranks.competitive.CompetitiveView
+import ru.gmasalskikh.ezcs.screens.ranks.danger_zone.DangerZoneView
+import ru.gmasalskikh.ezcs.screens.ranks.profile_rank.ProfileRankView
+import ru.gmasalskikh.ezcs.screens.ranks.wingman.WingmanView
 import ru.gmasalskikh.ezcs.screens.weapon_characteristics.WeaponCharacteristicsView
 
 @Composable
@@ -30,7 +33,6 @@ fun ComposeNavigation(navigator: Navigator = get()) {
             navigator.onDetach()
         }
     }
-
     fun appStateChange(targetNavPath: TargetNavigationPath, bundle: Bundle? = null) = cs.launch {
         appStateChangeEmitter.emit(
             NavEvent(
@@ -39,7 +41,6 @@ fun ComposeNavigation(navigator: Navigator = get()) {
             )
         )
     }
-
     NavHost(
         navController = navController,
         startDestination = TargetNavigationPath.SPLASH_SCREEN.name
@@ -68,9 +69,27 @@ fun ComposeNavigation(navigator: Navigator = get()) {
             appStateChange(TargetNavigationPath.GRENADES_PRACTICE)
             GrenadesPracticeView(getViewModel()).Screen()
         }
-        composable(TargetNavigationPath.RANKS.name) {
-            appStateChange(TargetNavigationPath.RANKS)
-            RanksView(getViewModel()).Screen()
+        navigation(
+            startDestination = TargetNavigationPath.RANKS_COMPETITIVE.name,
+            route = TargetNavigationPath.RANKS.name
+        ) {
+            composable(TargetNavigationPath.RANKS_COMPETITIVE.name) {
+                appStateChange(TargetNavigationPath.RANKS)
+                appStateChange(TargetNavigationPath.RANKS_COMPETITIVE)
+                CompetitiveView(getViewModel()).Screen()
+            }
+            composable(TargetNavigationPath.RANKS_WINGMAN.name) {
+                appStateChange(TargetNavigationPath.RANKS_WINGMAN)
+                WingmanView(getViewModel()).Screen()
+            }
+            composable(TargetNavigationPath.RANKS_DANGER_ZONE.name) {
+                appStateChange(TargetNavigationPath.RANKS_DANGER_ZONE)
+                DangerZoneView(getViewModel()).Screen()
+            }
+            composable(TargetNavigationPath.RANKS_PROFILE_RANK.name) {
+                appStateChange(TargetNavigationPath.RANKS_PROFILE_RANK)
+                ProfileRankView(getViewModel()).Screen()
+            }
         }
     }
 }

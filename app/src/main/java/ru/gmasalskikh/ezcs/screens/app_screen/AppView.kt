@@ -29,9 +29,10 @@ fun AppView(stateHolder: AppStateHolder = get()) {
         }
         AppScreen(
             isAppBackgroundBlur = stateHolder.appState.isAppBackgroundBlur,
-            topBar = { AppBar() },
+            topBar = { AppTopBar() },
             drawerGesturesEnabled = stateHolder.appState.drawerGesturesEnabled,
-            drawerContent = { AppDrawer() }
+            drawerContent = { AppDrawer() },
+            bottomBar = { AppBottomBar() }
         )
     }
 }

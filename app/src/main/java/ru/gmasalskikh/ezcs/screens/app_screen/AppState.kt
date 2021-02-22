@@ -6,37 +6,40 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.KeyboardArrowLeft
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.ui.graphics.vector.ImageVector
+import ru.gmasalskikh.ezcs.navigation.TargetNavigationPath
 
 data class AppState(
     val drawerGesturesEnabled: Boolean = false,
     val isAppBackgroundBlur: Boolean = false,
-    val appBarState: AppBarState = AppBarState.NoAppBar,
-    val bottomBarState: BottomBarState = BottomBarState.NoBottomBar
+    val appTopBarState: AppTopBarState = AppTopBarState.NoAppTopBar,
+    val appBottomBarState: AppBottomBarState = AppBottomBarState.NoAppBottomBar
 ) {
-    sealed class AppBarState {
-        object NoAppBar : AppBarState()
-        data class AppBar(
+    sealed class AppTopBarState {
+        object NoAppTopBar : AppTopBarState()
+        data class AppTopBar(
             @StringRes
             val titleRes: Int,
-            val navContentType: AppBarNavContentType
-        ) : AppBarState() {
-            enum class AppBarNavContentType(val image: ImageVector) {
+            val navContentType: AppTopBarNavContentType
+        ) : AppTopBarState() {
+            enum class AppTopBarNavContentType(val image: ImageVector) {
                 MENU(image = Icons.Filled.Menu),
                 ARROW_BACK(image = Icons.Filled.KeyboardArrowLeft)
             }
         }
     }
 
-    sealed class BottomBarState {
-        object NoBottomBar : BottomBarState()
-        data class BottomBar(val listBottomItem: List<BottomItem> = listOf()) : BottomBarState()
+    sealed class AppBottomBarState {
+        object NoAppBottomBar : AppBottomBarState()
+        data class AppBottomBar(val listAppBottomBarItem: List<AppBottomBarItem>) :
+            AppBottomBarState()
     }
 
-    data class BottomItem(
+    data class AppBottomBarItem(
         @StringRes
         val itemName: Int,
-
         @DrawableRes
-        val itemIcon: Int
+        val itemIcon: Int? = null,
+        val route: TargetNavigationPath,
+        val onClick: () -> Unit
     )
 }
