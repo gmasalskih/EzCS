@@ -3,6 +3,7 @@ package ru.gmasalskikh.ezcs.screens.app_screen.widgets
 import android.util.Log
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.navigation.compose.KEY_ROUTE
@@ -12,6 +13,7 @@ import ru.gmasalskikh.ezcs.ui.theme.AppTheme
 import ru.gmasalskikh.ezcs.utils.AmbientAppStateHolder
 import ru.gmasalskikh.ezcs.utils.AmbientAppTheme
 import ru.gmasalskikh.ezcs.utils.AmbientNavController
+import java.util.*
 
 @Composable
 fun AppBottomBar() {
@@ -29,9 +31,10 @@ fun AppBottomBar() {
                 appBarState.listAppBottomBarItem.forEach { item ->
                     val isActive = currentRoute == item.route.name
                     val contentColor = if (isActive) theme.colors.onPrimary
-                    else theme.colors.onPrimary.copy(alpha = 0.6f)
+                    else theme.colors.onPrimary.copy(alpha = 0.4f)
                     BottomBarItem(
-                        label = stringResource(id = item.itemName),
+                        modifier = Modifier.weight(1f),
+                        label = stringResource(id = item.itemName).toUpperCase(Locale.getDefault()),
                         icon = item.itemIcon?.let { vectorResource(id = it) },
                         contentColor = contentColor,
                         onClick = if (!isActive) item.onClick else null

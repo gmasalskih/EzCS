@@ -12,6 +12,7 @@ import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.unit.dp
 import ru.gmasalskikh.ezcs.ui.theme.fontSize10Sp
 
 @Composable
@@ -24,14 +25,15 @@ fun BottomBarItem(
 ) {
     Column(
         modifier = modifier
-            .fillMaxHeight()
+            .fillMaxSize()
             .clickable(
                 enabled = onClick != null,
                 onClick = onClick ?: {}
-            ),
+            ).padding(vertical = 5.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         if (icon != null) Image(
+            modifier = Modifier.weight(1f),
             imageVector = icon,
             colorFilter = ColorFilter.tint(contentColor),
             contentDescription = null

@@ -31,7 +31,6 @@ fun ComposeNavigation(navigator: Navigator = get()) {
             navigator.onDetach()
         }
     }
-
     fun appStateChange(targetNavPath: TargetNavigationPath, bundle: Bundle? = null) = cs.launch {
         appStateChangeEmitter.emit(
             NavEvent(
@@ -40,7 +39,6 @@ fun ComposeNavigation(navigator: Navigator = get()) {
             )
         )
     }
-
     NavHost(
         navController = navController,
         startDestination = TargetNavigationPath.SPLASH_SCREEN.name
@@ -94,7 +92,6 @@ fun ComposeNavigation(navigator: Navigator = get()) {
                 appStateChange(TargetNavigationPath.RANKS_PROFILE_RANK)
                 RanksView(getViewModel()).Screen()
             }
-
         }
     }
 }

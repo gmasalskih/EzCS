@@ -22,7 +22,6 @@ fun BottomBar(
         Row(
             modifier = Modifier.fillMaxSize(),
             verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.SpaceAround,
             content = bottomBarContent
         )
     }
