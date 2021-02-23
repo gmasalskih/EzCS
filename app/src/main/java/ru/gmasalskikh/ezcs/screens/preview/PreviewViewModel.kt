@@ -10,7 +10,6 @@ import org.orbitmvi.orbit.syntax.simple.reduce
 import org.orbitmvi.orbit.viewmodel.container
 import ru.gmasalskikh.ezcs.navigation.NavigationParams
 import ru.gmasalskikh.ezcs.navigation.TargetNavigation
-import ru.gmasalskikh.ezcs.navigation.TargetNavigationPath
 import ru.gmasalskikh.ezcs.screens.BaseViewModel
 import ru.gmasalskikh.ezcs.screens.SideEffect
 
@@ -24,12 +23,12 @@ class PreviewViewModel(
 
     override suspend fun onViewEvent(viewEvent: PreviewViewEvent) {
         when (viewEvent) {
-            is PreviewViewEvent.NavigateNext -> viewModelScope.launch(job) {
+            is PreviewViewEvent.NavigateNext -> viewModelScope.launch(viewLifecycleJob) {
                 navEventEmitter.emit(
                     TargetNavigation.MainMenu(
                         params = NavigationParams(
                             navOptions = NavOptions.Builder()
-                                .setPopUpTo(TargetNavigationPath.PREVIEW.navId, true)
+                                .setPopUpTo(TargetNavigation.Preview().navId, true)
                                 .build()
                         )
                     )

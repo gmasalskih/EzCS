@@ -10,8 +10,8 @@ import org.koin.core.qualifier.named
 import org.koin.dsl.module
 import ru.gmasalskikh.ezcs.providers.custom_coroutine_scope.CustomCoroutineScope
 import ru.gmasalskikh.ezcs.providers.custom_coroutine_scope.CustomCoroutineScopeImpl
-import ru.gmasalskikh.ezcs.providers.lifecycle_keeper.LifecycleKeeper
-import ru.gmasalskikh.ezcs.providers.lifecycle_keeper.LifecycleKeeperImpl
+import ru.gmasalskikh.ezcs.providers.lifecycle_holder.LifecycleHolder
+import ru.gmasalskikh.ezcs.providers.lifecycle_holder.LifecycleHolderImpl
 import ru.gmasalskikh.ezcs.screens.app_screen.AppStateHolderImpl
 import ru.gmasalskikh.ezcs.screens.main_menu.MainMenuViewModel
 import ru.gmasalskikh.ezcs.screens.preview.PreviewViewModel
@@ -31,19 +31,31 @@ import ru.gmasalskikh.ezcs.screens.weapon_characteristics.WeaponCharacteristicsV
 
 enum class NamesOfDependencies {
     LIFECYCLE_EMITTER,
-    NAV_EVENT_EMITTER
+    LIFECYCLE_COLLECTOR,
+    NAV_EVENT_EMITTER,
+    NAV_EVENT_COLLECTOR,
+    APP_VIEW_EVENT_COLLECTOR,
+    APP_VIEW_EVENT_EMITTER,
 }
 
 val emittersModule = module {
-    factory(named(LIFECYCLE_EMITTER)) { get<LifecycleKeeper>().lifecycleEmitter }
+    factory(named(LIFECYCLE_EMITTER)) { get<LifecycleHolder>().lifecycleEmitter }
     factory(named(NAV_EVENT_EMITTER)) { get<Navigator>().navEventEmitter }
+    factory(named(APP_VIEW_EVENT_EMITTER)) { get<AppStateHolder>().appViewEventEmitter }
+}
+
+val collectorsModule = module {
+    factory(named(LIFECYCLE_COLLECTOR)) { get<LifecycleHolder>().lifecycleCollector }
+    factory(named(NAV_EVENT_COLLECTOR)) { get<Navigator>().navEventCollector }
+    factory(named(APP_VIEW_EVENT_COLLECTOR)) { get<AppStateHolder>().appViewEventCollector }
 }
 
 val appStateModule = module {
     single<AppStateHolder> {
         AppStateHolderImpl(
             cs = get { parametersOf(Dispatchers.Main) },
-            navEventEmitter = get(named(NAV_EVENT_EMITTER))
+            navEventEmitter = get(named(NAV_EVENT_EMITTER)),
+            navEventCollector = get(named(NAV_EVENT_COLLECTOR))
         )
     }
 }
@@ -55,7 +67,7 @@ val providerModule = module {
     factory<CustomCoroutineScope> { (dispatcher: CoroutineDispatcher) ->
         CustomCoroutineScopeImpl(dispatcher)
     }
-    single<LifecycleKeeper> { LifecycleKeeperImpl() }
+    single<LifecycleHolder> { LifecycleHolderImpl() }
     single<Navigator> { NavigatorImpl(get { parametersOf(Dispatchers.Main) }) }
 }
 

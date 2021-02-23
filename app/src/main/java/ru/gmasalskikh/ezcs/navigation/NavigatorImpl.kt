@@ -1,9 +1,7 @@
 package ru.gmasalskikh.ezcs.navigation
 
 import androidx.navigation.NavHostController
-import kotlinx.coroutines.flow.FlowCollector
-import kotlinx.coroutines.flow.MutableSharedFlow
-import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import ru.gmasalskikh.ezcs.providers.custom_coroutine_scope.CustomCoroutineScope
 
@@ -12,6 +10,8 @@ class NavigatorImpl(
     private val cs: CustomCoroutineScope
 ) : Navigator {
     private val _navEvent: MutableSharedFlow<TargetNavigation> = MutableSharedFlow()
+    override val navEventCollector: SharedFlow<TargetNavigation>
+        get() = _navEvent.asSharedFlow()
     override val navEventEmitter: FlowCollector<TargetNavigation>
         get() = _navEvent
 
@@ -30,7 +30,7 @@ class NavigatorImpl(
                 TargetNavigation.Back -> navController.popBackStack()
                 else -> {
                     navController.navigate(
-                        navTarget.path.navId,
+                        navTarget.navId,
                         navTarget.params?.args,
                         navTarget.params?.navOptions,
                         navTarget.params?.navigatorExtras

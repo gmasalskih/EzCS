@@ -20,7 +20,7 @@ fun AppView(stateHolder: AppStateHolder = get()) {
         AmbientScaffoldState provides rememberScaffoldState(),
         AmbientAppStateHolder provides stateHolder
     ) {
-        stateHolder.SetComposableScope()
+        stateHolder.setScaffoldState(AmbientScaffoldState.current)
         DisposableEffect(key1 = null) {
             stateHolder.onViewCreate()
             onDispose {

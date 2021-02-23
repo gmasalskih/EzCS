@@ -13,19 +13,34 @@ import ru.gmasalskikh.ezcs.utils.AmbientAppTheme
 fun AppTopBar() {
     val theme: AppTheme = AmbientAppTheme.current
     when (val appBarState = AmbientAppStateHolder.current.appState.appTopBarState) {
-        AppState.AppTopBarState.NoAppTopBar -> {}
+        AppState.AppTopBarState.NoAppTopBar -> {
+        }
         is AppState.AppTopBarState.AppTopBar -> {
             TopBar(
                 title = stringResource(id = appBarState.titleRes),
                 backgroundColor = theme.colors.primary,
                 contentColor = theme.colors.onPrimary,
                 elevation = theme.elevations.medium,
-                navigationContent = {
-                    AppTopBarNavContent(
+                navIcon = {
+                    AppTopBarIcon(
                         modifier = Modifier.align(Alignment.Center),
-                        appTopBarNavContentType = appBarState.navContentType,
-                        contentColor = theme.colors.onPrimary
+                        imageVector = appBarState.appTopBarNavItem.icon,
+                        tintColor = theme.colors.onPrimary,
+                        onClick = appBarState.appTopBarNavItem.onClick,
                     )
+                },
+                extraIcon = {
+                    appBarState.appTopBarExtraItem?.let { appBarState ->
+                        val tintColor = if (appBarState.isEnable) theme.colors.onPrimary
+                        else theme.colors.onPrimary.copy(alpha = 0.4f)
+                        AppTopBarIcon(
+                            modifier = Modifier.align(Alignment.Center),
+                            imageVector = appBarState.icon,
+                            tintColor = tintColor,
+                            isEnable = appBarState.isEnable,
+                            onClick = appBarState.onClick
+                        )
+                    }
                 }
             )
         }

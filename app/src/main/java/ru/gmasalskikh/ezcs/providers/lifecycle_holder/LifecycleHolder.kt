@@ -1,11 +1,11 @@
-package ru.gmasalskikh.ezcs.providers.lifecycle_keeper
+package ru.gmasalskikh.ezcs.providers.lifecycle_holder
 
 import kotlinx.coroutines.flow.FlowCollector
 import kotlinx.coroutines.flow.SharedFlow
 
-interface LifecycleKeeper {
+interface LifecycleHolder {
     val lifecycleEmitter: FlowCollector<LifecycleActivityEvent>
-    val lifecycleFlow: SharedFlow<LifecycleActivityEvent>
+    val lifecycleCollector: SharedFlow<LifecycleActivityEvent>
 
     enum class LifecycleActivityEvent {
         ON_CREATE,

@@ -25,8 +25,10 @@ abstract class BaseView<VS : ViewState, VE : ViewEvent, VM : BaseViewModel<VS, V
     private val currentViewState: VS = vm.container.currentState
     private lateinit var cs: CoroutineScope
 
-    protected fun emit(viewEvent: VE) = cs.launch {
-        viewEventEmitter.emit(viewEvent)
+    protected fun emit(viewEvent: VE) {
+        cs.launch {
+            viewEventEmitter.emit(viewEvent)
+        }
     }
 
     @Composable
@@ -68,12 +70,10 @@ abstract class BaseView<VS : ViewState, VE : ViewEvent, VM : BaseViewModel<VS, V
     }
 
     private fun onViewCreate() {
-        Log.d("---", "onViewCreate")
         vm.onViewCreate()
     }
 
     private fun onViewDestroy() {
-        Log.d("---", "onViewDestroy")
         vm.onViewDestroy()
     }
 }

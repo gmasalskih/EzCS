@@ -10,7 +10,7 @@ import org.orbitmvi.orbit.ContainerHost
 abstract class BaseViewModel<VS : ViewState, VE : ViewEvent> :
     ViewModel(), ContainerHost<VS, SideEffect> {
 
-    protected var job = Job()
+    protected var viewLifecycleJob = Job()
 
     protected open suspend fun onViewEvent(viewEvent: VE) {
 
@@ -21,8 +21,8 @@ abstract class BaseViewModel<VS : ViewState, VE : ViewEvent> :
         get() = _viewEvent
 
     open fun onViewCreate() {
-        job = Job()
-        viewModelScope.launch(job) {
+        viewLifecycleJob = Job()
+        viewModelScope.launch(viewLifecycleJob) {
             _viewEvent.collect { viewEvent ->
                 onViewEvent(viewEvent)
             }
@@ -30,6 +30,6 @@ abstract class BaseViewModel<VS : ViewState, VE : ViewEvent> :
     }
 
     open fun onViewDestroy() {
-        job.cancel()
+        viewLifecycleJob.cancel()
     }
 }

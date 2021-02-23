@@ -7,7 +7,6 @@ import org.orbitmvi.orbit.Container
 import org.orbitmvi.orbit.viewmodel.container
 import ru.gmasalskikh.ezcs.navigation.NavigationParams
 import ru.gmasalskikh.ezcs.navigation.TargetNavigation
-import ru.gmasalskikh.ezcs.navigation.TargetNavigationPath
 import ru.gmasalskikh.ezcs.screens.BaseViewModel
 import ru.gmasalskikh.ezcs.screens.SideEffect
 import ru.gmasalskikh.ezcs.utils.IS_LAUNCH_FIRST_TIME
@@ -25,7 +24,7 @@ class SplashScreenViewModel(
             SplashScreenViewEvent.NavigateNext -> {
                 val navParams = NavigationParams(
                     navOptions = NavOptions.Builder()
-                        .setPopUpTo(TargetNavigationPath.SPLASH_SCREEN.navId, true)
+                        .setPopUpTo(TargetNavigation.SplashScreen.navId, true)
                         .build()
                 )
                 if (sharedPreferences.getBoolean(IS_LAUNCH_FIRST_TIME, true)) {

@@ -13,24 +13,23 @@ import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.graphics.vector.ImageVector
 
 @Composable
-fun AppTopBarNavContentIcon(
+fun AppTopBarIcon(
     modifier: Modifier = Modifier,
     imageVector: ImageVector,
+    isEnable: Boolean = true,
     tintColor: Color,
     onClick: () -> Unit
 ) {
-    Box(
+    Image(
         modifier = modifier
-            .fillMaxSize()
-            .clickable(onClick = onClick)
-    ) {
-        Image(
-            modifier = Modifier
-                .fillMaxHeight()
-                .aspectRatio(1f),
-            imageVector = imageVector,
-            colorFilter = ColorFilter.tint(tintColor),
-            contentDescription = null
-        )
-    }
+            .fillMaxHeight()
+            .aspectRatio(1f)
+            .clickable(
+                enabled = isEnable,
+                onClick = onClick
+            ),
+        imageVector = imageVector,
+        colorFilter = ColorFilter.tint(tintColor),
+        contentDescription = null
+    )
 }

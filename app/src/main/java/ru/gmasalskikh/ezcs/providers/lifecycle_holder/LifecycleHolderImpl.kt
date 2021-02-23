@@ -1,14 +1,14 @@
-package ru.gmasalskikh.ezcs.providers.lifecycle_keeper
+package ru.gmasalskikh.ezcs.providers.lifecycle_holder
 
 import kotlinx.coroutines.flow.FlowCollector
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.asSharedFlow
-import ru.gmasalskikh.ezcs.providers.lifecycle_keeper.LifecycleKeeper.*
+import ru.gmasalskikh.ezcs.providers.lifecycle_holder.LifecycleHolder.*
 
 @Suppress("ObjectPropertyName")
-class LifecycleKeeperImpl : LifecycleKeeper {
+class LifecycleHolderImpl : LifecycleHolder {
     private val _lifecycleActivity = MutableSharedFlow<LifecycleActivityEvent>()
     override val lifecycleEmitter: FlowCollector<LifecycleActivityEvent> = _lifecycleActivity
-    override val lifecycleFlow: SharedFlow<LifecycleActivityEvent> = _lifecycleActivity.asSharedFlow()
+    override val lifecycleCollector: SharedFlow<LifecycleActivityEvent> = _lifecycleActivity.asSharedFlow()
 }

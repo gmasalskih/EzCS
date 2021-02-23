@@ -2,11 +2,7 @@ package ru.gmasalskikh.ezcs.screens.app_screen
 
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.KeyboardArrowLeft
-import androidx.compose.material.icons.filled.Menu
 import androidx.compose.ui.graphics.vector.ImageVector
-import ru.gmasalskikh.ezcs.navigation.TargetNavigationPath
 
 data class AppState(
     val drawerGesturesEnabled: Boolean = false,
@@ -19,13 +15,9 @@ data class AppState(
         data class AppTopBar(
             @StringRes
             val titleRes: Int,
-            val navContentType: AppTopBarNavContentType
-        ) : AppTopBarState() {
-            enum class AppTopBarNavContentType(val image: ImageVector) {
-                MENU(image = Icons.Filled.Menu),
-                ARROW_BACK(image = Icons.Filled.KeyboardArrowLeft)
-            }
-        }
+            val appTopBarNavItem: AppTopBarNavItem,
+            val appTopBarExtraItem: AppTopBarExtraItem? = null
+        ) : AppTopBarState()
     }
 
     sealed class AppBottomBarState {
@@ -34,12 +26,23 @@ data class AppState(
             AppBottomBarState()
     }
 
+    data class AppTopBarNavItem(
+        val icon: ImageVector,
+        val onClick: () -> Unit
+    )
+
+    data class AppTopBarExtraItem(
+        val icon: ImageVector,
+        val isEnable: Boolean,
+        val onClick: () -> Unit
+    )
+
     data class AppBottomBarItem(
         @StringRes
-        val itemName: Int,
+        val label: Int,
         @DrawableRes
-        val itemIcon: Int? = null,
-        val route: TargetNavigationPath,
+        val icon: Int? = null,
+        val route: String,
         val onClick: () -> Unit
     )
 }
