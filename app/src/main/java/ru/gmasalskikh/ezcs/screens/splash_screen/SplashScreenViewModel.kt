@@ -1,9 +1,13 @@
 package ru.gmasalskikh.ezcs.screens.splash_screen
 
 import android.content.SharedPreferences
+import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavOptions
 import kotlinx.coroutines.flow.FlowCollector
+import kotlinx.coroutines.launch
 import org.orbitmvi.orbit.Container
+import org.orbitmvi.orbit.syntax.simple.intent
+import org.orbitmvi.orbit.syntax.simple.reduce
 import org.orbitmvi.orbit.viewmodel.container
 import ru.gmasalskikh.ezcs.navigation.NavigationParams
 import ru.gmasalskikh.ezcs.navigation.TargetNavigation

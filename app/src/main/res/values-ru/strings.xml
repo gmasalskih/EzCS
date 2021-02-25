@@ -27,4 +27,12 @@
     <string name="app_top_bar_title_ranks_danger_zone">запретная зона</string>
     <string name="app_top_bar_title_ranks_profile_rank">ранг профиля</string>
     <string name="app_top_bar_title_ranks_wingman">напарники</string>
+    <string name="app_top_bar_title_weapon_characteristics_heavy">тяжелое</string>
+    <string name="app_top_bar_title_weapon_characteristics_pistol">пистолет</string>
+    <string name="app_top_bar_title_weapon_characteristics_rifle">винтовка</string>
+    <string name="app_top_bar_title_weapon_characteristics_smg">пп</string>
+    <string name="app_bottom_bar_weapon_characteristics_heavy">тяжелое</string>
+    <string name="app_bottom_bar_weapon_characteristics_pistol">пистолет</string>
+    <string name="app_bottom_bar_weapon_characteristics_rifle">винтовка</string>
+    <string name="app_bottom_bar_weapon_characteristics_smg">пп</string>
 </resources>

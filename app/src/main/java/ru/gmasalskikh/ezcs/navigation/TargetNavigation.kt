@@ -6,7 +6,7 @@ import androidx.navigation.Navigator
 import ru.gmasalskikh.ezcs.navigation.TargetNavigationPath.*
 
 sealed class TargetNavigation(
-    private val targetNavigationPath: TargetNavigationPath,
+    val targetNavigationPath: TargetNavigationPath,
     override val params: NavigationParams? = null
 ) : TargetNavigationContract {
 
@@ -16,19 +16,37 @@ sealed class TargetNavigation(
     override val navId: Int
         get() = "android-app://androidx.navigation.compose/$path".hashCode()
 
+    object Back : TargetNavigation(BACK)
+
     object SplashScreen : TargetNavigation(SPLASH_SCREEN)
 
     data class Preview(
         override val params: NavigationParams? = null
-    ) : TargetNavigation(PREVIEW, params)
+    ) : TargetNavigation(PREVIEW)
 
     data class MainMenu(
         override val params: NavigationParams? = null
-    ) : TargetNavigation(MAIN_MENU, params)
+    ) : TargetNavigation(MAIN_MENU)
 
     object MapCallouts : TargetNavigation(MAP_CALLOUTS)
 
     object WeaponCharacteristics : TargetNavigation(WEAPON_CHARACTERISTICS)
+
+    data class WeaponCharacteristicsPistol(
+        override val params: NavigationParams? = null
+    ) : TargetNavigation(WEAPON_CHARACTERISTICS_PISTOL)
+
+    data class WeaponCharacteristicsHeavy(
+        override val params: NavigationParams? = null
+    ) : TargetNavigation(WEAPON_CHARACTERISTICS_HEAVY)
+
+    data class WeaponCharacteristicsSMG(
+        override val params: NavigationParams? = null
+    ) : TargetNavigation(WEAPON_CHARACTERISTICS_SMG)
+
+    data class WeaponCharacteristicsRifle(
+        override val params: NavigationParams? = null
+    ) : TargetNavigation(WEAPON_CHARACTERISTICS_RIFLE)
 
     object GrenadesPractice : TargetNavigation(GRENADES_PRACTICE)
 
@@ -50,10 +68,9 @@ sealed class TargetNavigation(
         override val params: NavigationParams? = null
     ) : TargetNavigation(RANKS_PROFILE_RANK)
 
-    object Back : TargetNavigation(BACK)
 }
 
-private enum class TargetNavigationPath {
+enum class TargetNavigationPath {
     SPLASH_SCREEN,
     PREVIEW,
     MAIN_MENU,

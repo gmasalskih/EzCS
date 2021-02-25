@@ -2,11 +2,13 @@ package ru.gmasalskikh.ezcs.di
 
 import android.content.Context
 import android.content.SharedPreferences
+import android.util.Log
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.core.parameter.parametersOf
 import org.koin.core.qualifier.named
+import org.koin.core.scope.Scope
 import org.koin.dsl.module
 import ru.gmasalskikh.ezcs.providers.custom_coroutine_scope.CustomCoroutineScope
 import ru.gmasalskikh.ezcs.providers.custom_coroutine_scope.CustomCoroutineScopeImpl
@@ -28,6 +30,17 @@ import ru.gmasalskikh.ezcs.screens.ranks.danger_zone.DangerZoneViewModel
 import ru.gmasalskikh.ezcs.screens.ranks.profile_rank.ProfileRankViewModel
 import ru.gmasalskikh.ezcs.screens.ranks.wingman.WingmanViewModel
 import ru.gmasalskikh.ezcs.screens.weapon_characteristics.WeaponCharacteristicsViewModel
+import java.util.*
+
+enum class NamesOfScopes(private var id: UUID = UUID.randomUUID()) {
+    WEAPON_CHARACTERISTICS_SCOPE;
+
+    fun getId() = id.toString()
+
+    fun setNewId() {
+        id = UUID.randomUUID()
+    }
+}
 
 enum class NamesOfDependencies {
     LIFECYCLE_EMITTER,
@@ -38,9 +51,16 @@ enum class NamesOfDependencies {
     APP_VIEW_EVENT_EMITTER,
 }
 
+val scopeModule = module {
+    factory<Scope> { (scopeName: NamesOfScopes) ->
+        getKoin().getOrCreateScope(scopeName.getId(), named(scopeName))
+            .apply { if (closed) scopeName.setNewId() }
+    }
+}
+
 val emittersModule = module {
     factory(named(LIFECYCLE_EMITTER)) { get<LifecycleHolder>().lifecycleEmitter }
-    factory(named(NAV_EVENT_EMITTER)) { get<Navigator>().navEventEmitter }
+    factory(named(NAV_EVENT_EMITTER)) { get<Navigator>().targetNavigationEmitter }
     factory(named(APP_VIEW_EVENT_EMITTER)) { get<AppStateHolder>().appViewEventEmitter }
 }
 
@@ -82,10 +102,21 @@ val viewModelModule = module {
         PreviewViewModel(navEventEmitter = get(named(NAV_EVENT_EMITTER)))
     }
     viewModel {
+        Log.d("---", "MainMenuViewModel Scope")
         MainMenuViewModel(navEventEmitter = get(named(NAV_EVENT_EMITTER)))
     }
     viewModel { MapCalloutsViewModel() }
-    viewModel { WeaponCharacteristicsViewModel() }
+
+    scope(named(NamesOfScopes.WEAPON_CHARACTERISTICS_SCOPE)) {
+        scoped {
+            Log.d("---", "WeaponCharacteristicsViewModel scoped $this")
+            WeaponCharacteristicsViewModel(
+                navEventCollector = get(named(NAV_EVENT_COLLECTOR)),
+                navEventEmitter = get(named(NAV_EVENT_EMITTER))
+            )
+        }
+    }
+
     viewModel { GrenadesPracticeViewModel() }
     viewModel { CompetitiveViewModel() }
     viewModel { DangerZoneViewModel() }

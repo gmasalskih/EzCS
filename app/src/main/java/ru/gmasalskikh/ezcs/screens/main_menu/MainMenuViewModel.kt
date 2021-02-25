@@ -8,6 +8,7 @@ import org.orbitmvi.orbit.viewmodel.container
 import ru.gmasalskikh.ezcs.navigation.TargetNavigation
 import ru.gmasalskikh.ezcs.screens.BaseViewModel
 import ru.gmasalskikh.ezcs.screens.SideEffect
+import ru.gmasalskikh.ezcs.screens.main_menu.MainMenuViewState.MainMenuItemType.*
 
 class MainMenuViewModel(
     private val navEventEmitter: FlowCollector<TargetNavigation>
@@ -21,10 +22,10 @@ class MainMenuViewModel(
         when (viewEvent) {
             is MainMenuViewEvent.NavigateTo -> viewModelScope.launch {
                 val targetNavigation = when (viewEvent.mainMenuItemType) {
-                    MainMenuViewState.MainMenuItemType.MAP_CALLOUTS -> TargetNavigation.MapCallouts
-                    MainMenuViewState.MainMenuItemType.GRENADES_PRACTICE -> TargetNavigation.GrenadesPractice
-                    MainMenuViewState.MainMenuItemType.WEAPON_CHARACTERISTICS -> TargetNavigation.WeaponCharacteristics
-                    MainMenuViewState.MainMenuItemType.RANKS -> TargetNavigation.Ranks
+                    MAP_CALLOUTS -> TargetNavigation.MapCallouts
+                    GRENADES_PRACTICE -> TargetNavigation.GrenadesPractice
+                    WEAPON_CHARACTERISTICS -> TargetNavigation.WeaponCharacteristics
+                    RANKS -> TargetNavigation.Ranks
                 }
                 navEventEmitter.emit(targetNavigation)
             }

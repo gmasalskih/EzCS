@@ -30,7 +30,7 @@ fun BottomBarItem(
             .clickable(
                 enabled = onClick != null,
                 onClick = onClick ?: {}
-            ).padding(vertical = 5.dp),
+            ).padding(5.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         if (icon != null) Image(

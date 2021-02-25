@@ -18,7 +18,8 @@ class App : Application() {
                 viewModelModule,
                 providerModule,
                 emittersModule,
-                collectorsModule
+                collectorsModule,
+                scopeModule
             )
         }
     }
