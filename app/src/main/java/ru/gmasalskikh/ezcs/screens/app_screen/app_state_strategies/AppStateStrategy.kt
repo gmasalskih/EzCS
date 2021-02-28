@@ -5,6 +5,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.FlowCollector
 import kotlinx.coroutines.launch
 import ru.gmasalskikh.ezcs.navigation.TargetNavigation
+import ru.gmasalskikh.ezcs.providers.app_controller.AppController
 import ru.gmasalskikh.ezcs.screens.app_screen.AppViewState
 import java.lang.IllegalStateException
 
@@ -12,11 +13,13 @@ abstract class AppStateStrategy {
 
     protected abstract val appViewState: AppViewState
     protected open val cs: CoroutineScope? = null
-    protected open val navEventEmitter: FlowCollector<TargetNavigation>? = null
+    protected open val appEventEmitter: FlowCollector<AppController.AppEvent>? = null
     abstract fun applyStrategy(): AppViewState
 
     protected fun navigateTo(targetNavigation: TargetNavigation) = cs?.launch {
-        navEventEmitter?.emit(targetNavigation)
+        appEventEmitter?.emit(
+            AppController.AppEvent.NavigateTo(targetNavigation)
+        )
     }
 
     protected fun getAppStateWithNewTopBarTitle(@StringRes titleRes: Int) =

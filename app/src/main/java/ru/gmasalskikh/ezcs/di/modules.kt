@@ -75,7 +75,7 @@ val appStateModule = module {
     single<AppStateHolder> {
         AppStateHolderImpl(
             cs = get { parametersOf(Dispatchers.Main) },
-            navEventEmitter = get(named(NAV_EVENT_EMITTER)),
+            appEventEmitter = get(named(APP_EVENT_EMITTER)),
             navEventCollector = get(named(NAV_EVENT_COLLECTOR))
         )
     }

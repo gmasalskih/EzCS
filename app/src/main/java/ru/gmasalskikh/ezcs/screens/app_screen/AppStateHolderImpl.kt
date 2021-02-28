@@ -10,11 +10,12 @@ import ru.gmasalskikh.ezcs.navigation.TargetNavigation
 import ru.gmasalskikh.ezcs.providers.custom_coroutine_scope.CustomCoroutineScope
 import ru.gmasalskikh.ezcs.screens.app_screen.app_state_strategies.*
 import ru.gmasalskikh.ezcs.navigation.TargetNavigationPath.*
+import ru.gmasalskikh.ezcs.providers.app_controller.AppController
 
 @Suppress("ObjectPropertyName")
 class AppStateHolderImpl(
     private val cs: CustomCoroutineScope,
-    private val navEventEmitter: FlowCollector<TargetNavigation>,
+    private val appEventEmitter: FlowCollector<AppController.AppEvent>,
     private val navEventCollector: Flow<Navigator.NavEvent>
 ) : AppStateHolder {
 
@@ -50,16 +51,16 @@ class AppStateHolderImpl(
                 SPLASH_SCREEN -> SplashScreenStrategy(appViewState)
                 PREVIEW -> PreviewStrategy(appViewState)
                 MAIN_MENU -> MainMenuStrategy(appViewState, scaffoldState)
-                MAP_CALLOUTS -> MapCalloutsStrategy(appViewState, navEventEmitter, cs)
+                MAP_CALLOUTS -> MapCalloutsStrategy(appViewState, appEventEmitter, cs)
                 WEAPON_CHARACTERISTICS -> {
-                    WeaponCharacteristicsStrategy(appViewState, navEventEmitter, cs)
+                    WeaponCharacteristicsStrategy(appViewState, appEventEmitter, cs)
                 }
                 WEAPON_CHARACTERISTICS_PISTOL -> WeaponCharacteristicsPistolStrategy(appViewState)
                 WEAPON_CHARACTERISTICS_HEAVY -> WeaponCharacteristicsHeavyStrategy(appViewState)
                 WEAPON_CHARACTERISTICS_SMG -> WeaponCharacteristicsSMGStrategy(appViewState)
                 WEAPON_CHARACTERISTICS_RIFLE -> WeaponCharacteristicsRifleStrategy(appViewState)
-                GRENADES_PRACTICE -> GrenadesPracticeStrategy(appViewState, navEventEmitter, cs)
-                RANKS -> RanksStrategy(appViewState, navEventEmitter, cs)
+                GRENADES_PRACTICE -> GrenadesPracticeStrategy(appViewState, appEventEmitter, cs)
+                RANKS -> RanksStrategy(appViewState, appEventEmitter, cs)
                 RANKS_COMPETITIVE -> RanksCompetitiveStrategy(appViewState)
                 RANKS_WINGMAN -> RanksWingmanStrategy(appViewState)
                 RANKS_DANGER_ZONE -> RanksDangerZoneStrategy(appViewState)
@@ -74,10 +75,6 @@ class AppStateHolderImpl(
         _appViewEvent.collect { event ->
 
         }
-    }
-
-    private fun navigateTo(targetNavigation: TargetNavigation) = cs.launch {
-        navEventEmitter.emit(targetNavigation)
     }
 }
 

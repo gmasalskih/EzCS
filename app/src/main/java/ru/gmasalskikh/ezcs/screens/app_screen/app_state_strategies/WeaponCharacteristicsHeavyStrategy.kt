@@ -8,5 +8,5 @@ class WeaponCharacteristicsHeavyStrategy(
 ) : AppStateStrategy() {
 
     override fun applyStrategy() =
-        getAppStateWithNewTopBarTitle(R.string.app_top_bar_title_weapon_characteristics_pistol)
+        getAppStateWithNewTopBarTitle(R.string.app_top_bar_title_weapon_characteristics_heavy)
 }
