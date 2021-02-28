@@ -23,6 +23,8 @@ import ru.gmasalskikh.ezcs.screens.app_screen.AppStateHolder
 import ru.gmasalskikh.ezcs.navigation.Navigator
 import ru.gmasalskikh.ezcs.navigation.NavigatorImpl
 import ru.gmasalskikh.ezcs.di.NamesOfDependencies.*
+import ru.gmasalskikh.ezcs.providers.app_controller.AppController
+import ru.gmasalskikh.ezcs.providers.app_controller.AppControllerImpl
 import ru.gmasalskikh.ezcs.screens.grenades_practice.GrenadesPracticeViewModel
 import ru.gmasalskikh.ezcs.screens.map_callouts.MapCalloutsViewModel
 import ru.gmasalskikh.ezcs.screens.ranks.competitive.CompetitiveViewModel
@@ -49,6 +51,7 @@ enum class NamesOfDependencies {
     NAV_EVENT_COLLECTOR,
     APP_VIEW_EVENT_COLLECTOR,
     APP_VIEW_EVENT_EMITTER,
+    APP_EVENT_EMITTER
 }
 
 val scopeModule = module {
@@ -61,6 +64,7 @@ val scopeModule = module {
 val emittersModule = module {
     factory(named(LIFECYCLE_EMITTER)) { get<LifecycleHolder>().lifecycleEmitter }
     factory(named(NAV_EVENT_EMITTER)) { get<Navigator>().targetNavigationEmitter }
+    factory(named(APP_EVENT_EMITTER)) { get<AppController>().appEventEmitter }
 }
 
 val collectorsModule = module {
@@ -85,28 +89,36 @@ val providerModule = module {
         CustomCoroutineScopeImpl(dispatcher)
     }
     single<LifecycleHolder> { LifecycleHolderImpl() }
-    single<Navigator> { NavigatorImpl(get { parametersOf(Dispatchers.Main) }) }
+    single<Navigator> {
+        NavigatorImpl(
+            cs = get { parametersOf(Dispatchers.Main) }
+        )
+    }
+    single<AppController> {
+        AppControllerImpl(
+            cs = get { parametersOf(Dispatchers.Main) },
+            navEventEmitter = get(named(NAV_EVENT_EMITTER))
+        )
+    }
 }
 
 val viewModelModule = module {
     viewModel {
         SplashScreenViewModel(
             sharedPreferences = get(),
-            navEventEmitter = get(named(NAV_EVENT_EMITTER)),
+            appEventEmitter = get(named(APP_EVENT_EMITTER)),
         )
     }
     viewModel {
-        PreviewViewModel(navEventEmitter = get(named(NAV_EVENT_EMITTER)))
+        PreviewViewModel(appEventEmitter = get(named(APP_EVENT_EMITTER)))
     }
     viewModel {
-        MainMenuViewModel(navEventEmitter = get(named(NAV_EVENT_EMITTER)))
+        MainMenuViewModel(appEventEmitter = get(named(APP_EVENT_EMITTER)))
     }
     viewModel { MapCalloutsViewModel() }
 
     scope(named(NamesOfScopes.WEAPON_CHARACTERISTICS_SCOPE)) {
-        scoped {
-            WeaponCharacteristicsViewModel()
-        }
+        scoped { WeaponCharacteristicsViewModel() }
     }
 
     viewModel { GrenadesPracticeViewModel() }

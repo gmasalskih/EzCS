@@ -11,18 +11,20 @@ import org.orbitmvi.orbit.syntax.simple.reduce
 import org.orbitmvi.orbit.viewmodel.container
 import ru.gmasalskikh.ezcs.navigation.NavigationParams
 import ru.gmasalskikh.ezcs.navigation.TargetNavigation
+import ru.gmasalskikh.ezcs.providers.app_controller.AppController
 import ru.gmasalskikh.ezcs.screens.BaseViewModel
 import ru.gmasalskikh.ezcs.screens.SideEffect
 import ru.gmasalskikh.ezcs.utils.IS_LAUNCH_FIRST_TIME
 
 class SplashScreenViewModel(
     private val sharedPreferences: SharedPreferences,
-    private val navEventEmitter: FlowCollector<TargetNavigation>,
+    private val appEventEmitter: FlowCollector<AppController.AppEvent>,
 ) : BaseViewModel<SplashScreenViewState, SplashScreenViewEvent>() {
 
     override val container: Container<SplashScreenViewState, SideEffect> = container(
         initialState = SplashScreenViewState()
     )
+
     override suspend fun onViewEvent(viewEvent: SplashScreenViewEvent) {
         when (viewEvent) {
             SplashScreenViewEvent.NavigateNext -> {
@@ -33,9 +35,17 @@ class SplashScreenViewModel(
                 )
                 if (sharedPreferences.getBoolean(IS_LAUNCH_FIRST_TIME, true)) {
                     sharedPreferences.edit().putBoolean(IS_LAUNCH_FIRST_TIME, false).apply()
-                    navEventEmitter.emit(TargetNavigation.Preview(params = navParams))
+                    appEventEmitter.emit(
+                        AppController.AppEvent.NavigateTo(
+                            TargetNavigation.Preview(params = navParams)
+                        )
+                    )
                 } else {
-                    navEventEmitter.emit(TargetNavigation.MainMenu(params = navParams))
+                    appEventEmitter.emit(
+                        AppController.AppEvent.NavigateTo(
+                            TargetNavigation.MainMenu(params = navParams)
+                        )
+                    )
                 }
             }
         }
