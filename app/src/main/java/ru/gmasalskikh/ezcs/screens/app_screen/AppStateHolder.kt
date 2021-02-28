@@ -5,7 +5,7 @@ import kotlinx.coroutines.flow.FlowCollector
 import kotlinx.coroutines.flow.SharedFlow
 
 interface AppStateHolder {
-    val appState: AppState
+    val appViewState: AppViewState
     val appViewEventEmitter: FlowCollector<AppViewEvent>
     val appViewEventCollector: SharedFlow<AppViewEvent>
     fun onViewCreate()

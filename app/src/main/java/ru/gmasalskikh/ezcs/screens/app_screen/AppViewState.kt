@@ -4,7 +4,7 @@ import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import androidx.compose.ui.graphics.vector.ImageVector
 
-data class AppState(
+data class AppViewState(
     val drawerGesturesEnabled: Boolean = false,
     val isAppBackgroundBlur: Boolean = false,
     val appTopBarState: AppTopBarState = AppTopBarState.NoAppTopBar,

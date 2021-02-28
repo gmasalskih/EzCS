@@ -1,15 +1,15 @@
 package ru.gmasalskikh.ezcs.screens.app_screen.app_state_strategies
 
-import ru.gmasalskikh.ezcs.screens.app_screen.AppState
+import ru.gmasalskikh.ezcs.screens.app_screen.AppViewState
 
 class PreviewStrategy(
-    override val appState: AppState
+    override val appViewState: AppViewState
 ) : AppStateStrategy() {
 
-    override fun applyStrategy() = appState.copy(
+    override fun applyStrategy() = appViewState.copy(
         drawerGesturesEnabled = false,
         isAppBackgroundBlur = true,
-        appTopBarState = AppState.AppTopBarState.NoAppTopBar,
-        appBottomBarState = AppState.AppBottomBarState.NoAppBottomBar
+        appTopBarState = AppViewState.AppTopBarState.NoAppTopBar,
+        appBottomBarState = AppViewState.AppBottomBarState.NoAppBottomBar
     )
 }

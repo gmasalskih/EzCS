@@ -16,10 +16,7 @@ import ru.gmasalskikh.ezcs.navigation.TargetNavigationPath
 import ru.gmasalskikh.ezcs.screens.BaseViewModel
 import ru.gmasalskikh.ezcs.screens.SideEffect
 
-class WeaponCharacteristicsViewModel(
-    private val navEventCollector: Flow<Navigator.NavEvent>,
-    private val navEventEmitter: FlowCollector<TargetNavigation>
-) : BaseViewModel<WeaponCharacteristicsViewState, WeaponCharacteristicsViewEvent>() {
+class WeaponCharacteristicsViewModel : BaseViewModel<WeaponCharacteristicsViewState, WeaponCharacteristicsViewEvent>() {
 
     init {
         Log.d("---", "WeaponCharacteristicsViewModel init $this")

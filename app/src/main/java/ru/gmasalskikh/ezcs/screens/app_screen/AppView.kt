@@ -14,7 +14,7 @@ import ru.gmasalskikh.ezcs.ui.common_widget.AppDrawer
 
 @Composable
 fun AppView(stateHolder: AppStateHolder = get()) {
-    val appState = stateHolder.appState
+    val appState = stateHolder.appViewState
     Providers(
         AmbientNavController provides rememberNavController(),
         AmbientScaffoldState provides rememberScaffoldState(),

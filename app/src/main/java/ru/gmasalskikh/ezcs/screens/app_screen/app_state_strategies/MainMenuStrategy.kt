@@ -4,19 +4,19 @@ import androidx.compose.material.ScaffoldState
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Menu
 import ru.gmasalskikh.ezcs.R
-import ru.gmasalskikh.ezcs.screens.app_screen.AppState
+import ru.gmasalskikh.ezcs.screens.app_screen.AppViewState
 
 class MainMenuStrategy(
-    override val appState: AppState,
+    override val appViewState: AppViewState,
     private val scaffoldState: ScaffoldState
 ) : AppStateStrategy() {
 
-    override fun applyStrategy() = appState.copy(
+    override fun applyStrategy() = appViewState.copy(
         drawerGesturesEnabled = true,
         isAppBackgroundBlur = true,
-        appTopBarState = AppState.AppTopBarState.AppTopBar(
+        appTopBarState = AppViewState.AppTopBarState.AppTopBar(
             titleRes = R.string.app_top_bar_title_menu,
-            appTopBarNavItem = AppState.AppTopBarNavItem(
+            appTopBarNavItem = AppViewState.AppTopBarNavItem(
                 icon = Icons.Filled.Menu,
                 onClick = {
                     if (scaffoldState.drawerState.isOpen) scaffoldState.drawerState.close()
@@ -24,6 +24,6 @@ class MainMenuStrategy(
                 }
             )
         ),
-        appBottomBarState = AppState.AppBottomBarState.NoAppBottomBar
+        appBottomBarState = AppViewState.AppBottomBarState.NoAppBottomBar
     )
 }

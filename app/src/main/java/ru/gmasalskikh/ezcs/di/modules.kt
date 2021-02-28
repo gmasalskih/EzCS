@@ -61,13 +61,10 @@ val scopeModule = module {
 val emittersModule = module {
     factory(named(LIFECYCLE_EMITTER)) { get<LifecycleHolder>().lifecycleEmitter }
     factory(named(NAV_EVENT_EMITTER)) { get<Navigator>().targetNavigationEmitter }
-    factory(named(APP_VIEW_EVENT_EMITTER)) { get<AppStateHolder>().appViewEventEmitter }
 }
 
 val collectorsModule = module {
-    factory(named(LIFECYCLE_COLLECTOR)) { get<LifecycleHolder>().lifecycleCollector }
     factory(named(NAV_EVENT_COLLECTOR)) { get<Navigator>().navEventCollector }
-    factory(named(APP_VIEW_EVENT_COLLECTOR)) { get<AppStateHolder>().appViewEventCollector }
 }
 
 val appStateModule = module {
@@ -108,11 +105,7 @@ val viewModelModule = module {
 
     scope(named(NamesOfScopes.WEAPON_CHARACTERISTICS_SCOPE)) {
         scoped {
-            Log.d("---", "WeaponCharacteristicsViewModel scoped $this")
-            WeaponCharacteristicsViewModel(
-                navEventCollector = get(named(NAV_EVENT_COLLECTOR)),
-                navEventEmitter = get(named(NAV_EVENT_EMITTER))
-            )
+            WeaponCharacteristicsViewModel()
         }
     }
 

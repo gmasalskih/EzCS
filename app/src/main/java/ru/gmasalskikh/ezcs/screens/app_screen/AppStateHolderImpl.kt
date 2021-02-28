@@ -26,7 +26,7 @@ class AppStateHolderImpl(
 
     private lateinit var scaffoldState: ScaffoldState
 
-    override var appState: AppState by mutableStateOf(AppState())
+    override var appViewState: AppViewState by mutableStateOf(AppViewState())
         private set
 
     override fun onViewCreate() {
@@ -47,26 +47,26 @@ class AppStateHolderImpl(
         navEventCollector.collect { event ->
             scaffoldState.drawerState.close()
             val appStateStrategy: AppStateStrategy? = when (event.path) {
-                SPLASH_SCREEN -> SplashScreenStrategy(appState)
-                PREVIEW -> PreviewStrategy(appState)
-                MAIN_MENU -> MainMenuStrategy(appState, scaffoldState)
-                MAP_CALLOUTS -> MapCalloutsStrategy(appState, navEventEmitter, cs)
+                SPLASH_SCREEN -> SplashScreenStrategy(appViewState)
+                PREVIEW -> PreviewStrategy(appViewState)
+                MAIN_MENU -> MainMenuStrategy(appViewState, scaffoldState)
+                MAP_CALLOUTS -> MapCalloutsStrategy(appViewState, navEventEmitter, cs)
                 WEAPON_CHARACTERISTICS -> {
-                    WeaponCharacteristicsStrategy(appState, navEventEmitter, cs)
+                    WeaponCharacteristicsStrategy(appViewState, navEventEmitter, cs)
                 }
-                WEAPON_CHARACTERISTICS_PISTOL -> WeaponCharacteristicsPistolStrategy(appState)
-                WEAPON_CHARACTERISTICS_HEAVY -> WeaponCharacteristicsHeavyStrategy(appState)
-                WEAPON_CHARACTERISTICS_SMG -> WeaponCharacteristicsSMGStrategy(appState)
-                WEAPON_CHARACTERISTICS_RIFLE -> WeaponCharacteristicsRifleStrategy(appState)
-                GRENADES_PRACTICE -> GrenadesPracticeStrategy(appState, navEventEmitter, cs)
-                RANKS -> RanksStrategy(appState, navEventEmitter, cs)
-                RANKS_COMPETITIVE -> RanksCompetitiveStrategy(appState)
-                RANKS_WINGMAN -> RanksWingmanStrategy(appState)
-                RANKS_DANGER_ZONE -> RanksDangerZoneStrategy(appState)
-                RANKS_PROFILE_RANK -> RanksProfileRankStrategy(appState)
+                WEAPON_CHARACTERISTICS_PISTOL -> WeaponCharacteristicsPistolStrategy(appViewState)
+                WEAPON_CHARACTERISTICS_HEAVY -> WeaponCharacteristicsHeavyStrategy(appViewState)
+                WEAPON_CHARACTERISTICS_SMG -> WeaponCharacteristicsSMGStrategy(appViewState)
+                WEAPON_CHARACTERISTICS_RIFLE -> WeaponCharacteristicsRifleStrategy(appViewState)
+                GRENADES_PRACTICE -> GrenadesPracticeStrategy(appViewState, navEventEmitter, cs)
+                RANKS -> RanksStrategy(appViewState, navEventEmitter, cs)
+                RANKS_COMPETITIVE -> RanksCompetitiveStrategy(appViewState)
+                RANKS_WINGMAN -> RanksWingmanStrategy(appViewState)
+                RANKS_DANGER_ZONE -> RanksDangerZoneStrategy(appViewState)
+                RANKS_PROFILE_RANK -> RanksProfileRankStrategy(appViewState)
                 BACK -> null
             }
-            appStateStrategy?.let { strategy -> appState = strategy.applyStrategy() }
+            appStateStrategy?.let { strategy -> appViewState = strategy.applyStrategy() }
         }
     }
 

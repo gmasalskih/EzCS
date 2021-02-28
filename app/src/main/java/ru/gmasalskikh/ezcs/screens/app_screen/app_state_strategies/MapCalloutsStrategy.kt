@@ -6,19 +6,19 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.FlowCollector
 import ru.gmasalskikh.ezcs.R
 import ru.gmasalskikh.ezcs.navigation.TargetNavigation
-import ru.gmasalskikh.ezcs.screens.app_screen.AppState
+import ru.gmasalskikh.ezcs.screens.app_screen.AppViewState
 
 class MapCalloutsStrategy(
-    override val appState: AppState,
+    override val appViewState: AppViewState,
     override val navEventEmitter: FlowCollector<TargetNavigation>,
     override val cs: CoroutineScope
 ) : AppStateStrategy() {
 
-    override fun applyStrategy() = appState.copy(
+    override fun applyStrategy() = appViewState.copy(
         drawerGesturesEnabled = false,
-        appTopBarState = AppState.AppTopBarState.AppTopBar(
+        appTopBarState = AppViewState.AppTopBarState.AppTopBar(
             titleRes = R.string.app_top_bar_title_map_callouts,
-            appTopBarNavItem = AppState.AppTopBarNavItem(
+            appTopBarNavItem = AppViewState.AppTopBarNavItem(
                 icon = Icons.Filled.KeyboardArrowLeft,
                 onClick = { navigateTo(TargetNavigation.Back) }
             )
