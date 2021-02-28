@@ -26,14 +26,7 @@ class WeaponCharacteristicsViewModel(
     }
 
     override val container: Container<WeaponCharacteristicsViewState, SideEffect> = container(
-        initialState = WeaponCharacteristicsViewState(),
-        onCreate = {
-            viewModelScope.launch {
-                navEventCollector.collect {
-                    aaa(it.path.name)
-                }
-            }
-        }
+        initialState = WeaponCharacteristicsViewState()
     )
 
 
@@ -41,24 +34,7 @@ class WeaponCharacteristicsViewModel(
 
     }
 
-    private fun aaa(s:String) = intent {
-        reduce {
-            state.copy(
-                name = s
-            )
-        }
-    }
-
-    fun destroy(){
-        Log.d("---", "WeaponCharacteristicsViewModel destroy $this")
-    }
-
-    override fun onViewCreate() {
-        super.onViewCreate()
-
-    }
-
-    override fun onCleared() {
+    public override fun onCleared() {
         super.onCleared()
         Log.d("---", "WeaponCharacteristicsViewModel onCleared $this")
     }

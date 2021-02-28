@@ -1,15 +1,11 @@
 package ru.gmasalskikh.ezcs.navigation
 
-import android.util.Log
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
-import androidx.lifecycle.ViewModelStore
 import androidx.navigation.compose.*
 import org.koin.androidx.compose.get
+import org.koin.androidx.compose.getKoin
 import org.koin.androidx.compose.getViewModel
-import org.koin.androidx.viewmodel.ViewModelParameter
-import org.koin.androidx.viewmodel.scope.getViewModel
-import org.koin.androidx.viewmodel.scope.viewModel
 import org.koin.core.parameter.parametersOf
 import org.koin.core.scope.Scope
 import ru.gmasalskikh.ezcs.di.NamesOfScopes
@@ -48,10 +44,11 @@ fun ComposeNavigation(navigator: Navigator = get()) {
         }
         composable(MainMenu().path) {
             MainMenuView(getViewModel()).Screen()
-            get<Scope> { parametersOf(NamesOfScopes.WEAPON_CHARACTERISTICS_SCOPE) }.run {
-                Log.d("---", "MainMenuView $closed")
-                if (!closed) get<WeaponCharacteristicsViewModel>().destroy()
-                close()
+            getKoin().getScopeOrNull(
+                NamesOfScopes.WEAPON_CHARACTERISTICS_SCOPE.getId()
+            )?.let { scope ->
+                if (!scope.closed) scope.get<WeaponCharacteristicsViewModel>().onCleared()
+                scope.close()
             }
         }
         composable(MapCallouts.path) {

@@ -102,7 +102,6 @@ val viewModelModule = module {
         PreviewViewModel(navEventEmitter = get(named(NAV_EVENT_EMITTER)))
     }
     viewModel {
-        Log.d("---", "MainMenuViewModel Scope")
         MainMenuViewModel(navEventEmitter = get(named(NAV_EVENT_EMITTER)))
     }
     viewModel { MapCalloutsViewModel() }
