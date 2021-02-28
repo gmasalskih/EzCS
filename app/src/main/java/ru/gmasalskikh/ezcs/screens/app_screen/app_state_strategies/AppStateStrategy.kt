@@ -6,6 +6,7 @@ import kotlinx.coroutines.flow.FlowCollector
 import kotlinx.coroutines.launch
 import ru.gmasalskikh.ezcs.navigation.TargetNavigation
 import ru.gmasalskikh.ezcs.providers.app_controller.AppController
+import ru.gmasalskikh.ezcs.screens.app_screen.AppStateHolder
 import ru.gmasalskikh.ezcs.screens.app_screen.AppViewState
 import java.lang.IllegalStateException
 
@@ -13,12 +14,12 @@ abstract class AppStateStrategy {
 
     protected abstract val appViewState: AppViewState
     protected open val cs: CoroutineScope? = null
-    protected open val appEventEmitter: FlowCollector<AppController.AppEvent>? = null
+    protected open val appViewEventEmitter: FlowCollector<AppStateHolder.AppViewEvent>? = null
     abstract fun applyStrategy(): AppViewState
 
     protected fun navigateTo(targetNavigation: TargetNavigation) = cs?.launch {
-        appEventEmitter?.emit(
-            AppController.AppEvent.NavigateTo(targetNavigation)
+        appViewEventEmitter?.emit(
+            AppStateHolder.AppViewEvent.NavigateTo(targetNavigation)
         )
     }
 

@@ -2,7 +2,6 @@ package ru.gmasalskikh.ezcs.di
 
 import android.content.Context
 import android.content.SharedPreferences
-import android.util.Log
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import org.koin.androidx.viewmodel.dsl.viewModel
@@ -48,7 +47,7 @@ enum class NamesOfDependencies {
     LIFECYCLE_EMITTER,
     LIFECYCLE_COLLECTOR,
     NAV_EVENT_EMITTER,
-    NAV_EVENT_COLLECTOR,
+    NAV_EVENT_FLOW,
     APP_VIEW_EVENT_COLLECTOR,
     APP_VIEW_EVENT_EMITTER,
     APP_EVENT_EMITTER
@@ -65,18 +64,18 @@ val emittersModule = module {
     factory(named(LIFECYCLE_EMITTER)) { get<LifecycleHolder>().lifecycleEmitter }
     factory(named(NAV_EVENT_EMITTER)) { get<Navigator>().targetNavigationEmitter }
     factory(named(APP_EVENT_EMITTER)) { get<AppController>().appEventEmitter }
+    factory(named(APP_VIEW_EVENT_EMITTER)) { get<AppStateHolder>().appViewEventEmitter }
 }
 
 val collectorsModule = module {
-    factory(named(NAV_EVENT_COLLECTOR)) { get<Navigator>().navEventCollector }
+    factory(named(NAV_EVENT_FLOW)) { get<Navigator>().navEventFlow }
+    factory(named(APP_VIEW_EVENT_COLLECTOR)) { get<AppStateHolder>().appViewEventCollector }
 }
 
 val appStateModule = module {
     single<AppStateHolder> {
         AppStateHolderImpl(
             cs = get { parametersOf(Dispatchers.Main) },
-            appEventEmitter = get(named(APP_EVENT_EMITTER)),
-            navEventCollector = get(named(NAV_EVENT_COLLECTOR))
         )
     }
 }
@@ -91,13 +90,16 @@ val providerModule = module {
     single<LifecycleHolder> { LifecycleHolderImpl() }
     single<Navigator> {
         NavigatorImpl(
-            cs = get { parametersOf(Dispatchers.Main) }
+            cs = get { parametersOf(Dispatchers.Main) },
         )
     }
     single<AppController> {
         AppControllerImpl(
             cs = get { parametersOf(Dispatchers.Main) },
-            navEventEmitter = get(named(NAV_EVENT_EMITTER))
+            navEventEmitter = get(named(NAV_EVENT_EMITTER)),
+            navEventFlow = get(named(NAV_EVENT_FLOW)),
+            appViewEventEmitter = get(named(APP_VIEW_EVENT_EMITTER)),
+            appViewEventCollector = get(named(APP_VIEW_EVENT_COLLECTOR))
         )
     }
 }

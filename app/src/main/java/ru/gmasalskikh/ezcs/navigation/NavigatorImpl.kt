@@ -5,11 +5,12 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.KEY_ROUTE
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
+import ru.gmasalskikh.ezcs.providers.app_controller.AppController
 import ru.gmasalskikh.ezcs.providers.custom_coroutine_scope.CustomCoroutineScope
 
 @Suppress("ObjectPropertyName")
 class NavigatorImpl(
-    private val cs: CustomCoroutineScope
+    private val cs: CustomCoroutineScope,
 ) : Navigator {
     private val _targetNavigationSharedFlow: MutableSharedFlow<TargetNavigation> =
         MutableSharedFlow()
@@ -17,7 +18,7 @@ class NavigatorImpl(
         get() = _targetNavigationSharedFlow
 
     private val _navEvent: MutableSharedFlow<Navigator.NavEvent?> = MutableSharedFlow()
-    override val navEventCollector: Flow<Navigator.NavEvent>
+    override val navEventFlow: Flow<Navigator.NavEvent>
         get() = _navEvent.runningReduce { accumulator, value ->
             if (accumulator?.path == value?.path) null else value
         }.filterNotNull()
@@ -28,6 +29,7 @@ class NavigatorImpl(
         cs.launch {
             _navEvent.emit(navEvent)
         }
+
     }
 
     private val destinationChangedListener =
@@ -47,7 +49,7 @@ class NavigatorImpl(
         this.navController = navController.apply {
             addOnDestinationChangedListener(destinationChangedListener)
         }
-        subscribeToNavEvent()
+        subscribeToTargetNavigationEvent()
 
     }
 
@@ -56,7 +58,7 @@ class NavigatorImpl(
         cs.onStop()
     }
 
-    private fun subscribeToNavEvent() = cs.launch {
+    private fun subscribeToTargetNavigationEvent() = cs.launch {
         _targetNavigationSharedFlow.collect { navTarget ->
             when (navTarget) {
                 TargetNavigation.Back -> navController.popBackStack()

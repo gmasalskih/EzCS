@@ -9,11 +9,12 @@ import ru.gmasalskikh.ezcs.R
 import ru.gmasalskikh.ezcs.navigation.NavigationParams
 import ru.gmasalskikh.ezcs.navigation.TargetNavigation
 import ru.gmasalskikh.ezcs.providers.app_controller.AppController
+import ru.gmasalskikh.ezcs.screens.app_screen.AppStateHolder
 import ru.gmasalskikh.ezcs.screens.app_screen.AppViewState
 
 class WeaponCharacteristicsStrategy(
     override val appViewState: AppViewState,
-    override val appEventEmitter: FlowCollector<AppController.AppEvent>,
+    override val appViewEventEmitter: FlowCollector<AppStateHolder.AppViewEvent>,
     override val cs:CoroutineScope
 ) : AppStateStrategy() {
 

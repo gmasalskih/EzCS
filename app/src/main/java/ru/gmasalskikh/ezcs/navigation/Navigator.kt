@@ -8,7 +8,7 @@ import kotlinx.coroutines.flow.SharedFlow
 
 interface Navigator {
     val targetNavigationEmitter: FlowCollector<TargetNavigation>
-    val navEventCollector: Flow<NavEvent>
+    val navEventFlow: Flow<NavEvent>
     fun onAttach(navController: NavHostController)
     fun onDetach()
 

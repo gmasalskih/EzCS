@@ -1,6 +1,7 @@
 package ru.gmasalskikh.ezcs.providers.app_controller
 
 import kotlinx.coroutines.flow.FlowCollector
+import ru.gmasalskikh.ezcs.navigation.Navigator
 import ru.gmasalskikh.ezcs.navigation.TargetNavigation
 
 interface AppController {
@@ -11,6 +12,5 @@ interface AppController {
         data class NavigateTo(
             val targetNavigation: TargetNavigation
         ) : AppEvent()
-
     }
 }
