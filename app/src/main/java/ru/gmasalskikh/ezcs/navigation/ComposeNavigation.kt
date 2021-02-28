@@ -1,5 +1,6 @@
 package ru.gmasalskikh.ezcs.navigation
 
+import android.util.Log
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.lifecycle.ViewModelStore
@@ -48,7 +49,8 @@ fun ComposeNavigation(navigator: Navigator = get()) {
         composable(MainMenu().path) {
             MainMenuView(getViewModel()).Screen()
             get<Scope> { parametersOf(NamesOfScopes.WEAPON_CHARACTERISTICS_SCOPE) }.run {
-                get<WeaponCharacteristicsViewModel>().destroy()
+                Log.d("---", "MainMenuView $closed")
+                if (!closed) get<WeaponCharacteristicsViewModel>().destroy()
                 close()
             }
         }
@@ -60,22 +62,22 @@ fun ComposeNavigation(navigator: Navigator = get()) {
             route = WeaponCharacteristics.path,
         ) {
             composable(WeaponCharacteristicsPistol().path) {
-                get<Scope>{ parametersOf(NamesOfScopes.WEAPON_CHARACTERISTICS_SCOPE)}.let {
+                get<Scope> { parametersOf(NamesOfScopes.WEAPON_CHARACTERISTICS_SCOPE) }.let {
                     WeaponCharacteristicsView(it.get()).Screen()
                 }
             }
             composable(WeaponCharacteristicsHeavy().path) {
-                get<Scope>{ parametersOf(NamesOfScopes.WEAPON_CHARACTERISTICS_SCOPE)}.let {
+                get<Scope> { parametersOf(NamesOfScopes.WEAPON_CHARACTERISTICS_SCOPE) }.let {
                     WeaponCharacteristicsView(it.get()).Screen()
                 }
             }
             composable(WeaponCharacteristicsSMG().path) {
-                get<Scope>{ parametersOf(NamesOfScopes.WEAPON_CHARACTERISTICS_SCOPE)}.let {
+                get<Scope> { parametersOf(NamesOfScopes.WEAPON_CHARACTERISTICS_SCOPE) }.let {
                     WeaponCharacteristicsView(it.get()).Screen()
                 }
             }
             composable(WeaponCharacteristicsRifle().path) {
-                get<Scope>{ parametersOf(NamesOfScopes.WEAPON_CHARACTERISTICS_SCOPE)}.let {
+                get<Scope> { parametersOf(NamesOfScopes.WEAPON_CHARACTERISTICS_SCOPE) }.let {
                     WeaponCharacteristicsView(it.get()).Screen()
                 }
             }

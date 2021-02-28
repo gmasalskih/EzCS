@@ -9,4 +9,3 @@ import ru.gmasalskikh.ezcs.ui.theme.AppTheme
 val AmbientNavController = ambientOf<NavHostController>()
 val AmbientAppTheme = ambientOf<AppTheme>()
 val AmbientScaffoldState = ambientOf<ScaffoldState>()
-val AmbientAppStateHolder = ambientOf<AppStateHolder>()
