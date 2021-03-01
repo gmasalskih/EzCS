@@ -5,8 +5,8 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.KEY_ROUTE
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
-import ru.gmasalskikh.ezcs.providers.app_controller.AppController
 import ru.gmasalskikh.ezcs.providers.custom_coroutine_scope.CustomCoroutineScope
+
 
 @Suppress("ObjectPropertyName")
 class NavigatorImpl(
