@@ -48,9 +48,8 @@ enum class NamesOfDependencies {
     LIFECYCLE_COLLECTOR,
     NAV_EVENT_EMITTER,
     NAV_EVENT_FLOW,
-    APP_VIEW_EVENT_COLLECTOR,
-    APP_VIEW_EVENT_EMITTER,
-    APP_EVENT_EMITTER
+    APP_EVENT_EMITTER,
+    APP_EVENT_COLLECTOR
 }
 
 val scopeModule = module {
@@ -64,18 +63,20 @@ val emittersModule = module {
     factory(named(LIFECYCLE_EMITTER)) { get<LifecycleHolder>().lifecycleEmitter }
     factory(named(NAV_EVENT_EMITTER)) { get<Navigator>().targetNavigationEmitter }
     factory(named(APP_EVENT_EMITTER)) { get<AppController>().appEventEmitter }
-    factory(named(APP_VIEW_EVENT_EMITTER)) { get<AppStateHolder>().appViewEventEmitter }
 }
 
 val collectorsModule = module {
+    factory(named(LIFECYCLE_COLLECTOR)) { get<LifecycleHolder>().lifecycleCollector }
     factory(named(NAV_EVENT_FLOW)) { get<Navigator>().navEventFlow }
-    factory(named(APP_VIEW_EVENT_COLLECTOR)) { get<AppStateHolder>().appViewEventCollector }
+    factory(named(APP_EVENT_COLLECTOR)) { get<AppController>().appEventCollector }
 }
 
 val appStateModule = module {
     single<AppStateHolder> {
         AppStateHolderImpl(
             cs = get { parametersOf(Dispatchers.Main) },
+            appEventEmitter = get(named(APP_EVENT_EMITTER)),
+            appEventCollector = get(named(APP_EVENT_COLLECTOR))
         )
     }
 }
@@ -98,8 +99,6 @@ val providerModule = module {
             cs = get { parametersOf(Dispatchers.Main) },
             navEventEmitter = get(named(NAV_EVENT_EMITTER)),
             navEventFlow = get(named(NAV_EVENT_FLOW)),
-            appViewEventEmitter = get(named(APP_VIEW_EVENT_EMITTER)),
-            appViewEventCollector = get(named(APP_VIEW_EVENT_COLLECTOR))
         )
     }
 }
