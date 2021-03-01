@@ -1,30 +1,20 @@
 package ru.gmasalskikh.ezcs.screens.app_screen
 
-import android.os.Bundle
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.Immutable
+import androidx.compose.material.ScaffoldState
 import kotlinx.coroutines.flow.FlowCollector
-import ru.gmasalskikh.ezcs.navigation.TargetNavigationPath
+import kotlinx.coroutines.flow.SharedFlow
+import ru.gmasalskikh.ezcs.navigation.Navigator
+import ru.gmasalskikh.ezcs.navigation.TargetNavigation
 
 interface AppStateHolder {
-    val appState: AppState
-    val appStateChangeEmitter: FlowCollector<NavEvent>
-    val appViewEventEmitter: FlowCollector<AppViewEvent>
+    val appViewState: AppViewState
     fun onViewCreate()
     fun onViewDestroy()
-
-    @Composable
-    fun SetComposableScope()
+    fun setScaffoldState(scaffoldState: ScaffoldState)
 
     sealed class AppViewEvent {
-        object OnBackClick : AppViewEvent()
-        object OnMenuClick : AppViewEvent()
+        data class NavigateTo(
+            val targetNavigation: TargetNavigation
+        ) : AppViewEvent()
     }
-
-    @Immutable
-    data class NavEvent(
-        val targetNavigationPath: TargetNavigationPath,
-        val bundle: Bundle? = null
-    )
-
 }

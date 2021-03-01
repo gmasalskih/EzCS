@@ -6,11 +6,13 @@ import kotlinx.coroutines.launch
 import org.orbitmvi.orbit.Container
 import org.orbitmvi.orbit.viewmodel.container
 import ru.gmasalskikh.ezcs.navigation.TargetNavigation
+import ru.gmasalskikh.ezcs.providers.app_controller.AppController
 import ru.gmasalskikh.ezcs.screens.BaseViewModel
 import ru.gmasalskikh.ezcs.screens.SideEffect
+import ru.gmasalskikh.ezcs.screens.main_menu.MainMenuViewState.MainMenuItemType.*
 
 class MainMenuViewModel(
-    private val navEventEmitter: FlowCollector<TargetNavigation>
+    private val appEventEmitter: FlowCollector<AppController.AppEvent>
 ) : BaseViewModel<MainMenuViewState, MainMenuViewEvent>() {
 
     override val container: Container<MainMenuViewState, SideEffect> = container(
@@ -21,12 +23,16 @@ class MainMenuViewModel(
         when (viewEvent) {
             is MainMenuViewEvent.NavigateTo -> viewModelScope.launch {
                 val targetNavigation = when (viewEvent.mainMenuItemType) {
-                    MainMenuViewState.MainMenuItemType.MAP_CALLOUTS -> TargetNavigation.MapCallouts
-                    MainMenuViewState.MainMenuItemType.GRENADES_PRACTICE -> TargetNavigation.GrenadesPractice
-                    MainMenuViewState.MainMenuItemType.WEAPON_CHARACTERISTICS -> TargetNavigation.WeaponCharacteristics
-                    MainMenuViewState.MainMenuItemType.RANKS -> TargetNavigation.Ranks
+                    MAP_CALLOUTS -> TargetNavigation.MapCallouts
+                    GRENADES_PRACTICE -> TargetNavigation.GrenadesPractice
+                    WEAPON_CHARACTERISTICS -> TargetNavigation.WeaponCharacteristics
+                    RANKS -> TargetNavigation.Ranks
                 }
-                navEventEmitter.emit(targetNavigation)
+                appEventEmitter.emit(
+                    AppController.AppEvent.NavigateTo(
+                        targetNavigation
+                    )
+                )
             }
         }
     }

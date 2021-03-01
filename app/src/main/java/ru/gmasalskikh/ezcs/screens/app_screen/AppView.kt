@@ -9,18 +9,17 @@ import org.koin.androidx.compose.get
 import ru.gmasalskikh.ezcs.utils.AmbientNavController
 import ru.gmasalskikh.ezcs.utils.AmbientScaffoldState
 import ru.gmasalskikh.ezcs.screens.app_screen.widgets.AppScreen
-import ru.gmasalskikh.ezcs.utils.AmbientAppStateHolder
 import ru.gmasalskikh.ezcs.screens.app_screen.widgets.*
 import ru.gmasalskikh.ezcs.ui.common_widget.AppDrawer
 
 @Composable
 fun AppView(stateHolder: AppStateHolder = get()) {
+    val appState = stateHolder.appViewState
     Providers(
         AmbientNavController provides rememberNavController(),
         AmbientScaffoldState provides rememberScaffoldState(),
-        AmbientAppStateHolder provides stateHolder
     ) {
-        stateHolder.SetComposableScope()
+        stateHolder.setScaffoldState(AmbientScaffoldState.current)
         DisposableEffect(key1 = null) {
             stateHolder.onViewCreate()
             onDispose {
@@ -28,11 +27,11 @@ fun AppView(stateHolder: AppStateHolder = get()) {
             }
         }
         AppScreen(
-            isAppBackgroundBlur = stateHolder.appState.isAppBackgroundBlur,
-            topBar = { AppTopBar() },
-            drawerGesturesEnabled = stateHolder.appState.drawerGesturesEnabled,
+            isAppBackgroundBlur = appState.isAppBackgroundBlur,
+            topBar = { AppTopBar(appState.appTopBarState) },
+            drawerGesturesEnabled = appState.drawerGesturesEnabled,
             drawerContent = { AppDrawer() },
-            bottomBar = { AppBottomBar() }
+            bottomBar = { AppBottomBar(appState.appBottomBarState) }
         )
     }
 }

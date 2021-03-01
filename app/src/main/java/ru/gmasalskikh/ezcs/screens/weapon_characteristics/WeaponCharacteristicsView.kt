@@ -5,7 +5,7 @@ import androidx.compose.runtime.Composable
 import ru.gmasalskikh.ezcs.screens.BaseView
 
 class WeaponCharacteristicsView(
-    vm: WeaponCharacteristicsViewModel
+    vm: WeaponCharacteristicsViewModel,
 ) : BaseView<WeaponCharacteristicsViewState, WeaponCharacteristicsViewEvent, WeaponCharacteristicsViewModel>(
     vm
 ) {
@@ -14,4 +14,5 @@ class WeaponCharacteristicsView(
     override fun SetContent(viewState: WeaponCharacteristicsViewState) {
         Text(text = viewState.name)
     }
+
 }

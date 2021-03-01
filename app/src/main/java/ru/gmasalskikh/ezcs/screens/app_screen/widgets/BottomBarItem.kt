@@ -14,6 +14,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import ru.gmasalskikh.ezcs.ui.theme.fontSize10Sp
+import ru.gmasalskikh.ezcs.ui.theme.fontSize8Sp
 
 @Composable
 fun BottomBarItem(
@@ -29,7 +30,7 @@ fun BottomBarItem(
             .clickable(
                 enabled = onClick != null,
                 onClick = onClick ?: {}
-            ).padding(vertical = 5.dp),
+            ).padding(5.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         if (icon != null) Image(
@@ -42,7 +43,7 @@ fun BottomBarItem(
             text = label,
             textAlign = TextAlign.Center,
             color = contentColor,
-            fontSize = fontSize10Sp,
+            fontSize = fontSize8Sp,
             fontWeight = FontWeight.ExtraBold
         )
     }

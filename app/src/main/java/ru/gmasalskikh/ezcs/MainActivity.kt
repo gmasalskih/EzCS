@@ -2,6 +2,7 @@ package ru.gmasalskikh.ezcs
 
 import android.graphics.Color
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.ui.platform.*
 import androidx.lifecycle.lifecycleScope
@@ -11,8 +12,8 @@ import org.koin.android.ext.android.inject
 import org.koin.core.qualifier.named
 import ru.gmasalskikh.ezcs.screens.app_screen.AppView
 import ru.gmasalskikh.ezcs.ui.theme.EzCSTheme
-import ru.gmasalskikh.ezcs.providers.lifecycle_keeper.LifecycleKeeper.*
-import ru.gmasalskikh.ezcs.providers.lifecycle_keeper.LifecycleKeeper.LifecycleActivityEvent.*
+import ru.gmasalskikh.ezcs.providers.lifecycle_holder.LifecycleHolder.*
+import ru.gmasalskikh.ezcs.providers.lifecycle_holder.LifecycleHolder.LifecycleActivityEvent.*
 import ru.gmasalskikh.ezcs.di.NamesOfDependencies.*
 
 class MainActivity : AppCompatActivity() {

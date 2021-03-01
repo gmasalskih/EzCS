@@ -26,4 +26,12 @@
     <string name="app_top_bar_title_ranks_wingman">wingman</string>
     <string name="app_top_bar_title_ranks_danger_zone">danger zone</string>
     <string name="app_top_bar_title_ranks_profile_rank">profile rank</string>
+    <string name="app_top_bar_title_weapon_characteristics_heavy">heavy</string>
+    <string name="app_top_bar_title_weapon_characteristics_pistol">pistol</string>
+    <string name="app_top_bar_title_weapon_characteristics_rifle">rifle</string>
+    <string name="app_top_bar_title_weapon_characteristics_smg">smg</string>
+    <string name="app_bottom_bar_weapon_characteristics_heavy">heavy</string>
+    <string name="app_bottom_bar_weapon_characteristics_pistol">pistol</string>
+    <string name="app_bottom_bar_weapon_characteristics_rifle">rifle</string>
+    <string name="app_bottom_bar_weapon_characteristics_smg">smg</string>
 </resources>

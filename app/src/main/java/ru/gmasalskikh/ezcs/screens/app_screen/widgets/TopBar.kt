@@ -18,8 +18,8 @@ fun TopBar(
     backgroundColor: Color,
     contentColor: Color,
     elevation: Dp,
-    navigationContent:(@Composable BoxScope.() -> Unit)? = null,
-    additionActionContent: (@Composable BoxScope.() -> Unit)? = null,
+    navIcon:(@Composable BoxScope.() -> Unit)? = null,
+    extraIcon: (@Composable BoxScope.() -> Unit)? = null,
 ) {
     Surface(
         modifier = Modifier
@@ -38,7 +38,7 @@ fun TopBar(
                     .aspectRatio(1f)
                     .fillMaxSize()
             ) {
-                navigationContent?.invoke(this)
+                navIcon?.invoke(this)
             }
             Box(
                 modifier = Modifier
@@ -56,7 +56,7 @@ fun TopBar(
                     .aspectRatio(1f)
                     .fillMaxSize()
             ) {
-                additionActionContent?.invoke(this)
+                extraIcon?.invoke(this)
             }
         }
     }

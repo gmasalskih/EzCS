@@ -17,7 +17,9 @@ class App : Application() {
                 appStateModule,
                 viewModelModule,
                 providerModule,
-                emittersModule
+                emittersModule,
+                collectorsModule,
+                scopeModule
             )
         }
     }
