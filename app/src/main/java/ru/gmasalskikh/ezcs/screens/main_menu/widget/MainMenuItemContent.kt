@@ -12,15 +12,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import dev.chrisbanes.accompanist.coil.CoilImage
-import ru.gmasalskikh.ezcs.ui.theme.fontSize16Sp
-import ru.gmasalskikh.ezcs.ui.theme.fontSize20Sp
-import ru.gmasalskikh.ezcs.ui.theme.transparent
 import java.util.*
 
 @Composable

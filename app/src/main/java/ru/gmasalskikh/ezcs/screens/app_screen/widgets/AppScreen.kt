@@ -7,25 +7,24 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Scaffold
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.emptyContent
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import ru.gmasalskikh.ezcs.navigation.ComposeNavigation
 import ru.gmasalskikh.ezcs.ui.theme.AppTheme
-import ru.gmasalskikh.ezcs.utils.AmbientAppTheme
-import ru.gmasalskikh.ezcs.utils.AmbientScaffoldState
+import ru.gmasalskikh.ezcs.utils.LocalAppTheme
+import ru.gmasalskikh.ezcs.utils.LocalScaffoldState
 
 @Composable
 fun AppScreen(
     isAppBackgroundBlur: Boolean = true,
-    topBar: @Composable () -> Unit = emptyContent(),
+    topBar: @Composable () -> Unit = {},
     drawerGesturesEnabled: Boolean = true,
     drawerContent: @Composable (ColumnScope.() -> Unit)? = {},
-    bottomBar: @Composable () -> Unit = emptyContent(),
+    bottomBar: @Composable () -> Unit = {},
 ) {
-    val theme: AppTheme = AmbientAppTheme.current
-    val scaffoldState = AmbientScaffoldState.current
+    val theme: AppTheme = LocalAppTheme.current
+    val scaffoldState = LocalScaffoldState.current
     AppBackground(isAppBackgroundBlur) {
         Scaffold(
             scaffoldState = scaffoldState,

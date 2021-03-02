@@ -63,7 +63,7 @@ class AppStateHolderImpl(
                         PreviewStrategy(appViewState)
                     }
                     MAIN_MENU -> {
-                        MainMenuStrategy(appViewState, scaffoldState)
+                        MainMenuStrategy(appViewState, scaffoldState, cs)
                     }
                     MAP_CALLOUTS -> {
                         MapCalloutsStrategy(appViewState, _appViewEvent, cs)

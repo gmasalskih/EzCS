@@ -7,7 +7,6 @@ import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import ru.gmasalskikh.ezcs.providers.custom_coroutine_scope.CustomCoroutineScope
 
-
 @Suppress("ObjectPropertyName")
 class NavigatorImpl(
     private val cs: CustomCoroutineScope,

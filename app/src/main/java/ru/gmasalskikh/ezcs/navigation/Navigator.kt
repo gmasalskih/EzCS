@@ -4,7 +4,6 @@ import android.os.Bundle
 import androidx.navigation.NavHostController
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.FlowCollector
-import kotlinx.coroutines.flow.SharedFlow
 
 interface Navigator {
     val targetNavigationEmitter: FlowCollector<TargetNavigation>

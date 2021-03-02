@@ -1,6 +1,9 @@
 package ru.gmasalskikh.ezcs.screens
 
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.res.stringResource
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.Flow
@@ -10,7 +13,7 @@ import org.orbitmvi.orbit.syntax.simple.intent
 import org.orbitmvi.orbit.syntax.simple.postSideEffect
 import ru.gmasalskikh.ezcs.ui.common_widget.ErrorScreen
 import ru.gmasalskikh.ezcs.ui.common_widget.LoadingIndicator
-import ru.gmasalskikh.ezcs.utils.AmbientAppTheme
+import ru.gmasalskikh.ezcs.utils.LocalAppTheme
 import ru.gmasalskikh.ezcs.R
 
 abstract class BaseView<VS : ViewState, VE : ViewEvent, VM : BaseViewModel<VS, VE>>(
@@ -44,7 +47,7 @@ abstract class BaseView<VS : ViewState, VE : ViewEvent, VM : BaseViewModel<VS, V
                 onViewDestroy()
             }
         }
-        val theme = AmbientAppTheme.current
+        val theme = LocalAppTheme.current
         SetContent(viewState)
         when (viewSideEffect) {
             is SideEffect.Loading -> {

@@ -1,11 +1,10 @@
 package ru.gmasalskikh.ezcs.utils
 
 import androidx.compose.material.ScaffoldState
-import androidx.compose.runtime.ambientOf
+import androidx.compose.runtime.compositionLocalOf
 import androidx.navigation.NavHostController
-import ru.gmasalskikh.ezcs.screens.app_screen.AppStateHolder
 import ru.gmasalskikh.ezcs.ui.theme.AppTheme
 
-val AmbientNavController = ambientOf<NavHostController>()
-val AmbientAppTheme = ambientOf<AppTheme>()
-val AmbientScaffoldState = ambientOf<ScaffoldState>()
+val LocalNavController = compositionLocalOf<NavHostController>{ error("No NavHostController found!") }
+val LocalAppTheme = compositionLocalOf<AppTheme>{ error("No AppTheme found!") }
+val LocalScaffoldState = compositionLocalOf<ScaffoldState>{ error("No ScaffoldState found!") }

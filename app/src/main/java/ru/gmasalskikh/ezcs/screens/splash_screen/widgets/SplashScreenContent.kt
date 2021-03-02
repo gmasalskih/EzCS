@@ -12,9 +12,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import dev.chrisbanes.accompanist.coil.CoilImage
-import ru.gmasalskikh.ezcs.ui.theme.fontSize10Sp
 import ru.gmasalskikh.ezcs.ui.theme.fontSize12Sp
-import ru.gmasalskikh.ezcs.ui.theme.fontSize8Sp
 
 @Composable
 fun SplashScreenContent(

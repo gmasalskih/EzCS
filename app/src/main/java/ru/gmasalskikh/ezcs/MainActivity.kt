@@ -2,9 +2,8 @@ package ru.gmasalskikh.ezcs
 
 import android.graphics.Color
 import android.os.Bundle
-import android.util.Log
+import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
-import androidx.compose.ui.platform.*
 import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.flow.FlowCollector
 import kotlinx.coroutines.launch

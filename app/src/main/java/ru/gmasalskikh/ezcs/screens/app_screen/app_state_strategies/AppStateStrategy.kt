@@ -5,7 +5,6 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.FlowCollector
 import kotlinx.coroutines.launch
 import ru.gmasalskikh.ezcs.navigation.TargetNavigation
-import ru.gmasalskikh.ezcs.providers.app_controller.AppController
 import ru.gmasalskikh.ezcs.screens.app_screen.AppStateHolder
 import ru.gmasalskikh.ezcs.screens.app_screen.AppViewState
 import java.lang.IllegalStateException

@@ -3,22 +3,22 @@ package ru.gmasalskikh.ezcs.screens.app_screen.widgets
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.res.vectorResource
 import androidx.navigation.compose.KEY_ROUTE
 import androidx.navigation.compose.*
 import ru.gmasalskikh.ezcs.screens.app_screen.AppViewState
 import ru.gmasalskikh.ezcs.ui.theme.AppTheme
-import ru.gmasalskikh.ezcs.utils.AmbientAppTheme
-import ru.gmasalskikh.ezcs.utils.AmbientNavController
+import ru.gmasalskikh.ezcs.utils.LocalAppTheme
+import ru.gmasalskikh.ezcs.utils.LocalNavController
 import java.util.*
 
 @Composable
 fun AppBottomBar(
     appBottomBarViewState: AppViewState.AppBottomBarState
 ) {
-    val theme: AppTheme = AmbientAppTheme.current
-    val navController = AmbientNavController.current
+    val theme: AppTheme = LocalAppTheme.current
+    val navController = LocalNavController.current
     val navBackStackEntry by navController.currentBackStackEntryAsState()
     val currentRoute = navBackStackEntry?.arguments?.getString(KEY_ROUTE)
     when (appBottomBarViewState) {
@@ -34,7 +34,7 @@ fun AppBottomBar(
                     BottomBarItem(
                         modifier = Modifier.weight(1f),
                         label = stringResource(id = item.label).toUpperCase(Locale.getDefault()),
-                        icon = item.icon?.let { vectorResource(id = it) },
+                        icon = item.icon?.let { painterResource(id = it) },
                         contentColor = contentColor,
                         onClick = if (!isActive) item.onClick else null
                     )
