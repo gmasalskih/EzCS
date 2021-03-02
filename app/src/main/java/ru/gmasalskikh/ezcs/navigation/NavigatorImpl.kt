@@ -28,7 +28,6 @@ class NavigatorImpl(
         cs.launch {
             _navEvent.emit(navEvent)
         }
-
     }
 
     private val destinationChangedListener =

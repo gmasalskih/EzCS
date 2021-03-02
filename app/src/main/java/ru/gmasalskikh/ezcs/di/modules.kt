@@ -24,6 +24,8 @@ import ru.gmasalskikh.ezcs.navigation.NavigatorImpl
 import ru.gmasalskikh.ezcs.di.NamesOfDependencies.*
 import ru.gmasalskikh.ezcs.providers.app_controller.AppController
 import ru.gmasalskikh.ezcs.providers.app_controller.AppControllerImpl
+import ru.gmasalskikh.ezcs.providers.scope_manager.ScopeManager
+import ru.gmasalskikh.ezcs.providers.scope_manager.ScopeManagerImpl
 import ru.gmasalskikh.ezcs.screens.grenades_practice.GrenadesPracticeViewModel
 import ru.gmasalskikh.ezcs.screens.map_callouts.MapCalloutsViewModel
 import ru.gmasalskikh.ezcs.screens.ranks.competitive.CompetitiveViewModel
@@ -33,13 +35,14 @@ import ru.gmasalskikh.ezcs.screens.ranks.wingman.WingmanViewModel
 import ru.gmasalskikh.ezcs.screens.weapon_characteristics.WeaponCharacteristicsViewModel
 import java.util.*
 
-enum class NamesOfScopes(private var id: UUID = UUID.randomUUID()) {
+enum class ScopeName(private var _id: UUID = UUID.randomUUID()) {
     WEAPON_CHARACTERISTICS_SCOPE;
 
-    fun getId() = id.toString()
+    val id: String
+        get() = _id.toString()
 
     fun setNewId() {
-        id = UUID.randomUUID()
+        _id = UUID.randomUUID()
     }
 }
 
@@ -53,8 +56,8 @@ enum class NamesOfDependencies {
 }
 
 val scopeModule = module {
-    factory<Scope> { (scopeName: NamesOfScopes) ->
-        getKoin().getOrCreateScope(scopeName.getId(), named(scopeName))
+    factory<Scope> { (scopeName: ScopeName) ->
+        getKoin().getOrCreateScope(scopeName.id, named(scopeName))
             .apply { if (closed) scopeName.setNewId() }
     }
 }
@@ -99,8 +102,10 @@ val providerModule = module {
             cs = get { parametersOf(Dispatchers.Main) },
             navEventEmitter = get(named(NAV_EVENT_EMITTER)),
             navEventFlow = get(named(NAV_EVENT_FLOW)),
+            scopeManager = get()
         )
     }
+    single<ScopeManager> { ScopeManagerImpl(getKoin()) }
 }
 
 val viewModelModule = module {
@@ -118,7 +123,7 @@ val viewModelModule = module {
     }
     viewModel { MapCalloutsViewModel() }
 
-    scope(named(NamesOfScopes.WEAPON_CHARACTERISTICS_SCOPE)) {
+    scope(named(ScopeName.WEAPON_CHARACTERISTICS_SCOPE)) {
         scoped { WeaponCharacteristicsViewModel() }
     }
 

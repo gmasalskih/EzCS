@@ -3,9 +3,7 @@ package ru.gmasalskikh.ezcs.navigation
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.navigation.compose.*
-import org.koin.core.parameter.parametersOf
-import org.koin.core.scope.Scope
-import ru.gmasalskikh.ezcs.di.NamesOfScopes
+import ru.gmasalskikh.ezcs.di.ScopeName
 import ru.gmasalskikh.ezcs.screens.main_menu.MainMenuView
 import ru.gmasalskikh.ezcs.screens.preview.PreviewView
 import ru.gmasalskikh.ezcs.screens.splash_screen.SplashScreenView
@@ -17,14 +15,17 @@ import ru.gmasalskikh.ezcs.screens.ranks.danger_zone.DangerZoneView
 import ru.gmasalskikh.ezcs.screens.ranks.profile_rank.ProfileRankView
 import ru.gmasalskikh.ezcs.screens.ranks.wingman.WingmanView
 import ru.gmasalskikh.ezcs.navigation.TargetNavigation.*
+import ru.gmasalskikh.ezcs.providers.scope_manager.ScopeManager
 import ru.gmasalskikh.ezcs.screens.weapon_characteristics.WeaponCharacteristicsView
 import ru.gmasalskikh.ezcs.screens.weapon_characteristics.WeaponCharacteristicsViewModel
-import ru.gmasalskikh.ezcs.utils.getKoin
 import ru.gmasalskikh.ezcs.utils.getViewModel
 import ru.gmasalskikh.ezcs.utils.get
 
 @Composable
-fun ComposeNavigation(navigator: Navigator = get()) {
+fun ComposeNavigation(
+    navigator: Navigator = get(),
+    scopeManager: ScopeManager = get()
+) {
     val navController = LocalNavController.current
     DisposableEffect(key1 = null) {
         navigator.onAttach(navController)
@@ -44,12 +45,6 @@ fun ComposeNavigation(navigator: Navigator = get()) {
         }
         composable(MainMenu().path) {
             MainMenuView(getViewModel()).Screen()
-            getKoin().getScopeOrNull(
-                NamesOfScopes.WEAPON_CHARACTERISTICS_SCOPE.getId()
-            )?.let { scope ->
-                if (!scope.closed) scope.get<WeaponCharacteristicsViewModel>().onCleared()
-                scope.close()
-            }
         }
         composable(MapCallouts.path) {
             MapCalloutsView(getViewModel()).Screen()
@@ -59,28 +54,28 @@ fun ComposeNavigation(navigator: Navigator = get()) {
             route = WeaponCharacteristics.path,
         ) {
             composable(WeaponCharacteristicsPistol().path) {
-                get<Scope> { parametersOf(NamesOfScopes.WEAPON_CHARACTERISTICS_SCOPE) }
-                    .let {
-                    WeaponCharacteristicsView(it.get()).Screen()
-                }
+                scopeManager.getScopedInstance(
+                    ScopeName.WEAPON_CHARACTERISTICS_SCOPE,
+                    WeaponCharacteristicsViewModel::class
+                ).let { vm -> WeaponCharacteristicsView(vm).Screen() }
             }
             composable(WeaponCharacteristicsHeavy().path) {
-                get<Scope> { parametersOf(NamesOfScopes.WEAPON_CHARACTERISTICS_SCOPE) }
-                    .let {
-                    WeaponCharacteristicsView(it.get()).Screen()
-                }
+                scopeManager.getScopedInstance(
+                    ScopeName.WEAPON_CHARACTERISTICS_SCOPE,
+                    WeaponCharacteristicsViewModel::class
+                ).let { vm -> WeaponCharacteristicsView(vm).Screen() }
             }
             composable(WeaponCharacteristicsSMG().path) {
-                get<Scope> { parametersOf(NamesOfScopes.WEAPON_CHARACTERISTICS_SCOPE) }
-                    .let {
-                    WeaponCharacteristicsView(it.get()).Screen()
-                }
+                scopeManager.getScopedInstance(
+                    ScopeName.WEAPON_CHARACTERISTICS_SCOPE,
+                    WeaponCharacteristicsViewModel::class
+                ).let { vm -> WeaponCharacteristicsView(vm).Screen() }
             }
             composable(WeaponCharacteristicsRifle().path) {
-                get<Scope> { parametersOf(NamesOfScopes.WEAPON_CHARACTERISTICS_SCOPE) }
-                    .let {
-                    WeaponCharacteristicsView(it.get()).Screen()
-                }
+                scopeManager.getScopedInstance(
+                    ScopeName.WEAPON_CHARACTERISTICS_SCOPE,
+                    WeaponCharacteristicsViewModel::class
+                ).let { vm -> WeaponCharacteristicsView(vm).Screen() }
             }
         }
         composable(GrenadesPractice.path) {
