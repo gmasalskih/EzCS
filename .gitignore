@@ -13,3 +13,5 @@
 .externalNativeBuild
 .cxx
 local.properties
+/app/src/main/java/ru/gmasalskikh/ezcs/utils/secret/
+/app/src/main/java/ru/gmasalskikh/ezcs/utils/secret/keys.kt

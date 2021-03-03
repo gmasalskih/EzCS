@@ -2,6 +2,9 @@ package ru.gmasalskikh.ezcs.di
 
 import android.content.Context
 import android.content.SharedPreferences
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import org.koin.androidx.viewmodel.dsl.viewModel
@@ -106,6 +109,7 @@ val providerModule = module {
         )
     }
     single<ScopeManager> { ScopeManagerImpl(getKoin()) }
+    single<FirebaseFirestore> { Firebase.firestore }
 }
 
 val viewModelModule = module {
@@ -113,6 +117,7 @@ val viewModelModule = module {
         SplashScreenViewModel(
             sharedPreferences = get(),
             appEventEmitter = get(named(APP_EVENT_EMITTER)),
+            db = get()
         )
     }
     viewModel {

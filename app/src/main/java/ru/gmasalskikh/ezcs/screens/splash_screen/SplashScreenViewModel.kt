@@ -1,7 +1,10 @@
 package ru.gmasalskikh.ezcs.screens.splash_screen
 
 import android.content.SharedPreferences
+import android.util.Log
 import androidx.navigation.NavOptions
+import com.google.firebase.firestore.FirebaseFirestore
+import dev.chrisbanes.accompanist.coil.CoilImage
 import kotlinx.coroutines.flow.FlowCollector
 import org.orbitmvi.orbit.Container
 import org.orbitmvi.orbit.viewmodel.container
@@ -15,6 +18,7 @@ import ru.gmasalskikh.ezcs.utils.IS_LAUNCH_FIRST_TIME
 class SplashScreenViewModel(
     private val sharedPreferences: SharedPreferences,
     private val appEventEmitter: FlowCollector<AppController.AppEvent>,
+    private val db: FirebaseFirestore
 ) : BaseViewModel<SplashScreenViewState, SplashScreenViewEvent>() {
 
     override val container: Container<SplashScreenViewState, SideEffect> = container(

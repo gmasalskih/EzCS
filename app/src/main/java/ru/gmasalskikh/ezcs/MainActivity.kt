@@ -5,6 +5,7 @@ import android.os.Bundle
 import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
+import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.flow.FlowCollector
 import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
