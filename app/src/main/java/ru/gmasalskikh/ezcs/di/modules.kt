@@ -2,6 +2,9 @@ package ru.gmasalskikh.ezcs.di
 
 import android.content.Context
 import android.content.SharedPreferences
+import com.dropbox.core.DbxRequestConfig
+import com.dropbox.core.v2.DbxClientV2
+import com.dropbox.core.v2.files.DbxUserFilesRequests
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
@@ -24,11 +27,17 @@ import ru.gmasalskikh.ezcs.utils.SHARED_PREFERENCES_NAME
 import ru.gmasalskikh.ezcs.screens.app_screen.AppStateHolder
 import ru.gmasalskikh.ezcs.navigation.Navigator
 import ru.gmasalskikh.ezcs.navigation.NavigatorImpl
-import ru.gmasalskikh.ezcs.di.NamesOfDependencies.*
+import ru.gmasalskikh.ezcs.di.DependencyName.*
 import ru.gmasalskikh.ezcs.providers.app_controller.AppController
 import ru.gmasalskikh.ezcs.providers.app_controller.AppControllerImpl
+import ru.gmasalskikh.ezcs.providers.content_repository.ContentRepository
+import ru.gmasalskikh.ezcs.providers.content_repository.ContentRepositoryImpl
+import ru.gmasalskikh.ezcs.providers.data_repository.DataRepository
+import ru.gmasalskikh.ezcs.providers.data_repository.DataRepositoryImpl
 import ru.gmasalskikh.ezcs.providers.scope_manager.ScopeManager
 import ru.gmasalskikh.ezcs.providers.scope_manager.ScopeManagerImpl
+import ru.gmasalskikh.ezcs.providers.service_provider.ServiceProvider
+import ru.gmasalskikh.ezcs.providers.service_provider.ServiceProviderImpl
 import ru.gmasalskikh.ezcs.screens.grenades_practice.GrenadesPracticeViewModel
 import ru.gmasalskikh.ezcs.screens.map_callouts.MapCalloutsViewModel
 import ru.gmasalskikh.ezcs.screens.ranks.competitive.CompetitiveViewModel
@@ -36,6 +45,7 @@ import ru.gmasalskikh.ezcs.screens.ranks.danger_zone.DangerZoneViewModel
 import ru.gmasalskikh.ezcs.screens.ranks.profile_rank.ProfileRankViewModel
 import ru.gmasalskikh.ezcs.screens.ranks.wingman.WingmanViewModel
 import ru.gmasalskikh.ezcs.screens.weapon_characteristics.WeaponCharacteristicsViewModel
+import ru.gmasalskikh.ezcs.utils.DROPBOX_TOKEN
 import java.util.*
 
 enum class ScopeName(private var _id: UUID = UUID.randomUUID()) {
@@ -49,20 +59,13 @@ enum class ScopeName(private var _id: UUID = UUID.randomUUID()) {
     }
 }
 
-enum class NamesOfDependencies {
+enum class DependencyName {
     LIFECYCLE_EMITTER,
     LIFECYCLE_COLLECTOR,
     NAV_EVENT_EMITTER,
     NAV_EVENT_FLOW,
     APP_EVENT_EMITTER,
     APP_EVENT_COLLECTOR
-}
-
-val scopeModule = module {
-    factory<Scope> { (scopeName: ScopeName) ->
-        getKoin().getOrCreateScope(scopeName.id, named(scopeName))
-            .apply { if (closed) scopeName.setNewId() }
-    }
 }
 
 val emittersModule = module {
@@ -110,6 +113,20 @@ val providerModule = module {
     }
     single<ScopeManager> { ScopeManagerImpl(getKoin()) }
     single<FirebaseFirestore> { Firebase.firestore }
+    single<DbxUserFilesRequests> {
+        DbxClientV2(
+            DbxRequestConfig.newBuilder("Admin_EzCS/2.0").build(),
+            DROPBOX_TOKEN
+        ).files()
+    }
+    factory<ContentRepository> { ContentRepositoryImpl(dropbox = get()) }
+    factory<DataRepository> { DataRepositoryImpl(firestore = get()) }
+    factory<ServiceProvider> {
+        ServiceProviderImpl(
+            dataRepository = get(),
+            contentRepository = get()
+        )
+    }
 }
 
 val viewModelModule = module {
@@ -117,7 +134,6 @@ val viewModelModule = module {
         SplashScreenViewModel(
             sharedPreferences = get(),
             appEventEmitter = get(named(APP_EVENT_EMITTER)),
-            db = get()
         )
     }
     viewModel {

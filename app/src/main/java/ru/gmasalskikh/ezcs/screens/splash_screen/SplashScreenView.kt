@@ -21,6 +21,7 @@ class SplashScreenView(vm: SplashScreenViewModel) :
             delay(DELAY_SPLASH_SCREEN)
             emit(SplashScreenViewEvent.NavigateNext)
         }
+
         SplashScreenContent(
             appDescription = stringResource(id = viewState.appDescriptionRes),
             appLogo = bitmapFromResources(id = viewState.appLogoRes),

@@ -22,6 +22,7 @@ import org.koin.core.context.GlobalContext
 import org.koin.core.parameter.ParametersDefinition
 import org.koin.core.qualifier.Qualifier
 import java.io.InputStream
+import java.util.*
 
 @Composable
 fun drawableFromResources(@DrawableRes id: Int): Drawable = ResourcesCompat.getDrawable(
@@ -36,7 +37,6 @@ fun bitmapFromResources(@DrawableRes id: Int): Bitmap = BitmapFactory.decodeReso
     id
 )
 
-@Composable
 fun bitmapFromInputStream(inputStream: InputStream): Bitmap =
     BitmapFactory.decodeStream(inputStream)
 
@@ -72,5 +72,10 @@ inline fun <reified T> get(
 fun getKoin(): Koin = remember {
     GlobalContext.get()
 }
+
+fun String.toValidId() = this.replace("[^a-zA-Z0-9_\\s]".toRegex(), "")
+    .replace("[\\s]+".toRegex(), "_")
+    .replace("[_]+".toRegex(), "_")
+    .toLowerCase(Locale.getDefault())
 
 

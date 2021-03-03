@@ -5,7 +5,6 @@ import android.os.Bundle
 import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
-import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.flow.FlowCollector
 import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
@@ -14,7 +13,7 @@ import ru.gmasalskikh.ezcs.screens.app_screen.AppView
 import ru.gmasalskikh.ezcs.ui.theme.EzCSTheme
 import ru.gmasalskikh.ezcs.providers.lifecycle_holder.LifecycleHolder.*
 import ru.gmasalskikh.ezcs.providers.lifecycle_holder.LifecycleHolder.LifecycleActivityEvent.*
-import ru.gmasalskikh.ezcs.di.NamesOfDependencies.*
+import ru.gmasalskikh.ezcs.di.DependencyName.*
 
 class MainActivity : AppCompatActivity() {
 
