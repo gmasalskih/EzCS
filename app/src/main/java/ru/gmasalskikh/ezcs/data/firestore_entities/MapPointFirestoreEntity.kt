@@ -1,4 +1,4 @@
-package ru.gmasalskikh.ezcs.data.entity
+package ru.gmasalskikh.ezcs.data.firestore_entities
 
 import ru.gmasalskikh.ezcs.data.type.EntityType
 import ru.gmasalskikh.ezcs.data.type.GrenadeType
@@ -7,7 +7,7 @@ import ru.gmasalskikh.ezcs.utils.toValidId
 import java.lang.StringBuilder
 import java.util.*
 
-data class MapPoint(
+data class MapPointFirestoreEntity(
     override val entityType: EntityType = EntityType.MAP_POINT,
     override val name: String = "",
     val mapDocumentName: String = "",
@@ -17,7 +17,7 @@ data class MapPoint(
     val previewEnd: String = "",
     val contentImages: List<String> = listOf(),
     val contentVideos: List<String> = listOf(),
-) : Entity {
+) : FirestoreEntity {
     override fun getDocumentName(): String = StringBuilder().apply {
         append(entityType.name)
         append("/")

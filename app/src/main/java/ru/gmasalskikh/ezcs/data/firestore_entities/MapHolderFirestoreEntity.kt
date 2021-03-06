@@ -1,8 +1,8 @@
-package ru.gmasalskikh.ezcs.data.entity
+package ru.gmasalskikh.ezcs.data.firestore_entities
 
 import ru.gmasalskikh.ezcs.data.type.EntityType
 
-data class MapHolder(
+data class MapHolderFirestoreEntity(
     override val name: String = "",
     override val entityType: EntityType = EntityType.MAP_HOLDER,
     @field:JvmField
@@ -10,4 +10,4 @@ data class MapHolder(
     val logo: String = "",
     val map: String = "",
     val wallpaper: String = "",
-) : Entity
+) : FirestoreEntity

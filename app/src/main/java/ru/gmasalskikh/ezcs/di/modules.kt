@@ -122,7 +122,8 @@ val providerModule = module {
     factory<ServiceProvider> {
         ServiceProviderImpl(
             dataRepository = get(),
-            contentRepository = get()
+            contentRepository = get(),
+            cs = get { parametersOf(Dispatchers.IO) }
         )
     }
 }
@@ -147,7 +148,7 @@ val viewModelModule = module {
     }
 
     viewModel { GrenadesPracticeViewModel() }
-    viewModel { CompetitiveViewModel() }
+    viewModel { CompetitiveViewModel(serviceProvider = get()) }
     viewModel { DangerZoneViewModel() }
     viewModel { ProfileRankViewModel() }
     viewModel { WingmanViewModel() }

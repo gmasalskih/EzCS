@@ -1,11 +1,11 @@
-package ru.gmasalskikh.ezcs.data.entity
+package ru.gmasalskikh.ezcs.data.firestore_entities
 
 import ru.gmasalskikh.ezcs.data.type.EntityType
 import ru.gmasalskikh.ezcs.data.type.TeamType
 import ru.gmasalskikh.ezcs.data.type.WeaponType
 import ru.gmasalskikh.ezcs.utils.toValidId
 
-data class Weapon(
+data class WeaponFirestoreEntity(
     override val name: String = "",
     override val entityType: EntityType = EntityType.WEAPON,
     val externalId:String = "",
@@ -71,7 +71,7 @@ data class Weapon(
     val spread: Double = 0.0,
     /** Дополнительная погрешность, рассчитанная на пулю доп */
     val spreadAlt: Double = 0.0,
-) : Entity{
+) : FirestoreEntity{
     override fun getDocumentName(): String {
         return "${entityType.name}/${externalId.toValidId()}"
     }

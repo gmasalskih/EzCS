@@ -10,10 +10,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import ru.gmasalskikh.ezcs.utils.LocalAppTheme
 
 @Composable
 fun LoadingIndicator(
-    color: Color
+    color: Color = LocalAppTheme.current.colors.primary
 ) {
     Box(
         modifier = Modifier
