@@ -5,7 +5,6 @@ import android.content.SharedPreferences
 import com.dropbox.core.DbxRequestConfig
 import com.dropbox.core.v2.DbxClientV2
 import com.dropbox.core.v2.files.DbxUserFilesRequests
-import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.CoroutineDispatcher
@@ -13,7 +12,6 @@ import kotlinx.coroutines.Dispatchers
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.core.parameter.parametersOf
 import org.koin.core.qualifier.named
-import org.koin.core.scope.Scope
 import org.koin.dsl.module
 import ru.gmasalskikh.ezcs.providers.custom_coroutine_scope.CustomCoroutineScope
 import ru.gmasalskikh.ezcs.providers.custom_coroutine_scope.CustomCoroutineScopeImpl
@@ -112,7 +110,7 @@ val providerModule = module {
         )
     }
     single<ScopeManager> { ScopeManagerImpl(getKoin()) }
-    single<FirebaseFirestore> { Firebase.firestore }
+    single { Firebase.firestore }
     single<DbxUserFilesRequests> {
         DbxClientV2(
             DbxRequestConfig.newBuilder("Admin_EzCS/2.0").build(),

@@ -18,8 +18,8 @@ import ru.gmasalskikh.ezcs.navigation.TargetNavigation.*
 import ru.gmasalskikh.ezcs.providers.scope_manager.ScopeManager
 import ru.gmasalskikh.ezcs.screens.weapon_characteristics.WeaponCharacteristicsView
 import ru.gmasalskikh.ezcs.screens.weapon_characteristics.WeaponCharacteristicsViewModel
-import ru.gmasalskikh.ezcs.utils.getViewModel
-import ru.gmasalskikh.ezcs.utils.get
+import org.koin.androidx.compose.get
+import org.koin.androidx.compose.getViewModel
 
 @Composable
 fun ComposeNavigation(

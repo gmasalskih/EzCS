@@ -1,3 +1,5 @@
+
+//TODO fix ViewPager!!!
 //package ru.gmasalskikh.ezcs.screens.preview.widgets
 //
 //import androidx.compose.foundation.BorderStroke

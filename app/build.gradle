@@ -2,7 +2,6 @@ plugins {
     id 'com.android.application'
     id 'kotlin-android'
     id 'kotlin-parcelize'
-    id 'koin'
     id 'com.google.gms.google-services'
 }
 
@@ -72,13 +71,9 @@ dependencies {
     testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:$coroutines"
 
     //Koin
-    def koin = "2.2.2"
-    implementation "org.koin:koin-androidx-scope:$koin"
-    implementation "org.koin:koin-androidx-viewmodel:$koin"
-    implementation "org.koin:koin-androidx-fragment:$koin"
-    implementation "org.koin:koin-androidx-workmanager:$koin"
-    implementation "org.koin:koin-androidx-compose:$koin"
-    implementation "org.koin:koin-androidx-ext:$koin"
+    implementation "io.insert-koin:koin-android:$koin_version"
+    implementation "io.insert-koin:koin-android-ext:$koin_version"
+    implementation "io.insert-koin:koin-androidx-compose:$koin_version"
 
     //Coil
     def coil = "0.6.1"

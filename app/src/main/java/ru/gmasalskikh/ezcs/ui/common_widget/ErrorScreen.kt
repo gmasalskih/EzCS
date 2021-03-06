@@ -11,7 +11,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import ru.gmasalskikh.ezcs.ui.theme.fontSize12Sp
-import ru.gmasalskikh.ezcs.ui.theme.fontSize8Sp
 
 @Composable
 fun ErrorScreen(

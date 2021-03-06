@@ -1,6 +1,5 @@
 package ru.gmasalskikh.ezcs.screens.splash_screen
 
-import android.graphics.Bitmap
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import ru.gmasalskikh.ezcs.R
