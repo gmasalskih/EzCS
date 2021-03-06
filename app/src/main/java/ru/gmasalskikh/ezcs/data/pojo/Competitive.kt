@@ -7,5 +7,6 @@ data class Competitive(
     val name: String = "",
     val logoName: String = "",
     val logoDeferred: Deferred<Bitmap>? = null,
+    val logoUrl: Deferred<String>? = null,
     val order: Int = 0
 )

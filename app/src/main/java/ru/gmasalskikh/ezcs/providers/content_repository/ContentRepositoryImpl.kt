@@ -34,38 +34,36 @@ class ContentRepositoryImpl(
     override suspend fun getFileThumbnail(
         pathToFolder: String,
         fileName: String
-    ) = withContext(Dispatchers.IO) {
-        suspendCoroutine<Bitmap> { continuation ->
-            try {
-                dropbox
-                    .getThumbnailV2Builder(PathOrLink.path("${pathToFolder.toValidPath()}/$fileName"))
-                    .withFormat(ThumbnailFormat.PNG)
-                    .withSize(ThumbnailSize.W128H128)
-                    .start()
-                    .inputStream
-                    .let { inputStream -> BitmapFactory.decodeStream(inputStream) }
-                    .let { bitmap -> Result.success(bitmap) }
-                    .let { result -> continuation.resumeWith(result) }
-            } catch (e: Throwable) {
-                continuation.resumeWith(Result.failure(e))
-            }
+    ) = suspendCoroutine<Bitmap> { continuation ->
+        try {
+            dropbox
+                .getThumbnailV2Builder(PathOrLink.path("${pathToFolder.toValidPath()}/$fileName"))
+                .withFormat(ThumbnailFormat.PNG)
+                .withSize(ThumbnailSize.W128H128)
+                .start()
+                .inputStream
+                .let { inputStream -> BitmapFactory.decodeStream(inputStream) }
+                .let { bitmap -> Result.success(bitmap) }
+                .let { result -> continuation.resumeWith(result) }
+        } catch (e: Throwable) {
+            continuation.resumeWith(Result.failure(e))
         }
     }
+
 
     override suspend fun getFileLink(
         pathToFolder: String,
         fileName: String
-    ) = withContext(Dispatchers.IO) {
-        suspendCoroutine<String> { continuation ->
-            try {
-                dropbox.getTemporaryLink("${pathToFolder.toValidPath()}/$fileName")
-                    .let { response -> Result.success(response.link) }
-                    .let { result -> continuation.resumeWith(result) }
-            } catch (e: Throwable) {
-                continuation.resumeWith(Result.failure(e))
-            }
+    ) = suspendCoroutine<String> { continuation ->
+        try {
+            dropbox.getTemporaryLink("${pathToFolder.toValidPath()}/$fileName")
+                .let { response -> Result.success(response.link) }
+                .let { result -> continuation.resumeWith(result) }
+        } catch (e: Throwable) {
+            continuation.resumeWith(Result.failure(e))
         }
     }
+
 
     private fun String.toValidPath() = if (this.contains("^[/]".toRegex())) this else "/$this"
 }

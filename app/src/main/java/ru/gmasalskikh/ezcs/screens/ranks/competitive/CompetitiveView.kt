@@ -5,11 +5,9 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import kotlinx.coroutines.launch
 import ru.gmasalskikh.ezcs.screens.BaseView
 import ru.gmasalskikh.ezcs.ui.common_widget.ImageLoader
 import ru.gmasalskikh.ezcs.utils.LocalAppTheme
@@ -39,7 +37,7 @@ class CompetitiveView(
                         modifier = Modifier.size(width = 100.dp, height = 40.dp),
                         colorProgressIndicator = theme.colors.primary,
                         contentDescription = competitive.logoName,
-                        deferredBitmap = competitive.logoDeferred
+                        deferredUrl = competitive.logoDeferred
                     )
                     Spacer(
                         modifier = Modifier
