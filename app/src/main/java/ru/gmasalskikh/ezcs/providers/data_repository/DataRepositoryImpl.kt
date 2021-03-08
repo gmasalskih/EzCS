@@ -13,41 +13,39 @@ class DataRepositoryImpl(
     override suspend fun <T> getListEntities(
         entityType: EntityType,
         clazz: Class<T>
-    ) = withContext(Dispatchers.IO) {
-        suspendCoroutine<List<T>> { continuation ->
-            firestore.collection(entityType.name).get()
-                .addOnSuccessListener { documents ->
-                    val list = documents.documents
-                        .mapNotNull { it.toObject(clazz) }
-                        .toList()
-                    continuation.resumeWith(Result.success(list))
-                }.addOnFailureListener { exception ->
-                    continuation.resumeWith(Result.failure(exception))
-                }
-        }
+    ) = suspendCoroutine<List<T>> { continuation ->
+        firestore.collection(entityType.name).get()
+            .addOnSuccessListener { documents ->
+                val list = documents.documents
+                    .mapNotNull { it.toObject(clazz) }
+                    .toList()
+                continuation.resumeWith(Result.success(list))
+            }.addOnFailureListener { exception ->
+                continuation.resumeWith(Result.failure(exception))
+            }
     }
+
 
     override suspend fun <T> getEntity(
         entityType: EntityType,
         entityName: String,
         clazz: Class<T>
-    ) = withContext(Dispatchers.IO) {
-        suspendCoroutine<T> { continuation ->
-            firestore.collection(entityType.name).document(entityName).get()
-                .addOnSuccessListener { document ->
-                    document.toObject(clazz)
-                        ?.let { obj -> Result.success(obj) }
-                        ?.let { result -> continuation.resumeWith(result) }
-                        ?: continuation.resumeWith(
-                            Result.failure(
-                                IllegalArgumentException(
-                                    "${entityType.name}/$document is not contains ${clazz.simpleName}"
-                                )
+    ) = suspendCoroutine<T> { continuation ->
+        firestore.collection(entityType.name).document(entityName).get()
+            .addOnSuccessListener { document ->
+                document.toObject(clazz)
+                    ?.let { obj -> Result.success(obj) }
+                    ?.let { result -> continuation.resumeWith(result) }
+                    ?: continuation.resumeWith(
+                        Result.failure(
+                            IllegalArgumentException(
+                                "${entityType.name}/$document is not contains ${clazz.simpleName}"
                             )
                         )
-                }.addOnFailureListener { exception ->
-                    continuation.resumeWith(Result.failure(exception))
-                }
-        }
+                    )
+            }.addOnFailureListener { exception ->
+                continuation.resumeWith(Result.failure(exception))
+            }
     }
+
 }

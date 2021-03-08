@@ -7,6 +7,7 @@ import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import org.orbitmvi.orbit.ContainerHost
 import org.orbitmvi.orbit.syntax.simple.intent
+import org.orbitmvi.orbit.syntax.simple.postSideEffect
 import org.orbitmvi.orbit.syntax.simple.reduce
 
 abstract class BaseViewModel<VS : ViewState, VE : ViewEvent> :
@@ -28,6 +29,13 @@ abstract class BaseViewModel<VS : ViewState, VE : ViewEvent> :
             _viewEvent.collect { viewEvent ->
                 onViewEvent(viewEvent)
             }
+        }
+    }
+
+    fun setSideEffect(sideEffect: SideEffect) = intent {
+        postSideEffect(sideEffect)
+        reduce {
+            state.apply { currentSideEffect = sideEffect }
         }
     }
 

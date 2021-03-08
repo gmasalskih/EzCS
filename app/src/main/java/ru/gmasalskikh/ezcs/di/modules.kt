@@ -34,6 +34,7 @@ import ru.gmasalskikh.ezcs.providers.data_repository.DataRepository
 import ru.gmasalskikh.ezcs.providers.data_repository.DataRepositoryImpl
 import ru.gmasalskikh.ezcs.providers.scope_manager.ScopeManager
 import ru.gmasalskikh.ezcs.providers.scope_manager.ScopeManagerImpl
+import ru.gmasalskikh.ezcs.providers.service_provider.Mapper
 import ru.gmasalskikh.ezcs.providers.service_provider.ServiceProvider
 import ru.gmasalskikh.ezcs.providers.service_provider.ServiceProviderImpl
 import ru.gmasalskikh.ezcs.screens.grenades_practice.GrenadesPracticeViewModel
@@ -119,11 +120,16 @@ val providerModule = module {
     }
     factory<ContentRepository> { ContentRepositoryImpl(dropbox = get()) }
     factory<DataRepository> { DataRepositoryImpl(firestore = get()) }
+    factory {
+        Mapper(
+            contentRepository = get(),
+            cs = get<CustomCoroutineScope> { parametersOf(Dispatchers.IO) }
+        )
+    }
     factory<ServiceProvider> {
         ServiceProviderImpl(
             dataRepository = get(),
-            contentRepository = get(),
-            cs = get { parametersOf(Dispatchers.IO) }
+            mapper = get()
         )
     }
 }
@@ -149,7 +155,7 @@ val viewModelModule = module {
 
     viewModel { GrenadesPracticeViewModel() }
     viewModel { CompetitiveViewModel(serviceProvider = get()) }
-    viewModel { DangerZoneViewModel() }
-    viewModel { ProfileRankViewModel() }
-    viewModel { WingmanViewModel() }
+    viewModel { DangerZoneViewModel(serviceProvider = get()) }
+    viewModel { ProfileRankViewModel(serviceProvider = get()) }
+    viewModel { WingmanViewModel(serviceProvider = get()) }
 }

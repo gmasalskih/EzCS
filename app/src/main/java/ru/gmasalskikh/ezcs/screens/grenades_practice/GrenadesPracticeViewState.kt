@@ -5,5 +5,5 @@ import ru.gmasalskikh.ezcs.screens.ViewState
 
 data class GrenadesPracticeViewState(
     val name: String = "Grenades practice",
-    override val currentSideEffect: SideEffect = SideEffect.Data
+    override var currentSideEffect: SideEffect = SideEffect.Data
 ) : ViewState

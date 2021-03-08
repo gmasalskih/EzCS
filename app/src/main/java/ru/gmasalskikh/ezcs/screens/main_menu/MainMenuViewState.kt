@@ -29,7 +29,7 @@ data class MainMenuViewState(
             menuItemBackgroundImageRes = R.drawable.main_menu_background_ranks
         )
     ),
-    override val currentSideEffect: SideEffect = SideEffect.Data
+    override var currentSideEffect: SideEffect = SideEffect.Data
 ) : ViewState {
     data class MainMenuItem(
         val mainMenuItemType: MainMenuItemType,

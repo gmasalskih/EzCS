@@ -14,17 +14,18 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.asImageBitmap
 import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.launch
+import ru.gmasalskikh.ezcs.utils.LocalAppTheme
 
 @Composable
 fun ImageLoader(
     modifier: Modifier = Modifier,
-    colorProgressIndicator: Color,
-    contentDescription: String,
-    deferredUrl: Deferred<Bitmap>?
+    colorProgressIndicator: Color = LocalAppTheme.current.colors.primary,
+    contentDescription: String? = null,
+    deferredBitmap: Deferred<Bitmap>
 ) {
-    var bitmap: Bitmap? by remember(deferredUrl) { mutableStateOf(null) }
+    var bitmap: Bitmap? by remember(deferredBitmap) { mutableStateOf(null) }
     val scope = rememberCoroutineScope()
-    SideEffect { if (bitmap == null) scope.launch { bitmap = deferredUrl?.await() } }
+    SideEffect { if (bitmap == null) scope.launch { bitmap = deferredBitmap.await() } }
     Box(
         modifier = modifier
     ) {

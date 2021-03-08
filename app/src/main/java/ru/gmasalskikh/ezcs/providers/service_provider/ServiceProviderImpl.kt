@@ -1,40 +1,35 @@
 package ru.gmasalskikh.ezcs.providers.service_provider
 
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.async
-import kotlinx.coroutines.flow.asFlow
-import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.flow.toList
-import kotlinx.coroutines.withContext
-import ru.gmasalskikh.ezcs.data.firestore_entities.CompetitiveFirestoreEntity
-import ru.gmasalskikh.ezcs.data.pojo.Competitive
+import kotlinx.coroutines.*
 import ru.gmasalskikh.ezcs.data.type.EntityType
-import ru.gmasalskikh.ezcs.providers.content_repository.ContentRepository
-import ru.gmasalskikh.ezcs.providers.custom_coroutine_scope.CustomCoroutineScope
 import ru.gmasalskikh.ezcs.providers.data_repository.DataRepository
 
 class ServiceProviderImpl(
     private val dataRepository: DataRepository,
-    private val contentRepository: ContentRepository,
-    private val cs: CustomCoroutineScope
+    override val mapper: Mapper
 ) : ServiceProvider {
 
-    override suspend fun getCompetitiveList(): List<Competitive> = withContext(Dispatchers.IO) {
+    override suspend fun <SOURCE, TARGET> getEntityList(
+        entityType: EntityType,
+        clazz: Class<SOURCE>,
+        mapper: suspend (SOURCE) -> TARGET
+    ): List<TARGET> = withContext(Dispatchers.IO) {
         dataRepository.getListEntities(
-            EntityType.COMPETITIVE,
-            CompetitiveFirestoreEntity::class.java
-        ).asFlow().map { competitiveFirestoreEntity ->
-            Competitive(
-                name = competitiveFirestoreEntity.name,
-                order = competitiveFirestoreEntity.order,
-                logoName = competitiveFirestoreEntity.logo,
-                logoDeferred = async {
-                    contentRepository.getFile(
-                        pathToFolder = competitiveFirestoreEntity.getDocumentName(),
-                        fileName = competitiveFirestoreEntity.logo
-                    )
-                },
-            )
-        }.toList()
+            entityType = entityType,
+            clazz = clazz
+        ).map { mapper(it) }.toList()
+    }
+
+    override suspend fun <SOURCE, TARGET> getEntity(
+        entityType: EntityType,
+        entityName: String,
+        clazz: Class<SOURCE>,
+        mapper: suspend (SOURCE) -> TARGET
+    ): TARGET = withContext(Dispatchers.IO) {
+        dataRepository.getEntity(
+            entityType = entityType,
+            entityName = entityName,
+            clazz = clazz
+        ).let { mapper(it) }
     }
 }

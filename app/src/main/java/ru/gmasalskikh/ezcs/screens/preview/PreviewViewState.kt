@@ -36,7 +36,7 @@ data class PreviewViewState(
         )
     ),
 //    val pagerState: PagerState? = null,
-    override val currentSideEffect: SideEffect = SideEffect.Data
+    override var currentSideEffect: SideEffect = SideEffect.Data
 ) : ViewState {
 
     data class PreviewItem(

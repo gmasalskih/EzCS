@@ -11,6 +11,7 @@ import kotlinx.coroutines.flow.FlowCollector
 import kotlinx.coroutines.launch
 import org.orbitmvi.orbit.syntax.simple.intent
 import org.orbitmvi.orbit.syntax.simple.postSideEffect
+import org.orbitmvi.orbit.syntax.simple.reduce
 import ru.gmasalskikh.ezcs.ui.common_widget.ErrorScreen
 import ru.gmasalskikh.ezcs.ui.common_widget.LoadingIndicator
 import ru.gmasalskikh.ezcs.utils.LocalAppTheme
@@ -59,11 +60,7 @@ abstract class BaseView<VS : ViewState, VE : ViewEvent, VM : BaseViewModel<VS, V
                     backgroundColor = theme.colors.error.copy(alpha = 0.6f),
                     messageColor = theme.colors.onError,
                     confirmButtonLabel = stringResource(id = R.string.ok),
-                    onConfirmButtonClick = {
-                        vm.intent {
-                            postSideEffect(SideEffect.Data)
-                        }
-                    }
+                    onConfirmButtonClick = { vm.setSideEffect(SideEffect.Data) }
                 )
             }
             SideEffect.Data -> Unit
