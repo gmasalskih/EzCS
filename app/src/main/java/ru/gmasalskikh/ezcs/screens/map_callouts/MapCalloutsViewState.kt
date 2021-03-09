@@ -5,5 +5,5 @@ import ru.gmasalskikh.ezcs.screens.ViewState
 
 data class MapCalloutsViewState(
     val name: String = "Map Callouts",
-    override val currentSideEffect: SideEffect = SideEffect.Loading
+    override var currentSideEffect: SideEffect = SideEffect.Loading
 ) : ViewState

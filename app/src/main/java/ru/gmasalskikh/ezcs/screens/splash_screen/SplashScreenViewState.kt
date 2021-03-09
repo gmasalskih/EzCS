@@ -11,5 +11,5 @@ data class SplashScreenViewState(
     val appDescriptionRes: Int = R.string.app_description,
     @DrawableRes
     val appLogoRes: Int = R.drawable.logo,
-    override val currentSideEffect: SideEffect = SideEffect.Data
+    override var currentSideEffect: SideEffect = SideEffect.Data,
 ) : ViewState

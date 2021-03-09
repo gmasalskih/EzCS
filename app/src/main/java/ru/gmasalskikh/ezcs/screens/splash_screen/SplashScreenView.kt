@@ -7,7 +7,7 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import ru.gmasalskikh.ezcs.screens.BaseView
 import ru.gmasalskikh.ezcs.screens.splash_screen.widgets.SplashScreenContent
-import ru.gmasalskikh.ezcs.utils.AmbientAppTheme
+import ru.gmasalskikh.ezcs.utils.LocalAppTheme
 import ru.gmasalskikh.ezcs.utils.DELAY_SPLASH_SCREEN
 import ru.gmasalskikh.ezcs.utils.bitmapFromResources
 
@@ -16,11 +16,12 @@ class SplashScreenView(vm: SplashScreenViewModel) :
 
     @Composable
     override fun SetContent(viewState: SplashScreenViewState) {
-        val theme = AmbientAppTheme.current
+        val theme = LocalAppTheme.current
         rememberCoroutineScope().launch {
             delay(DELAY_SPLASH_SCREEN)
             emit(SplashScreenViewEvent.NavigateNext)
         }
+
         SplashScreenContent(
             appDescription = stringResource(id = viewState.appDescriptionRes),
             appLogo = bitmapFromResources(id = viewState.appLogoRes),

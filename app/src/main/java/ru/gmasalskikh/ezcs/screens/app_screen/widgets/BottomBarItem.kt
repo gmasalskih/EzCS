@@ -9,17 +9,16 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
-import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import ru.gmasalskikh.ezcs.ui.theme.fontSize10Sp
 import ru.gmasalskikh.ezcs.ui.theme.fontSize8Sp
 
 @Composable
 fun BottomBarItem(
     modifier: Modifier = Modifier,
-    icon: ImageVector? = null,
+    icon: Painter? = null,
     label: String,
     contentColor: Color,
     onClick: (() -> Unit)?
@@ -35,7 +34,7 @@ fun BottomBarItem(
     ) {
         if (icon != null) Image(
             modifier = Modifier.weight(1f),
-            imageVector = icon,
+            painter = icon,
             colorFilter = ColorFilter.tint(contentColor),
             contentDescription = null
         )

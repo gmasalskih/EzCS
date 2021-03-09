@@ -23,25 +23,25 @@ class PreviewViewModel(
     )
 
     override suspend fun onViewEvent(viewEvent: PreviewViewEvent) {
-        when (viewEvent) {
-            is PreviewViewEvent.NavigateNext -> viewModelScope.launch(viewLifecycleJob) {
-                appEventEmitter.emit(
-                    AppController.AppEvent.NavigateTo(
-                        TargetNavigation.MainMenu(
-                            params = NavigationParams(
-                                navOptions = NavOptions.Builder()
-                                    .setPopUpTo(TargetNavigation.Preview().navId, true)
-                                    .build()
-                            )
-                        )
-                    )
-                )
-            }
-            is PreviewViewEvent.SetPagerState -> intent {
-                reduce {
-                    state.copy(pagerState = viewEvent.pagerState)
-                }
-            }
-        }
+//        when (viewEvent) {
+//            is PreviewViewEvent.NavigateNext -> viewModelScope.launch(viewLifecycleJob) {
+//                appEventEmitter.emit(
+//                    AppController.AppEvent.NavigateTo(
+//                        TargetNavigation.MainMenu(
+//                            params = NavigationParams(
+//                                navOptions = NavOptions.Builder()
+//                                    .setPopUpTo(TargetNavigation.Preview().navId, true)
+//                                    .build()
+//                            )
+//                        )
+//                    )
+//                )
+//            }
+//            is PreviewViewEvent.SetPagerState -> intent {
+//                reduce {
+//                    state.copy(pagerState = viewEvent.pagerState)
+//                }
+//            }
+//        }
     }
 }

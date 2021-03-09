@@ -8,7 +8,6 @@ import kotlinx.coroutines.flow.FlowCollector
 import ru.gmasalskikh.ezcs.R
 import ru.gmasalskikh.ezcs.navigation.NavigationParams
 import ru.gmasalskikh.ezcs.navigation.TargetNavigation
-import ru.gmasalskikh.ezcs.providers.app_controller.AppController
 import ru.gmasalskikh.ezcs.screens.app_screen.AppStateHolder
 import ru.gmasalskikh.ezcs.screens.app_screen.AppViewState
 

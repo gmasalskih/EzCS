@@ -19,7 +19,6 @@ class App : Application() {
                 providerModule,
                 emittersModule,
                 collectorsModule,
-                scopeModule
             )
         }
     }

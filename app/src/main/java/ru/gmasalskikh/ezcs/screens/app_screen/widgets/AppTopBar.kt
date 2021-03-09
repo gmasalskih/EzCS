@@ -6,13 +6,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import ru.gmasalskikh.ezcs.screens.app_screen.AppViewState
 import ru.gmasalskikh.ezcs.ui.theme.AppTheme
-import ru.gmasalskikh.ezcs.utils.AmbientAppTheme
+import ru.gmasalskikh.ezcs.utils.LocalAppTheme
 
 @Composable
 fun AppTopBar(
     appBarViewState: AppViewState.AppTopBarState
 ) {
-    val theme: AppTheme = AmbientAppTheme.current
+    val theme: AppTheme = LocalAppTheme.current
     when (appBarViewState) {
         AppViewState.AppTopBarState.NoAppTopBar -> {
         }

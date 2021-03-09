@@ -13,3 +13,5 @@
 .externalNativeBuild
 .cxx
 local.properties
+/app/src/main/java/ru/gmasalskikh/ezcs/utils/keys.kt
+/app/google-services.json

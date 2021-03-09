@@ -5,5 +5,5 @@ import ru.gmasalskikh.ezcs.screens.ViewState
 
 data class WeaponCharacteristicsViewState(
     val name: String = "Weapon characteristics",
-    override val currentSideEffect: SideEffect = SideEffect.Data
+    override var currentSideEffect: SideEffect = SideEffect.Data
 ) : ViewState

@@ -3,7 +3,7 @@ package ru.gmasalskikh.ezcs.screens.main_menu
 import androidx.compose.runtime.Composable
 import ru.gmasalskikh.ezcs.screens.BaseView
 import ru.gmasalskikh.ezcs.screens.main_menu.widget.MainMenuContent
-import ru.gmasalskikh.ezcs.utils.AmbientAppTheme
+import ru.gmasalskikh.ezcs.utils.LocalAppTheme
 
 class MainMenuView(
     vm: MainMenuViewModel
@@ -11,7 +11,7 @@ class MainMenuView(
 
     @Composable
     override fun SetContent(viewState: MainMenuViewState) {
-        val theme = AmbientAppTheme.current
+        val theme = LocalAppTheme.current
         MainMenuContent(
             menuItemSurfaceColor = theme.colors.surface,
             menuItemElevation = theme.elevations.medium,

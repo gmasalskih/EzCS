@@ -6,10 +6,10 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Shapes
 import androidx.compose.material.Typography
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.Providers
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import ru.gmasalskikh.ezcs.utils.AmbientAppTheme
+import ru.gmasalskikh.ezcs.utils.LocalAppTheme
 
 data class Paddings(
     val small: Dp = 5.dp,
@@ -49,7 +49,7 @@ object EzCSTheme : AppTheme {
 
 @Composable
 fun EzCSTheme(content: @Composable () -> Unit) {
-    Providers(AmbientAppTheme provides EzCSTheme) {
+    CompositionLocalProvider(LocalAppTheme provides EzCSTheme) {
         MaterialTheme(
             colors = EzCSTheme.colors,
             typography = EzCSTheme.typography,

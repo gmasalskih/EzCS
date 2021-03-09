@@ -2,24 +2,24 @@ package ru.gmasalskikh.ezcs.screens.app_screen
 
 import androidx.compose.material.rememberScaffoldState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.DisposableEffect
-import androidx.compose.runtime.Providers
 import androidx.navigation.compose.rememberNavController
 import org.koin.androidx.compose.get
-import ru.gmasalskikh.ezcs.utils.AmbientNavController
-import ru.gmasalskikh.ezcs.utils.AmbientScaffoldState
+import ru.gmasalskikh.ezcs.utils.LocalNavController
+import ru.gmasalskikh.ezcs.utils.LocalScaffoldState
 import ru.gmasalskikh.ezcs.screens.app_screen.widgets.AppScreen
 import ru.gmasalskikh.ezcs.screens.app_screen.widgets.*
-import ru.gmasalskikh.ezcs.ui.common_widget.AppDrawer
+import ru.gmasalskikh.ezcs.screens.app_screen.widgets.AppDrawer
 
 @Composable
 fun AppView(stateHolder: AppStateHolder = get()) {
     val appState = stateHolder.appViewState
-    Providers(
-        AmbientNavController provides rememberNavController(),
-        AmbientScaffoldState provides rememberScaffoldState(),
+    CompositionLocalProvider(
+        LocalNavController provides rememberNavController(),
+        LocalScaffoldState provides rememberScaffoldState(),
     ) {
-        stateHolder.setScaffoldState(AmbientScaffoldState.current)
+        stateHolder.setScaffoldState(LocalScaffoldState.current)
         DisposableEffect(key1 = null) {
             stateHolder.onViewCreate()
             onDispose {
