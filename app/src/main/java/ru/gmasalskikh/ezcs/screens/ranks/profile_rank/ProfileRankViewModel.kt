@@ -1,6 +1,7 @@
 package ru.gmasalskikh.ezcs.screens.ranks.profile_rank
 
 import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.launch
 import org.orbitmvi.orbit.Container
 import org.orbitmvi.orbit.syntax.simple.intent
@@ -17,6 +18,11 @@ class ProfileRankViewModel(
     private val serviceProvider: ServiceProvider
 ) : BaseViewModel<ProfileRankViewState, Nothing>() {
 
+    private val ceh: CoroutineExceptionHandler
+        get() = CoroutineExceptionHandler { _, throwable ->
+            setSideEffect(SideEffect.Error(err = throwable, msgErr = throwable.message))
+        }
+
     override val container: Container<ProfileRankViewState, SideEffect> = container(
         initialState = ProfileRankViewState(),
         onCreate = { initState() }
@@ -30,16 +36,12 @@ class ProfileRankViewModel(
         }
     }
 
-    private fun initState() = viewModelScope.launch {
-        try {
-            serviceProvider.getEntityList(
-                EntityType.PROFILE_RANK,
-                ProfileRankFirestoreEntity::class.java,
-                serviceProvider.mapper.profileRank
-            ).let { setList(it) }
-            setSideEffect(SideEffect.Data)
-        } catch (e: Throwable) {
-            setSideEffect(SideEffect.Error(err = e, msgErr = e.message))
-        }
+    private fun initState() = viewModelScope.launch(ceh) {
+        serviceProvider.getEntityList(
+            EntityType.PROFILE_RANK,
+            ProfileRankFirestoreEntity::class.java,
+            serviceProvider.mapper.profileRank
+        ).let { setList(it) }
+        setSideEffect(SideEffect.Data)
     }
 }

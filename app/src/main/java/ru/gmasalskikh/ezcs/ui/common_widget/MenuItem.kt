@@ -17,7 +17,7 @@ fun MenuItem(
     shape: CornerBasedShape,
     border: BorderStroke,
     onClick: () -> Unit,
-    content: @Composable BoxScope.() -> Unit
+    content: @Composable () -> Unit
 ) {
     Surface(
         modifier = Modifier
@@ -29,10 +29,6 @@ fun MenuItem(
         shape = shape,
         border = border
     ) {
-        Box(
-            modifier = Modifier.fillMaxSize()
-        ) {
-            content()
-        }
+        content()
     }
 }

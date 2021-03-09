@@ -1,4 +1,4 @@
-package ru.gmasalskikh.ezcs.screens.main_menu.widget
+package ru.gmasalskikh.ezcs.ui.common_widget
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Arrangement
@@ -11,20 +11,18 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import ru.gmasalskikh.ezcs.screens.main_menu.MainMenuViewState
-import ru.gmasalskikh.ezcs.ui.common_widget.MenuItem
 
 @Composable
-fun MainMenuContent(
+fun <T> MenuContent(
     menuItemSurfaceColor: Color,
     menuItemElevation: Dp,
     menuItemShape: CornerBasedShape,
     menuItemBorder: BorderStroke,
-    onMenuItemClick: (MainMenuViewState.MainMenuItemType) -> Unit,
-    items: List<MainMenuViewState.MainMenuItem>
+    onMenuItemClick: (T) -> Unit,
+    items: List<T>,
+    itemContent: @Composable (T) -> Unit
 ) {
     LazyColumn(
         modifier = Modifier
@@ -33,18 +31,15 @@ fun MainMenuContent(
         verticalArrangement = Arrangement.spacedBy(10.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        items(items) { mainMenuItem ->
+        items(items) { item ->
             MenuItem(
                 backgroundColor = menuItemSurfaceColor,
                 elevation = menuItemElevation,
                 shape = menuItemShape,
                 border = menuItemBorder,
-                onClick = { onMenuItemClick(mainMenuItem.mainMenuItemType) }
+                onClick = { onMenuItemClick(item) }
             ) {
-                MainMenuItemContent(
-                    label = stringResource(mainMenuItem.menuItemNameRes),
-                    backgroundRes = mainMenuItem.menuItemBackgroundImageRes
-                )
+                itemContent(item)
             }
         }
     }

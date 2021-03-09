@@ -5,6 +5,7 @@ import kotlinx.coroutines.Deferred
 import ru.gmasalskikh.ezcs.data.type.EntityType
 
 class MapHolder (
+    val name: String,
     val isCompetitive: Boolean = true,
     val logoDescription: String,
     val logoDeferred: Deferred<Bitmap>,

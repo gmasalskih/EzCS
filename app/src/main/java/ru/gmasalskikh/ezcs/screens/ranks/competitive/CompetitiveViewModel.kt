@@ -1,6 +1,7 @@
 package ru.gmasalskikh.ezcs.screens.ranks.competitive
 
 import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.launch
 import org.orbitmvi.orbit.Container
 import org.orbitmvi.orbit.syntax.simple.intent
@@ -17,6 +18,11 @@ class CompetitiveViewModel(
     private val serviceProvider: ServiceProvider,
 ) : BaseViewModel<CompetitiveViewState, Nothing>() {
 
+    private val ceh: CoroutineExceptionHandler
+        get() = CoroutineExceptionHandler { _, throwable ->
+            setSideEffect(SideEffect.Error(err = throwable, msgErr = throwable.message))
+        }
+
     override val container: Container<CompetitiveViewState, SideEffect> = container(
         initialState = CompetitiveViewState(),
         onCreate = { initState() }
@@ -30,16 +36,12 @@ class CompetitiveViewModel(
         }
     }
 
-    private fun initState() = viewModelScope.launch {
-        try {
-            serviceProvider.getEntityList(
-                EntityType.COMPETITIVE,
-                CompetitiveFirestoreEntity::class.java,
-                serviceProvider.mapper.competitive
-            ).let { setList(it) }
-            setSideEffect(SideEffect.Data)
-        } catch (e: Throwable) {
-            setSideEffect(SideEffect.Error(err = e, msgErr = e.message))
-        }
+    private fun initState() = viewModelScope.launch(ceh) {
+        serviceProvider.getEntityList(
+            EntityType.COMPETITIVE,
+            CompetitiveFirestoreEntity::class.java,
+            serviceProvider.mapper.competitive
+        ).let { setList(it) }
+        setSideEffect(SideEffect.Data)
     }
 }

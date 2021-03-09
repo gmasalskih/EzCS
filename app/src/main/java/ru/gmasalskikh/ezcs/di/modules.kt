@@ -147,7 +147,7 @@ val viewModelModule = module {
     viewModel {
         MainMenuViewModel(appEventEmitter = get(named(APP_EVENT_EMITTER)))
     }
-    viewModel { MapCalloutsViewModel() }
+    viewModel { MapCalloutsViewModel(serviceProvider = get()) }
 
     scope(named(ScopeName.WEAPON_CHARACTERISTICS_SCOPE)) {
         scoped { WeaponCharacteristicsViewModel() }

@@ -42,6 +42,7 @@ class Mapper(
 
     val mapHolder: suspend (MapHolderFirestoreEntity) -> MapHolder = { firestoreEntity ->
         MapHolder(
+            name = firestoreEntity.name,
             isCompetitive = firestoreEntity.isCompetitive,
             logoDescription = firestoreEntity.logo,
             logoDeferred = cs.async(coroutineContext.job) {
@@ -123,6 +124,7 @@ class Mapper(
 
     val weapon: suspend (WeaponFirestoreEntity) -> Weapon = { firestoreEntity ->
         Weapon(
+            name = firestoreEntity.name,
             externalId = firestoreEntity.externalId,
             weaponType = firestoreEntity.weaponType,
             teamTypes = firestoreEntity.teamTypes,

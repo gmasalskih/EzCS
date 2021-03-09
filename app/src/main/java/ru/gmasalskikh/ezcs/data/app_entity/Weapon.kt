@@ -7,6 +7,7 @@ import ru.gmasalskikh.ezcs.data.type.TeamType
 import ru.gmasalskikh.ezcs.data.type.WeaponType
 
 class Weapon(
+    val name: String,
     val externalId: String = "",
     /** Тип оружия */
     val weaponType: WeaponType = WeaponType.PISTOL,

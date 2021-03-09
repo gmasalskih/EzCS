@@ -12,6 +12,7 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.asImageBitmap
+import androidx.compose.ui.layout.ContentScale
 import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.launch
 import ru.gmasalskikh.ezcs.utils.LocalAppTheme
@@ -19,6 +20,7 @@ import ru.gmasalskikh.ezcs.utils.LocalAppTheme
 @Composable
 fun ImageLoader(
     modifier: Modifier = Modifier,
+    contentScale: ContentScale = ContentScale.Fit,
     colorProgressIndicator: Color = LocalAppTheme.current.colors.primary,
     contentDescription: String? = null,
     deferredBitmap: Deferred<Bitmap>
@@ -33,7 +35,8 @@ fun ImageLoader(
             Image(
                 modifier = Modifier.fillMaxSize(),
                 bitmap = bitmap.asImageBitmap(),
-                contentDescription = contentDescription
+                contentDescription = contentDescription,
+                contentScale = contentScale
             )
         } ?: CircularProgressIndicator(color = colorProgressIndicator)
     }
