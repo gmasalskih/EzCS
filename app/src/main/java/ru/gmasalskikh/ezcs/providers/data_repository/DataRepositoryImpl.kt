@@ -1,8 +1,6 @@
 package ru.gmasalskikh.ezcs.providers.data_repository
 
 import com.google.firebase.firestore.FirebaseFirestore
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
 import ru.gmasalskikh.ezcs.data.type.EntityType
 import kotlin.coroutines.suspendCoroutine
 
@@ -34,8 +32,7 @@ class DataRepositoryImpl(
         firestore.collection(entityType.name).document(entityName).get()
             .addOnSuccessListener { document ->
                 document.toObject(clazz)
-                    ?.let { obj -> Result.success(obj) }
-                    ?.let { result -> continuation.resumeWith(result) }
+                    ?.let { result -> continuation.resumeWith(Result.success(result)) }
                     ?: continuation.resumeWith(
                         Result.failure(
                             IllegalArgumentException(

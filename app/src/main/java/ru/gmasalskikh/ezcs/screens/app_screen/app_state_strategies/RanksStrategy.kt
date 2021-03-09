@@ -15,7 +15,7 @@ class RanksStrategy(
     override val appViewState: AppViewState,
     override val appViewEventEmitter: FlowCollector<AppStateHolder.AppViewEvent>,
     override val cs: CoroutineScope
-) :AppStateStrategy() {
+) : AppStateStrategy() {
 
     override fun applyStrategy(): AppViewState {
         val navParams = NavigationParams(
@@ -26,7 +26,7 @@ class RanksStrategy(
         return appViewState.copy(
             drawerGesturesEnabled = false,
             appTopBarState = AppViewState.AppTopBarState.AppTopBar(
-                titleRes = R.string.app_top_bar_title_ranks,
+                titleRes = AppViewState.StringResourceType.StringIdRes(R.string.app_top_bar_title_ranks),
                 appTopBarNavItem = AppViewState.AppTopBarNavItem(
                     icon = Icons.Filled.KeyboardArrowLeft,
                     onClick = { navigateTo(TargetNavigation.Back) }

@@ -14,7 +14,7 @@ import ru.gmasalskikh.ezcs.screens.app_screen.AppViewState
 class WeaponCharacteristicsStrategy(
     override val appViewState: AppViewState,
     override val appViewEventEmitter: FlowCollector<AppStateHolder.AppViewEvent>,
-    override val cs:CoroutineScope
+    override val cs: CoroutineScope
 ) : AppStateStrategy() {
 
     override fun applyStrategy(): AppViewState {
@@ -26,7 +26,9 @@ class WeaponCharacteristicsStrategy(
         return appViewState.copy(
             drawerGesturesEnabled = false,
             appTopBarState = AppViewState.AppTopBarState.AppTopBar(
-                titleRes = R.string.app_top_bar_title_weapon_characteristics,
+                titleRes = AppViewState.StringResourceType.StringIdRes(
+                    R.string.app_top_bar_title_weapon_characteristics
+                ),
                 appTopBarNavItem = AppViewState.AppTopBarNavItem(
                     icon = Icons.Filled.KeyboardArrowLeft,
                     onClick = {

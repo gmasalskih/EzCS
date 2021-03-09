@@ -9,6 +9,7 @@ import ru.gmasalskikh.ezcs.screens.app_screen.AppStateHolder.*
 import ru.gmasalskikh.ezcs.providers.custom_coroutine_scope.CustomCoroutineScope
 import ru.gmasalskikh.ezcs.screens.app_screen.app_state_strategies.*
 import ru.gmasalskikh.ezcs.navigation.TargetNavigationPath.*
+import ru.gmasalskikh.ezcs.screens.map_callouts_details.MapCalloutsDetailsViewModel
 
 @Suppress("ObjectPropertyName")
 class AppStateHolderImpl(
@@ -51,60 +52,66 @@ class AppStateHolderImpl(
     }
 
     private suspend fun subscribeToAppEvent() {
-        appEventCollector.map { event ->
+        appEventCollector.mapNotNull { event ->
             (event as? AppController.AppEvent.OnNavigateDestinationChanged)?.navEvent
-        }.filterNotNull()
-            .collect { navEvent ->
-                val appStateStrategy: AppStateStrategy? = when (navEvent.path) {
-                    SPLASH_SCREEN -> {
-                        SplashScreenStrategy(appViewState)
-                    }
-                    PREVIEW -> {
-                        PreviewStrategy(appViewState)
-                    }
-                    MAIN_MENU -> {
-                        MainMenuStrategy(appViewState, scaffoldState, cs)
-                    }
-                    MAP_CALLOUTS -> {
-                        MapCalloutsStrategy(appViewState, _appViewEvent, cs)
-                    }
-                    WEAPON_CHARACTERISTICS -> {
-                        WeaponCharacteristicsStrategy(appViewState, _appViewEvent, cs)
-                    }
-                    WEAPON_CHARACTERISTICS_PISTOL -> {
-                        WeaponCharacteristicsPistolStrategy(appViewState)
-                    }
-                    WEAPON_CHARACTERISTICS_HEAVY -> {
-                        WeaponCharacteristicsHeavyStrategy(appViewState)
-                    }
-                    WEAPON_CHARACTERISTICS_SMG -> {
-                        WeaponCharacteristicsSMGStrategy(appViewState)
-                    }
-                    WEAPON_CHARACTERISTICS_RIFLE -> {
-                        WeaponCharacteristicsRifleStrategy(appViewState)
-                    }
-                    GRENADES_PRACTICE -> {
-                        GrenadesPracticeStrategy(appViewState, _appViewEvent, cs)
-                    }
-                    RANKS -> {
-                        RanksStrategy(appViewState, _appViewEvent, cs)
-                    }
-                    RANKS_COMPETITIVE -> {
-                        RanksCompetitiveStrategy(appViewState)
-                    }
-                    RANKS_WINGMAN -> {
-                        RanksWingmanStrategy(appViewState)
-                    }
-                    RANKS_DANGER_ZONE -> {
-                        RanksDangerZoneStrategy(appViewState)
-                    }
-                    RANKS_PROFILE_RANK -> {
-                        RanksProfileRankStrategy(appViewState)
-                    }
-                    BACK -> null
+        }.collect { navEvent ->
+            val appStateStrategy: AppStateStrategy? = when (navEvent.path) {
+                SPLASH_SCREEN -> {
+                    SplashScreenStrategy(appViewState)
                 }
-                appStateStrategy?.let { strategy -> appViewState = strategy.applyStrategy() }
+                PREVIEW -> {
+                    PreviewStrategy(appViewState)
+                }
+                MAIN_MENU -> {
+                    MainMenuStrategy(appViewState, scaffoldState, cs)
+                }
+                MAP_CALLOUTS -> {
+                    MapCalloutsStrategy(appViewState, _appViewEvent, cs)
+                }
+                MAP_CALLOUTS_DETAILS -> {
+                    navEvent.bundle?.getString(
+                        MapCalloutsDetailsViewModel.MAP_CALLOUTS_MAP_NAME
+                    )?.let { topAppBarTitle ->
+                        MapCalloutsDetailsStrategy(appViewState, topAppBarTitle)
+                    }
+                }
+                WEAPON_CHARACTERISTICS -> {
+                    WeaponCharacteristicsStrategy(appViewState, _appViewEvent, cs)
+                }
+                WEAPON_CHARACTERISTICS_PISTOL -> {
+                    WeaponCharacteristicsPistolStrategy(appViewState)
+                }
+                WEAPON_CHARACTERISTICS_HEAVY -> {
+                    WeaponCharacteristicsHeavyStrategy(appViewState)
+                }
+                WEAPON_CHARACTERISTICS_SMG -> {
+                    WeaponCharacteristicsSMGStrategy(appViewState)
+                }
+                WEAPON_CHARACTERISTICS_RIFLE -> {
+                    WeaponCharacteristicsRifleStrategy(appViewState)
+                }
+                GRENADES_PRACTICE -> {
+                    GrenadesPracticeStrategy(appViewState, _appViewEvent, cs)
+                }
+                RANKS -> {
+                    RanksStrategy(appViewState, _appViewEvent, cs)
+                }
+                RANKS_COMPETITIVE -> {
+                    RanksCompetitiveStrategy(appViewState)
+                }
+                RANKS_WINGMAN -> {
+                    RanksWingmanStrategy(appViewState)
+                }
+                RANKS_DANGER_ZONE -> {
+                    RanksDangerZoneStrategy(appViewState)
+                }
+                RANKS_PROFILE_RANK -> {
+                    RanksProfileRankStrategy(appViewState)
+                }
+                BACK -> null
             }
+            appStateStrategy?.let { strategy -> appViewState = strategy.applyStrategy() }
+        }
     }
 }
 

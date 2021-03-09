@@ -18,7 +18,7 @@ class MapCalloutsStrategy(
     override fun applyStrategy() = appViewState.copy(
         drawerGesturesEnabled = false,
         appTopBarState = AppViewState.AppTopBarState.AppTopBar(
-            titleRes = R.string.app_top_bar_title_map_callouts,
+            titleRes = AppViewState.StringResourceType.StringIdRes(res = R.string.app_top_bar_title_map_callouts),
             appTopBarNavItem = AppViewState.AppTopBarNavItem(
                 icon = Icons.Filled.KeyboardArrowLeft,
                 onClick = { navigateTo(TargetNavigation.Back) }

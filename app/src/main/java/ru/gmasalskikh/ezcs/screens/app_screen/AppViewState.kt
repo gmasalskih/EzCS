@@ -13,11 +13,21 @@ data class AppViewState(
     sealed class AppTopBarState {
         object NoAppTopBar : AppTopBarState()
         data class AppTopBar(
-            @StringRes
-            val titleRes: Int,
+            val titleRes: StringResourceType,
             val appTopBarNavItem: AppTopBarNavItem,
             val appTopBarExtraItem: AppTopBarExtraItem? = null
         ) : AppTopBarState()
+    }
+
+    sealed class StringResourceType {
+        data class StringNative(
+            val res: String
+        ) : StringResourceType()
+
+        data class StringIdRes(
+            @StringRes
+            val res: Int
+        ) : StringResourceType()
     }
 
     sealed class AppBottomBarState {

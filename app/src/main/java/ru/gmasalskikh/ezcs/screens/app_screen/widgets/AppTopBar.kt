@@ -7,6 +7,7 @@ import androidx.compose.ui.res.stringResource
 import ru.gmasalskikh.ezcs.screens.app_screen.AppViewState
 import ru.gmasalskikh.ezcs.ui.theme.AppTheme
 import ru.gmasalskikh.ezcs.utils.LocalAppTheme
+import ru.gmasalskikh.ezcs.screens.app_screen.AppViewState.StringResourceType.*
 
 @Composable
 fun AppTopBar(
@@ -18,7 +19,10 @@ fun AppTopBar(
         }
         is AppViewState.AppTopBarState.AppTopBar -> {
             TopBar(
-                title = stringResource(id = appBarViewState.titleRes),
+                title = when (appBarViewState.titleRes) {
+                    is StringIdRes -> stringResource(id = appBarViewState.titleRes.res)
+                    is StringNative -> appBarViewState.titleRes.res
+                },
                 backgroundColor = theme.colors.primary,
                 contentColor = theme.colors.onPrimary,
                 elevation = theme.elevations.medium,

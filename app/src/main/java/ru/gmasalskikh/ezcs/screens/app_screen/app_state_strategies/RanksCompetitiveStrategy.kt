@@ -8,5 +8,9 @@ class RanksCompetitiveStrategy(
 ) : AppStateStrategy() {
 
     override fun applyStrategy() =
-        getAppStateWithNewTopBarTitle(R.string.app_top_bar_title_ranks_competitive)
+        getAppStateWithNewTopBarTitle(
+            AppViewState.StringResourceType.StringIdRes(
+                res = R.string.app_top_bar_title_ranks_competitive
+            )
+        )
 }

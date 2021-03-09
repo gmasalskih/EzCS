@@ -20,6 +20,9 @@ import ru.gmasalskikh.ezcs.screens.weapon_characteristics.WeaponCharacteristicsV
 import ru.gmasalskikh.ezcs.screens.weapon_characteristics.WeaponCharacteristicsViewModel
 import org.koin.androidx.compose.get
 import org.koin.androidx.compose.getViewModel
+import org.koin.core.parameter.parametersOf
+import ru.gmasalskikh.ezcs.screens.map_callouts_details.MapCalloutsDetailsView
+import ru.gmasalskikh.ezcs.screens.map_callouts_details.MapCalloutsDetailsViewModel
 
 @Composable
 fun ComposeNavigation(
@@ -48,6 +51,13 @@ fun ComposeNavigation(
         }
         composable(MapCallouts.path) {
             MapCalloutsView(getViewModel()).Screen()
+        }
+        composable(MapCalloutsDetails().path) {
+            it.arguments
+                ?.getString(MapCalloutsDetailsViewModel.MAP_CALLOUTS_MAP_NAME)
+                ?.let { mapName ->
+                    MapCalloutsDetailsView(getViewModel { parametersOf(mapName) }).Screen()
+                }
         }
         navigation(
             startDestination = WeaponCharacteristicsPistol().path,

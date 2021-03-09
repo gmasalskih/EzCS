@@ -7,6 +7,9 @@ class WeaponCharacteristicsPistolStrategy(
     override val appViewState: AppViewState
 ) : AppStateStrategy() {
 
-    override fun applyStrategy() =
-        getAppStateWithNewTopBarTitle(R.string.app_top_bar_title_weapon_characteristics_pistol)
+    override fun applyStrategy() = getAppStateWithNewTopBarTitle(
+        AppViewState.StringResourceType.StringIdRes(
+            R.string.app_top_bar_title_weapon_characteristics_pistol
+        )
+    )
 }

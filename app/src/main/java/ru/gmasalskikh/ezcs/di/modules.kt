@@ -39,6 +39,7 @@ import ru.gmasalskikh.ezcs.providers.service_provider.ServiceProvider
 import ru.gmasalskikh.ezcs.providers.service_provider.ServiceProviderImpl
 import ru.gmasalskikh.ezcs.screens.grenades_practice.GrenadesPracticeViewModel
 import ru.gmasalskikh.ezcs.screens.map_callouts.MapCalloutsViewModel
+import ru.gmasalskikh.ezcs.screens.map_callouts_details.MapCalloutsDetailsViewModel
 import ru.gmasalskikh.ezcs.screens.ranks.competitive.CompetitiveViewModel
 import ru.gmasalskikh.ezcs.screens.ranks.danger_zone.DangerZoneViewModel
 import ru.gmasalskikh.ezcs.screens.ranks.profile_rank.ProfileRankViewModel
@@ -147,7 +148,12 @@ val viewModelModule = module {
     viewModel {
         MainMenuViewModel(appEventEmitter = get(named(APP_EVENT_EMITTER)))
     }
-    viewModel { MapCalloutsViewModel(serviceProvider = get()) }
+    viewModel {
+        MapCalloutsViewModel(
+            serviceProvider = get(),
+            appEventEmitter = get(named(APP_EVENT_EMITTER))
+        )
+    }
 
     scope(named(ScopeName.WEAPON_CHARACTERISTICS_SCOPE)) {
         scoped { WeaponCharacteristicsViewModel() }
@@ -158,4 +164,10 @@ val viewModelModule = module {
     viewModel { DangerZoneViewModel(serviceProvider = get()) }
     viewModel { ProfileRankViewModel(serviceProvider = get()) }
     viewModel { WingmanViewModel(serviceProvider = get()) }
+    viewModel { (mapName: String) ->
+        MapCalloutsDetailsViewModel(
+            mapName = mapName,
+            serviceProvider = get()
+        )
+    }
 }

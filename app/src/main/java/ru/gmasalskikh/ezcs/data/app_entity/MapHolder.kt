@@ -2,7 +2,6 @@ package ru.gmasalskikh.ezcs.data.app_entity
 
 import android.graphics.Bitmap
 import kotlinx.coroutines.Deferred
-import ru.gmasalskikh.ezcs.data.type.EntityType
 
 class MapHolder (
     val name: String,

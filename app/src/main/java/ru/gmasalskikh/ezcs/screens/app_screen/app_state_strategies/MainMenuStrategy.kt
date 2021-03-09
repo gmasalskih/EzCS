@@ -18,7 +18,7 @@ class MainMenuStrategy(
         drawerGesturesEnabled = true,
         isAppBackgroundBlur = true,
         appTopBarState = AppViewState.AppTopBarState.AppTopBar(
-            titleRes = R.string.app_top_bar_title_menu,
+            titleRes = AppViewState.StringResourceType.StringIdRes(res = R.string.app_top_bar_title_menu),
             appTopBarNavItem = AppViewState.AppTopBarNavItem(
                 icon = Icons.Filled.Menu,
                 onClick = {
