@@ -15,30 +15,30 @@ class PreviewView(
 
     @Composable
     override fun SetContent(viewState: PreviewViewState) {
-//        val theme: AppTheme = LocalAppTheme.current
-//        val currentIndexPage: Int = viewState.pagerState?.currentPage ?: 0
-//
-//        @StringRes
-//        val currentTopic: Int = viewState.items[currentIndexPage].topicRes
-//
-//        PreviewContent(
-//            currentTopic = stringResource(id = currentTopic),
-//            mainColor = theme.colors.onBackground,
-//            accentColor = theme.colors.primary,
-//            backgroundColor = theme.colors.surface,
-//            border = theme.borders.medium,
-//            shape = theme.shapes.medium,
-//            setPagerState = { pagerState ->
-//                emit(PreviewViewEvent.SetPagerState(pagerState))
-//            },
-//            pagerState = viewState.pagerState ?: getPagerState(),
-//            items = viewState.items,
-//            currentIndexPage = currentIndexPage,
-//            navigateToMainMenu = {
-//                emit(PreviewViewEvent.NavigateNext)
-//            },
-//            skipText = stringResource(id = R.string.skip)
-//        )
+        val theme: AppTheme = LocalAppTheme.current
+        val currentIndexPage: Int = viewState.pagerState?.currentPage ?: 0
+
+        @StringRes
+        val currentTopic: Int = viewState.items[currentIndexPage].topicRes
+
+        PreviewContent(
+            currentTopic = stringResource(id = currentTopic),
+            mainColor = theme.colors.onBackground,
+            accentColor = theme.colors.primary,
+            backgroundColor = theme.colors.surface,
+            border = theme.borders.medium,
+            shape = theme.shapes.medium,
+            setPagerState = { pagerState ->
+                emit(PreviewViewEvent.SetPagerState(pagerState))
+            },
+            pagerState = viewState.pagerState ?: getPagerState(),
+            items = viewState.items,
+            currentIndexPage = currentIndexPage,
+            navigateToMainMenu = {
+                emit(PreviewViewEvent.NavigateNext)
+            },
+            skipText = stringResource(id = R.string.skip)
+        )
     }
 }
 
