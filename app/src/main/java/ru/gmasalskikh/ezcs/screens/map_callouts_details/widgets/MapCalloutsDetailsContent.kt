@@ -25,8 +25,8 @@ fun MapCalloutsDetailsContent(
     ImageLoader(
         modifier = Modifier
             .rotate(rotate)
-            .offset { IntOffset(offsetX.roundToInt(), offsetY.roundToInt()) }
             .scale(scaleX = scale, scaleY = scale)
+            .offset { IntOffset(offsetX.roundToInt(), offsetY.roundToInt()) }
             .pointerInput(Unit) {
                 detectTransformGestures { _, pan, zoom, rotation ->
                     rotate += rotation
