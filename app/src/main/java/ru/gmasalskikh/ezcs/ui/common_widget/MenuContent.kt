@@ -1,9 +1,7 @@
 package ru.gmasalskikh.ezcs.ui.common_widget
 
 import androidx.compose.foundation.BorderStroke
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CornerBasedShape
@@ -16,6 +14,7 @@ import androidx.compose.ui.unit.dp
 
 @Composable
 fun <T> MenuContent(
+    isScrollableMenu: Boolean = false,
     menuItemSurfaceColor: Color,
     menuItemElevation: Dp,
     menuItemShape: CornerBasedShape,
@@ -24,22 +23,46 @@ fun <T> MenuContent(
     items: List<T>,
     itemContent: @Composable (T) -> Unit
 ) {
-    LazyColumn(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(10.dp),
-        verticalArrangement = Arrangement.spacedBy(10.dp),
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-        items(items) { item ->
-            MenuItem(
-                backgroundColor = menuItemSurfaceColor,
-                elevation = menuItemElevation,
-                shape = menuItemShape,
-                border = menuItemBorder,
-                onClick = { onMenuItemClick(item) }
-            ) {
-                itemContent(item)
+    if (isScrollableMenu) {
+        LazyColumn(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(10.dp),
+            verticalArrangement = Arrangement.spacedBy(10.dp),
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            items(items) { item ->
+                MenuItem(
+                    modifier = Modifier.aspectRatio(3f),
+                    backgroundColor = menuItemSurfaceColor,
+                    elevation = menuItemElevation,
+                    shape = menuItemShape,
+                    border = menuItemBorder,
+                    onClick = { onMenuItemClick(item) }
+                ) {
+                    itemContent(item)
+                }
+            }
+        }
+    } else {
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(10.dp),
+            verticalArrangement = Arrangement.spacedBy(10.dp),
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            items.forEach { item ->
+                MenuItem(
+                    modifier = Modifier.weight(1f),
+                    backgroundColor = menuItemSurfaceColor,
+                    elevation = menuItemElevation,
+                    shape = menuItemShape,
+                    border = menuItemBorder,
+                    onClick = { onMenuItemClick(item) }
+                ) {
+                    itemContent(item)
+                }
             }
         }
     }

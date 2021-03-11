@@ -14,6 +14,7 @@ class MapCalloutsView(
     override fun SetContent(viewState: MapCalloutsViewState) {
         val theme = LocalAppTheme.current
         MenuContent(
+            isScrollableMenu = true,
             menuItemSurfaceColor = theme.colors.surface,
             menuItemElevation = theme.elevations.medium,
             menuItemShape = theme.shapes.medium,
@@ -22,6 +23,8 @@ class MapCalloutsView(
                 emit(MapCalloutsViewEvent.NavigateTo(mapHolder = mapHolder))
             },
             items = viewState.maps
-        ) { mapHolder -> MapCalloutsItemContent(mapHolder = mapHolder) }
+        ) { mapHolder ->
+            MapCalloutsItemContent(mapHolder = mapHolder)
+        }
     }
 }

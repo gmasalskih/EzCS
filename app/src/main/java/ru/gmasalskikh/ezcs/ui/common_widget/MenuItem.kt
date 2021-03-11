@@ -12,6 +12,7 @@ import androidx.compose.ui.unit.Dp
 
 @Composable
 fun MenuItem(
+    modifier: Modifier = Modifier,
     backgroundColor: Color,
     elevation: Dp,
     shape: CornerBasedShape,
@@ -20,9 +21,8 @@ fun MenuItem(
     content: @Composable () -> Unit
 ) {
     Surface(
-        modifier = Modifier
-            .aspectRatio(2f)
-            .fillMaxWidth()
+        modifier = modifier
+            .fillMaxSize()
             .clickable(onClick = onClick),
         color = backgroundColor,
         elevation = elevation,

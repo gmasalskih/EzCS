@@ -50,5 +50,4 @@ class MapCalloutsDetailsViewModel(
             serviceProvider.mapper.mapHolder
         ).let { mapHolder -> setEntity(mapHolder) }
     }
-
 }
