@@ -28,10 +28,10 @@ fun MapCalloutsDetailsContent(
             .scale(scaleX = scale, scaleY = scale)
             .offset { IntOffset(offsetX.roundToInt(), offsetY.roundToInt()) }
             .pointerInput(Unit) {
-                detectTransformGestures { _, pan, zoom, rotation ->
+                detectTransformGestures { _, offset, zoom, rotation ->
                     rotate += rotation
-                    offsetX += pan.x
-                    offsetY += pan.y
+                    offsetX += offset.x
+                    offsetY += offset.y
                     (scale * zoom).let { scaleRes ->
                         if (scaleRes >= 1 && scaleRes < 5) scale = scaleRes
                     }
