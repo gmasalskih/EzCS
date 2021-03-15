@@ -156,7 +156,12 @@ val viewModelModule = module {
     }
 
     scope(named(ScopeName.WEAPON_CHARACTERISTICS_SCOPE)) {
-        scoped { WeaponCharacteristicsViewModel() }
+        scoped {
+            WeaponCharacteristicsViewModel(
+                serviceProvider = get(),
+                appEventCollector = get(named(APP_EVENT_COLLECTOR))
+            )
+        }
     }
 
     viewModel { GrenadesPracticeViewModel() }
