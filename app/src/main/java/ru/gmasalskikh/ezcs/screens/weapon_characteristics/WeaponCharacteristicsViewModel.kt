@@ -28,10 +28,6 @@ class WeaponCharacteristicsViewModel(
 ) :
     BaseViewModel<WeaponCharacteristicsViewState, WeaponCharacteristicsViewEvent>(), ScopeClosable {
 
-    init {
-
-    }
-
     override val container: Container<WeaponCharacteristicsViewState, SideEffect> = container(
         initialState = WeaponCharacteristicsViewState(),
         onCreate = {
