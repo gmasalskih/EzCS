@@ -63,10 +63,10 @@ class AppStateHolderImpl(
                     PreviewStrategy(appViewState)
                 }
                 MAIN_MENU -> {
-                    MainMenuStrategy(appViewState, scaffoldState, cs)
+                    MainMenuStrategy(appViewState, scaffoldState)
                 }
                 MAP_CALLOUTS -> {
-                    MapCalloutsStrategy(appViewState, _appViewEvent, cs)
+                    MapCalloutsStrategy(appViewState, _appViewEvent)
                 }
                 MAP_CALLOUTS_DETAILS -> {
                     navEvent.bundle?.getString(
@@ -76,7 +76,7 @@ class AppStateHolderImpl(
                     }
                 }
                 WEAPON_CHARACTERISTICS -> {
-                    WeaponCharacteristicsStrategy(appViewState, _appViewEvent, cs)
+                    WeaponCharacteristicsStrategy(appViewState, _appViewEvent)
                 }
                 WEAPON_CHARACTERISTICS_PISTOL -> {
                     WeaponCharacteristicsPistolStrategy(appViewState)
@@ -91,7 +91,7 @@ class AppStateHolderImpl(
                     WeaponCharacteristicsRifleStrategy(appViewState)
                 }
                 GRENADE_PRACTICE -> {
-                    GrenadesPracticeStrategy(appViewState, _appViewEvent, cs)
+                    GrenadesPracticeStrategy(appViewState, _appViewEvent)
                 }
                 GRENADE_PRACTICE_SMOKE -> {
                     GrenadesPracticeStrategySmoke(appViewState)
@@ -112,7 +112,7 @@ class AppStateHolderImpl(
                     TODO()
                 }
                 RANKS -> {
-                    RanksStrategy(appViewState, _appViewEvent, cs)
+                    RanksStrategy(appViewState, _appViewEvent)
                 }
                 RANKS_COMPETITIVE -> {
                     RanksCompetitiveStrategy(appViewState)

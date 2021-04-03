@@ -38,13 +38,13 @@ data class AppViewState(
 
     data class AppTopBarNavItem(
         val icon: ImageVector,
-        val onClick: () -> Unit
+        val onClick: suspend () -> Unit
     )
 
     data class AppTopBarExtraItem(
         val icon: ImageVector,
         val isEnable: Boolean,
-        val onClick: () -> Unit
+        val onClick: suspend () -> Unit
     )
 
     data class AppBottomBarItem(
@@ -53,6 +53,6 @@ data class AppViewState(
         @DrawableRes
         val icon: Int? = null,
         val route: String,
-        val onClick: () -> Unit
+        val onClick: suspend () -> Unit
     )
 }

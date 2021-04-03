@@ -3,7 +3,6 @@ package ru.gmasalskikh.ezcs.screens.app_screen.app_state_strategies
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.KeyboardArrowLeft
 import androidx.navigation.NavOptions
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.FlowCollector
 import ru.gmasalskikh.ezcs.R
 import ru.gmasalskikh.ezcs.navigation.NavigationParams
@@ -14,7 +13,6 @@ import ru.gmasalskikh.ezcs.screens.app_screen.AppViewState
 class WeaponCharacteristicsStrategy(
     override val appViewState: AppViewState,
     override val appViewEventEmitter: FlowCollector<AppStateHolder.AppViewEvent>,
-    override val cs: CoroutineScope
 ) : AppStateStrategy() {
 
     override fun applyStrategy(): AppViewState {

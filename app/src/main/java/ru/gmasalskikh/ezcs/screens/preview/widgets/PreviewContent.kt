@@ -12,7 +12,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import dev.chrisbanes.accompanist.coil.CoilImage
+import com.google.accompanist.coil.CoilImage
 import ru.gmasalskikh.ezcs.screens.preview.PreviewViewState
 import ru.gmasalskikh.ezcs.ui.theme.fontSize12Sp
 import java.util.*
