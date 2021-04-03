@@ -52,7 +52,19 @@ sealed class TargetNavigation(
         override val params: NavigationParams? = null
     ) : TargetNavigation(WEAPON_CHARACTERISTICS_RIFLE)
 
-    object GrenadesPractice : TargetNavigation(GRENADES_PRACTICE)
+    object GrenadesPractice : TargetNavigation(GRENADE_PRACTICE)
+
+    data class GrenadePracticeSmoke(
+        override val params: NavigationParams? = null
+    ) : TargetNavigation(GRENADE_PRACTICE_SMOKE)
+
+    data class GrenadePracticeMolotov(
+        override val params: NavigationParams? = null
+    ) : TargetNavigation(GRENADE_PRACTICE_MOLOTOV)
+
+    data class GrenadePracticeFlash(
+        override val params: NavigationParams? = null
+    ) : TargetNavigation(GRENADE_PRACTICE_FLASH)
 
     object Ranks : TargetNavigation(RANKS)
 
@@ -84,7 +96,13 @@ enum class TargetNavigationPath {
     WEAPON_CHARACTERISTICS_HEAVY,
     WEAPON_CHARACTERISTICS_SMG,
     WEAPON_CHARACTERISTICS_RIFLE,
-    GRENADES_PRACTICE,
+    GRENADE_PRACTICE,
+    GRENADE_PRACTICE_SMOKE,
+    GRENADE_PRACTICE_MOLOTOV,
+    GRENADE_PRACTICE_FLASH,
+    GRENADE_PRACTICE_TICKRATE_64,
+    GRENADE_PRACTICE_TICKRATE_128,
+    GRENADE_PRACTICE_DETAILS,
     RANKS,
     RANKS_COMPETITIVE,
     RANKS_WINGMAN,

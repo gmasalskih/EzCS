@@ -37,7 +37,7 @@ import ru.gmasalskikh.ezcs.providers.scope_manager.ScopeManagerImpl
 import ru.gmasalskikh.ezcs.providers.service_provider.Mapper
 import ru.gmasalskikh.ezcs.providers.service_provider.ServiceProvider
 import ru.gmasalskikh.ezcs.providers.service_provider.ServiceProviderImpl
-import ru.gmasalskikh.ezcs.screens.grenades_practice.GrenadesPracticeViewModel
+import ru.gmasalskikh.ezcs.screens.grenade_practice_type_of_grenade.GrenadePracticeTypeOfGrenadeViewModel
 import ru.gmasalskikh.ezcs.screens.map_callouts.MapCalloutsViewModel
 import ru.gmasalskikh.ezcs.screens.map_callouts_details.MapCalloutsDetailsViewModel
 import ru.gmasalskikh.ezcs.screens.ranks.competitive.CompetitiveViewModel
@@ -48,7 +48,10 @@ import ru.gmasalskikh.ezcs.screens.weapon_characteristics.WeaponCharacteristicsV
 import ru.gmasalskikh.ezcs.utils.DROPBOX_TOKEN
 import java.util.*
 
-enum class ScopeName(private var _id: UUID = UUID.randomUUID()) {
+enum class ScopeName(
+    private var _id: UUID = UUID.randomUUID()
+) {
+    GRENADES_PRACTICE_SCOPE,
     WEAPON_CHARACTERISTICS_SCOPE;
 
     val id: String
@@ -159,12 +162,22 @@ val viewModelModule = module {
         scoped {
             WeaponCharacteristicsViewModel(
                 serviceProvider = get(),
-                appEventCollector = get(named(APP_EVENT_COLLECTOR))
+                appEventCollector = get(named(APP_EVENT_COLLECTOR)),
+                cs = get { parametersOf(Dispatchers.Main) }
             )
         }
     }
 
-    viewModel { GrenadesPracticeViewModel() }
+    scope(named(ScopeName.GRENADES_PRACTICE_SCOPE)) {
+        scoped {
+            GrenadePracticeTypeOfGrenadeViewModel(
+                serviceProvider = get(),
+                appEventCollector = get(named(APP_EVENT_COLLECTOR)),
+                cs = get { parametersOf(Dispatchers.Main) }
+            )
+        }
+    }
+
     viewModel { CompetitiveViewModel(serviceProvider = get()) }
     viewModel { DangerZoneViewModel(serviceProvider = get()) }
     viewModel { ProfileRankViewModel(serviceProvider = get()) }

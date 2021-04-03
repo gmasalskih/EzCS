@@ -90,8 +90,26 @@ class AppStateHolderImpl(
                 WEAPON_CHARACTERISTICS_RIFLE -> {
                     WeaponCharacteristicsRifleStrategy(appViewState)
                 }
-                GRENADES_PRACTICE -> {
+                GRENADE_PRACTICE -> {
                     GrenadesPracticeStrategy(appViewState, _appViewEvent, cs)
+                }
+                GRENADE_PRACTICE_SMOKE -> {
+                    GrenadesPracticeStrategySmoke(appViewState)
+                }
+                GRENADE_PRACTICE_MOLOTOV -> {
+                    GrenadesPracticeStrategyMolotov(appViewState)
+                }
+                GRENADE_PRACTICE_FLASH -> {
+                    GrenadesPracticeStrategyFlash(appViewState)
+                }
+                GRENADE_PRACTICE_TICKRATE_64 -> {
+                    TODO()
+                }
+                GRENADE_PRACTICE_TICKRATE_128 -> {
+                    TODO()
+                }
+                GRENADE_PRACTICE_DETAILS -> {
+                    TODO()
                 }
                 RANKS -> {
                     RanksStrategy(appViewState, _appViewEvent, cs)

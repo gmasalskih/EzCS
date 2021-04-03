@@ -17,7 +17,6 @@ class WeaponCharacteristicsView(
     vm
 ) {
 
-
     @Composable
     override fun SetContent(viewState: WeaponCharacteristicsViewState) {
         LazyColumn(

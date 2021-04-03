@@ -8,7 +8,7 @@ import ru.gmasalskikh.ezcs.screens.main_menu.MainMenuView
 import ru.gmasalskikh.ezcs.screens.preview.PreviewView
 import ru.gmasalskikh.ezcs.screens.splash_screen.SplashScreenView
 import ru.gmasalskikh.ezcs.utils.LocalNavController
-import ru.gmasalskikh.ezcs.screens.grenades_practice.GrenadesPracticeView
+import ru.gmasalskikh.ezcs.screens.grenade_practice_type_of_grenade.GrenadePracticeTypeOfGrenadeView
 import ru.gmasalskikh.ezcs.screens.map_callouts.MapCalloutsView
 import ru.gmasalskikh.ezcs.screens.ranks.competitive.CompetitiveView
 import ru.gmasalskikh.ezcs.screens.ranks.danger_zone.DangerZoneView
@@ -21,6 +21,7 @@ import ru.gmasalskikh.ezcs.screens.weapon_characteristics.WeaponCharacteristicsV
 import org.koin.androidx.compose.get
 import org.koin.androidx.compose.getViewModel
 import org.koin.core.parameter.parametersOf
+import ru.gmasalskikh.ezcs.screens.grenade_practice_type_of_grenade.GrenadePracticeTypeOfGrenadeViewModel
 import ru.gmasalskikh.ezcs.screens.map_callouts_details.MapCalloutsDetailsView
 import ru.gmasalskikh.ezcs.screens.map_callouts_details.MapCalloutsDetailsViewModel
 
@@ -88,8 +89,28 @@ fun ComposeNavigation(
                 ).let { vm -> WeaponCharacteristicsView(vm).Screen() }
             }
         }
-        composable(GrenadesPractice.path) {
-            GrenadesPracticeView(getViewModel()).Screen()
+        navigation(
+            startDestination = GrenadePracticeSmoke().path,
+            route = GrenadesPractice.path
+        ){
+            composable(GrenadePracticeSmoke().path) {
+                scopeManager.getScopedInstance(
+                    ScopeName.GRENADES_PRACTICE_SCOPE,
+                    GrenadePracticeTypeOfGrenadeViewModel::class
+                ).let { vm-> GrenadePracticeTypeOfGrenadeView(vm).Screen() }
+            }
+            composable(GrenadePracticeMolotov().path) {
+                scopeManager.getScopedInstance(
+                    ScopeName.GRENADES_PRACTICE_SCOPE,
+                    GrenadePracticeTypeOfGrenadeViewModel::class
+                ).let { vm-> GrenadePracticeTypeOfGrenadeView(vm).Screen() }
+            }
+            composable(GrenadePracticeFlash().path) {
+                scopeManager.getScopedInstance(
+                    ScopeName.GRENADES_PRACTICE_SCOPE,
+                    GrenadePracticeTypeOfGrenadeViewModel::class
+                ).let { vm-> GrenadePracticeTypeOfGrenadeView(vm).Screen() }
+            }
         }
         navigation(
             startDestination = RanksCompetitive().path,
