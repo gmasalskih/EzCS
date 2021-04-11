@@ -5,6 +5,7 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -13,6 +14,7 @@ import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import kotlinx.coroutines.launch
 import ru.gmasalskikh.ezcs.ui.theme.fontSize8Sp
 
 @Composable
@@ -21,15 +23,17 @@ fun BottomBarItem(
     icon: Painter? = null,
     label: String,
     contentColor: Color,
-    onClick: (() -> Unit)?
+    onClick: (suspend () -> Unit)?
 ) {
+    val cs = rememberCoroutineScope()
     Column(
         modifier = modifier
             .fillMaxSize()
             .clickable(
                 enabled = onClick != null,
-                onClick = onClick ?: {}
-            ).padding(5.dp),
+                onClick = { cs.launch { onClick?.invoke() } }
+            )
+            .padding(5.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         if (icon != null) Image(

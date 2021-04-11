@@ -2,6 +2,7 @@ package ru.gmasalskikh.ezcs.screens.app_screen.widgets
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -43,8 +44,3 @@ fun AppBottomBar(
         }
     }
 }
-
-/*
-    activeContentColor: Color,
-    inactiveContentColor: Color,
- */

@@ -6,6 +6,7 @@ import kotlinx.coroutines.job
 import ru.gmasalskikh.ezcs.data.app_entity.*
 import ru.gmasalskikh.ezcs.data.firestore_entities.*
 import ru.gmasalskikh.ezcs.providers.content_repository.ContentRepository
+import ru.gmasalskikh.ezcs.utils.toValidId
 import kotlin.coroutines.coroutineContext
 
 class Mapper(
@@ -71,7 +72,7 @@ class Mapper(
     val mapPoint: suspend (MapPointFirestoreEntity) -> MapPoint = { firestoreEntity ->
         MapPoint(
             name = firestoreEntity.name,
-            mapDocumentName = firestoreEntity.mapDocumentName,
+            mapId = firestoreEntity.mapDocumentName.substringAfterLast("/").toValidId(),
             grenadeType = firestoreEntity.grenadeType,
             tickrateTypes = firestoreEntity.tickrateTypes,
             previewStartDescription = firestoreEntity.previewStart,

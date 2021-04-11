@@ -52,7 +52,10 @@ class AppControllerImpl(
             )
             when (event.path) {
                 TargetNavigationPath.MAIN_MENU -> {
-                    scopeManager.closeScope(ScopeName.WEAPON_CHARACTERISTICS_SCOPE)
+                    scopeManager.apply {
+                        closeScope(ScopeName.WEAPON_CHARACTERISTICS_SCOPE)
+                        closeScope(ScopeName.GRENADES_PRACTICE_SCOPE)
+                    }
                 }
                 else -> Unit
             }
