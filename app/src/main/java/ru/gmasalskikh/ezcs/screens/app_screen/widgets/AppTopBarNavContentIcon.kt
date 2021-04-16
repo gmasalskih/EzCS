@@ -10,6 +10,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.res.painterResource
 import kotlinx.coroutines.launch
 
 @Composable
@@ -30,6 +31,29 @@ fun AppTopBarIcon(
                 onClick = { cs.launch { onClick() } }
             ),
         imageVector = imageVector,
+        colorFilter = ColorFilter.tint(tintColor),
+        contentDescription = null
+    )
+}
+
+@Composable
+fun AppTopBarExtraIcon(
+    modifier: Modifier = Modifier,
+    imagePainter: Int,
+    isEnable: Boolean = true,
+    tintColor: Color,
+    onClick: suspend () -> Unit
+) {
+    val cs = rememberCoroutineScope()
+    Image(
+        modifier = modifier
+            .fillMaxHeight()
+            .aspectRatio(1f)
+            .clickable(
+                enabled = isEnable,
+                onClick = { cs.launch { onClick() } }
+            ),
+        painter = painterResource(id = imagePainter),
         colorFilter = ColorFilter.tint(tintColor),
         contentDescription = null
     )

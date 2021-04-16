@@ -32,6 +32,13 @@ class WeaponCharacteristicsStrategy(
                     onClick = {
                         navigateTo(TargetNavigation.Back)
                     }
+                ),
+                appTopBarExtraItem = AppViewState.AppTopBarExtraItem(
+                    icon = R.drawable.icon_vs,
+                    isEnable = false,
+                    onClick = {
+                        // TODO: 17.04.2021 click VS Weapon goto screen VS (navigationTo TargetNavigation...)
+                    }
                 )
             ),
             appBottomBarState = AppViewState.AppBottomBarState.AppBottomBar(
