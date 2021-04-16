@@ -10,7 +10,6 @@ import org.orbitmvi.orbit.syntax.simple.reduce
 import org.orbitmvi.orbit.viewmodel.container
 import ru.gmasalskikh.ezcs.data.app_entity.MapHolder
 import ru.gmasalskikh.ezcs.data.firestore_entities.MapHolderFirestoreEntity
-import ru.gmasalskikh.ezcs.data.firestore_entities.MapPointFirestoreEntity
 import ru.gmasalskikh.ezcs.data.type.EntityType
 import ru.gmasalskikh.ezcs.data.type.GrenadeType
 import ru.gmasalskikh.ezcs.navigation.TargetNavigationPath
@@ -20,7 +19,6 @@ import ru.gmasalskikh.ezcs.providers.scope_manager.ScopeClosable
 import ru.gmasalskikh.ezcs.providers.service_provider.ServiceProvider
 import ru.gmasalskikh.ezcs.screens.BaseViewModel
 import ru.gmasalskikh.ezcs.screens.SideEffect
-import ru.gmasalskikh.ezcs.utils.toValidId
 
 class GrenadePracticeTypeOfGrenadeViewModel(
     private val serviceProvider: ServiceProvider,
@@ -42,27 +40,17 @@ class GrenadePracticeTypeOfGrenadeViewModel(
 
     private fun initState() = cs.launch {
         serviceProvider.getEntityList(
-            entityType = EntityType.MAP_POINT,
-            clazz = MapPointFirestoreEntity::class.java,
-            mapper = serviceProvider.mapper.mapPoint
-        ).flatMap { mapPoint ->
-            serviceProvider.getEntityList(
-                entityType = EntityType.MAP_HOLDER,
-                clazz = MapHolderFirestoreEntity::class.java,
-                mapper = serviceProvider.mapper.mapHolder
-            ).filter { mapHolder ->
-                mapPoint.mapId == mapHolder.name.toValidId()
-            }
-        }.apply {
-            setMapHolderList(this)
-        }
+            entityType = EntityType.MAP_HOLDER,
+            clazz = MapHolderFirestoreEntity::class.java,
+            mapper = serviceProvider.mapper.mapHolder
+        ).let { setMapHolderList(it) }
         setSideEffect(SideEffect.Data)
     }
 
     private fun setCurrentGrenadeType(grenadeType: GrenadeType) = intent {
         reduce {
             state.copy(
-                grenadeType = grenadeType,
+                currentGrenadeType = grenadeType,
             )
         }
     }
