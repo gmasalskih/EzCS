@@ -24,6 +24,8 @@ import org.koin.core.parameter.parametersOf
 import ru.gmasalskikh.ezcs.screens.grenade_practice_type_of_grenade.GrenadePracticeTypeOfGrenadeViewModel
 import ru.gmasalskikh.ezcs.screens.map_callouts_details.MapCalloutsDetailsView
 import ru.gmasalskikh.ezcs.screens.map_callouts_details.MapCalloutsDetailsViewModel
+import ru.gmasalskikh.ezcs.screens.weapon_characteristics_details.WeaponCharacteristicsDetailsView
+import ru.gmasalskikh.ezcs.screens.weapon_characteristics_details.WeaponCharacteristicsDetailsViewModel
 
 @Composable
 fun ComposeNavigation(
@@ -64,6 +66,13 @@ fun ComposeNavigation(
             startDestination = WeaponCharacteristicsPistol().path,
             route = WeaponCharacteristics.path,
         ) {
+            composable(WeaponCharacteristicsDetails().path){
+                it.arguments
+                    ?.getString(WeaponCharacteristicsDetailsViewModel.WEAPON_ID)
+                    ?.let { weaponName ->
+                        WeaponCharacteristicsDetailsView(getViewModel { parametersOf(weaponName) }).Screen()
+                    }
+            }
             composable(WeaponCharacteristicsPistol().path) {
                 scopeManager.getScopedInstance(
                     ScopeName.WEAPON_CHARACTERISTICS_SCOPE,

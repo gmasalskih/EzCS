@@ -10,6 +10,7 @@ import ru.gmasalskikh.ezcs.providers.custom_coroutine_scope.CustomCoroutineScope
 import ru.gmasalskikh.ezcs.screens.app_screen.app_state_strategies.*
 import ru.gmasalskikh.ezcs.navigation.TargetNavigationPath.*
 import ru.gmasalskikh.ezcs.screens.map_callouts_details.MapCalloutsDetailsViewModel
+import ru.gmasalskikh.ezcs.screens.weapon_characteristics_details.WeaponCharacteristicsDetailsViewModel
 
 @Suppress("ObjectPropertyName")
 class AppStateHolderImpl(
@@ -77,6 +78,13 @@ class AppStateHolderImpl(
                 }
                 WEAPON_CHARACTERISTICS -> {
                     WeaponCharacteristicsStrategy(appViewState, _appViewEvent)
+                }
+                WEAPON_CHARACTERISTICS_DETAILS -> {
+                    navEvent.bundle?.getString(
+                        WeaponCharacteristicsDetailsViewModel.WEAPON_NAME
+                    )?.let { topAppBarTitle ->
+                        WeaponCharacteristicsDetailsStrategy(appViewState, topAppBarTitle)
+                    }
                 }
                 WEAPON_CHARACTERISTICS_PISTOL -> {
                     WeaponCharacteristicsPistolStrategy(appViewState)

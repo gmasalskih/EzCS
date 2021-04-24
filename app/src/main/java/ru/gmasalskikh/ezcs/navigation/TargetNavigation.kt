@@ -36,6 +36,10 @@ sealed class TargetNavigation(
 
     object WeaponCharacteristics : TargetNavigation(WEAPON_CHARACTERISTICS)
 
+    data class  WeaponCharacteristicsDetails(
+        override val params: NavigationParams? = null
+    ) : TargetNavigation(WEAPON_CHARACTERISTICS_DETAILS)
+
     data class WeaponCharacteristicsPistol(
         override val params: NavigationParams? = null
     ) : TargetNavigation(WEAPON_CHARACTERISTICS_PISTOL)
@@ -92,6 +96,7 @@ enum class TargetNavigationPath {
     MAP_CALLOUTS,
     MAP_CALLOUTS_DETAILS,
     WEAPON_CHARACTERISTICS,
+    WEAPON_CHARACTERISTICS_DETAILS,
     WEAPON_CHARACTERISTICS_PISTOL,
     WEAPON_CHARACTERISTICS_HEAVY,
     WEAPON_CHARACTERISTICS_SMG,

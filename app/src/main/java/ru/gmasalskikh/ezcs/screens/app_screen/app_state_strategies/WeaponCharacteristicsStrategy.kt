@@ -49,9 +49,7 @@ class WeaponCharacteristicsStrategy(
                         route = TargetNavigation.WeaponCharacteristicsPistol().path,
                         onClick = {
                             navigateTo(
-                                TargetNavigation.WeaponCharacteristicsPistol(
-                                    navParams
-                                )
+                                TargetNavigation.WeaponCharacteristicsPistol(navParams)
                             )
                         }
                     ),
