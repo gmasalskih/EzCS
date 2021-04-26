@@ -13,17 +13,17 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun <T> MenuContent(
-    isScrollableMenu: Boolean = false,
-    menuItemSurfaceColor: Color,
-    menuItemElevation: Dp,
-    menuItemShape: CornerBasedShape,
-    menuItemBorder: BorderStroke,
-    onMenuItemClick: (T) -> Unit,
+fun <T> ListContent(
+    isScrollableList: Boolean = false,
+    listItemSurfaceColor: Color,
+    listItemElevation: Dp,
+    listItemShape: CornerBasedShape,
+    listItemBorder: BorderStroke,
+    onListItemClick: (T) -> Unit,
     items: List<T>,
     itemContent: @Composable (T) -> Unit
 ) {
-    if (isScrollableMenu) {
+    if (isScrollableList) {
         LazyColumn(
             modifier = Modifier
                 .fillMaxSize()
@@ -32,13 +32,13 @@ fun <T> MenuContent(
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             items(items) { item ->
-                MenuItem(
+                ListItem(
                     modifier = Modifier.aspectRatio(3f),
-                    backgroundColor = menuItemSurfaceColor,
-                    elevation = menuItemElevation,
-                    shape = menuItemShape,
-                    border = menuItemBorder,
-                    onClick = { onMenuItemClick(item) }
+                    backgroundColor = listItemSurfaceColor,
+                    elevation = listItemElevation,
+                    shape = listItemShape,
+                    border = listItemBorder,
+                    onClick = { onListItemClick(item) }
                 ) {
                     itemContent(item)
                 }
@@ -53,13 +53,13 @@ fun <T> MenuContent(
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             items.forEach { item ->
-                MenuItem(
+                ListItem(
                     modifier = Modifier.weight(1f),
-                    backgroundColor = menuItemSurfaceColor,
-                    elevation = menuItemElevation,
-                    shape = menuItemShape,
-                    border = menuItemBorder,
-                    onClick = { onMenuItemClick(item) }
+                    backgroundColor = listItemSurfaceColor,
+                    elevation = listItemElevation,
+                    shape = listItemShape,
+                    border = listItemBorder,
+                    onClick = { onListItemClick(item) }
                 ) {
                     itemContent(item)
                 }
