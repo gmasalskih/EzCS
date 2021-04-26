@@ -4,6 +4,8 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.vector.rememberVectorPainter
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import ru.gmasalskikh.ezcs.screens.app_screen.AppViewState
@@ -31,7 +33,7 @@ fun AppTopBar(
                 navIcon = {
                     AppTopBarIcon(
                         modifier = Modifier.align(Alignment.Center),
-                        imageVector = appBarViewState.appTopBarNavItem.icon,
+                        image = rememberVectorPainter(image = appBarViewState.appTopBarNavItem.icon),
                         tintColor = theme.colors.onPrimary,
                         onClick = appBarViewState.appTopBarNavItem.onClick,
                     )
@@ -40,11 +42,11 @@ fun AppTopBar(
                     appBarViewState.appTopBarExtraItem?.let { appBarState ->
                         val tintColor = if (appBarState.isEnable) theme.colors.onPrimary
                         else theme.colors.onPrimary.copy(alpha = 0.4f)
-                        AppTopBarExtraIcon(
+                        AppTopBarIcon(
                             modifier = Modifier
                                 .padding(end = 16.dp)
                                 .align(Alignment.Center),
-                            imagePainter = appBarState.icon,
+                            image = painterResource(id = appBarState.icon),
                             tintColor = tintColor,
                             isEnable = appBarState.isEnable,
                             onClick = appBarState.onClick
