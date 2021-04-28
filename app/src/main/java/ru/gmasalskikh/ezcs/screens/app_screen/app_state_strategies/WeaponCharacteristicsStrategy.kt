@@ -18,7 +18,7 @@ class WeaponCharacteristicsStrategy(
     override fun applyStrategy(): AppViewState {
         val navParams = NavigationParams(
             navOptions = NavOptions.Builder()
-                .setPopUpTo(TargetNavigation.MainMenu().navId, false)
+                .setPopUpTo(TargetNavigation.WeaponCharacteristics.navId, false)
                 .build()
         )
         return appViewState.copy(
