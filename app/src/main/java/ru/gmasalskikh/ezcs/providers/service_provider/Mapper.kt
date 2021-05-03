@@ -5,6 +5,7 @@ import kotlinx.coroutines.async
 import kotlinx.coroutines.job
 import ru.gmasalskikh.ezcs.data.app_entity.*
 import ru.gmasalskikh.ezcs.data.firestore_entities.*
+import ru.gmasalskikh.ezcs.data.view_entity.WeaponItem
 import ru.gmasalskikh.ezcs.providers.content_repository.ContentRepository
 import ru.gmasalskikh.ezcs.utils.toValidId
 import kotlin.coroutines.coroutineContext
@@ -120,6 +121,43 @@ class Mapper(
             },
             order = firestoreEntity.order,
             xp = firestoreEntity.xp
+        )
+    }
+
+    val weaponItem: suspend (WeaponFirestoreEntity) -> WeaponItem = { firestoreEntity ->
+        WeaponItem(
+            logoDeferred = cs.async(coroutineContext.job) {
+                contentRepository.getFile(
+                    pathToFolder = firestoreEntity.getDocumentName(),
+                    fileName = firestoreEntity.logo
+                )
+            },
+            teamTypes = firestoreEntity.teamTypes,
+            sprayDeferred = cs.async(coroutineContext.job) {
+                contentRepository.getFile(
+                    pathToFolder = firestoreEntity.getDocumentName(),
+                    fileName = firestoreEntity.spray
+                )
+            },
+            recoilDeferred = cs.async(coroutineContext.job) {
+                contentRepository.getFile(
+                    pathToFolder = firestoreEntity.getDocumentName(),
+                    fileName = firestoreEntity.recoil
+                )
+            },
+            listDetails = mutableListOf<Pair<String, String>>().apply {
+                add(Pair("COST:", firestoreEntity.inGamePrice.toString() + "$"))
+                add(
+                    Pair(
+                        "AMMO:",
+                        firestoreEntity.primaryClipSize.toString() +
+                                "/" +
+                                firestoreEntity.primaryReserveAmmoMax.toString()
+                    )
+                )
+                add(Pair("KILL AWARD:", firestoreEntity.killAward.toString() + "$"))
+                add(Pair("DAMAGE:", firestoreEntity.damage.toString()))
+            }
         )
     }
 

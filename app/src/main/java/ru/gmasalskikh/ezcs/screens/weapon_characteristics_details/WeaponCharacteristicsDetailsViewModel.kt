@@ -7,9 +7,9 @@ import org.orbitmvi.orbit.Container
 import org.orbitmvi.orbit.syntax.simple.intent
 import org.orbitmvi.orbit.syntax.simple.reduce
 import org.orbitmvi.orbit.viewmodel.container
-import ru.gmasalskikh.ezcs.data.app_entity.Weapon
 import ru.gmasalskikh.ezcs.data.firestore_entities.WeaponFirestoreEntity
 import ru.gmasalskikh.ezcs.data.type.EntityType
+import ru.gmasalskikh.ezcs.data.view_entity.WeaponItem
 import ru.gmasalskikh.ezcs.providers.service_provider.ServiceProvider
 import ru.gmasalskikh.ezcs.screens.BaseViewModel
 import ru.gmasalskikh.ezcs.screens.SideEffect
@@ -36,8 +36,8 @@ class WeaponCharacteristicsDetailsViewModel(
             onCreate = { initState() }
         )
 
-    private fun setEntity(weapon: Weapon) = intent {
-        reduce { state.copy(weapon = weapon) }
+    private fun setEntity(weaponItem: WeaponItem) = intent {
+        reduce { state.copy(weaponItem = weaponItem) }
     }
 
     private fun initState() = viewModelScope.launch(ceh) {
@@ -45,8 +45,8 @@ class WeaponCharacteristicsDetailsViewModel(
             entityType = EntityType.WEAPON,
             entityName = weaponName.toValidId(),
             clazz = WeaponFirestoreEntity::class.java,
-            mapper = serviceProvider.mapper.weapon
-        ).let { weapon -> setEntity(weapon) }
+            mapper = serviceProvider.mapper.weaponItem
+        ).let { weaponItem -> setEntity(weaponItem) }
         setSideEffect(SideEffect.Data)
     }
 }

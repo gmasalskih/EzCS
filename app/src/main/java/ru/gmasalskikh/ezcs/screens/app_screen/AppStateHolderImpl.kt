@@ -83,20 +83,20 @@ class AppStateHolderImpl(
                     navEvent.bundle?.getString(
                         WeaponCharacteristicsDetailsViewModel.WEAPON_NAME
                     )?.let { topAppBarTitle ->
-                        WeaponCharacteristicsDetailsStrategy(appViewState, topAppBarTitle)
+                        WeaponCharacteristicsDetailsStrategy(appViewState, _appViewEvent, topAppBarTitle)
                     }
                 }
                 WEAPON_CHARACTERISTICS_PISTOL -> {
-                    WeaponCharacteristicsPistolStrategy(appViewState)
+                    WeaponCharacteristicsPistolStrategy(appViewState, _appViewEvent)
                 }
                 WEAPON_CHARACTERISTICS_HEAVY -> {
-                    WeaponCharacteristicsHeavyStrategy(appViewState)
+                    WeaponCharacteristicsHeavyStrategy(appViewState, _appViewEvent)
                 }
                 WEAPON_CHARACTERISTICS_SMG -> {
-                    WeaponCharacteristicsSMGStrategy(appViewState)
+                    WeaponCharacteristicsSMGStrategy(appViewState, _appViewEvent)
                 }
                 WEAPON_CHARACTERISTICS_RIFLE -> {
-                    WeaponCharacteristicsRifleStrategy(appViewState)
+                    WeaponCharacteristicsRifleStrategy(appViewState, _appViewEvent)
                 }
                 GRENADE_PRACTICE -> {
                     GrenadesPracticeStrategy(appViewState, _appViewEvent)

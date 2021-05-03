@@ -12,13 +12,13 @@ import ru.gmasalskikh.ezcs.screens.app_screen.AppViewState
 
 class WeaponCharacteristicsStrategy(
     override val appViewState: AppViewState,
-    override val appViewEventEmitter: FlowCollector<AppStateHolder.AppViewEvent>,
+    override val appViewEventEmitter: FlowCollector<AppStateHolder.AppViewEvent>
 ) : AppStateStrategy() {
 
     override fun applyStrategy(): AppViewState {
         val navParams = NavigationParams(
             navOptions = NavOptions.Builder()
-                .setPopUpTo(TargetNavigation.MainMenu().navId, false)
+                .setPopUpTo(TargetNavigation.WeaponCharacteristics.navId, false)
                 .build()
         )
         return appViewState.copy(
