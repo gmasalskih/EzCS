@@ -19,7 +19,8 @@ import java.util.*
 @Composable
 fun WeaponDetailsItem(
     title: String,
-    value: String
+    value: String,
+    indicator: Float
 ){
     val theme = LocalAppTheme.current
     Box(
@@ -28,7 +29,7 @@ fun WeaponDetailsItem(
             .background(theme.colors.background)
     ) {
         LinearProgressIndicator(
-            progress = 0.3f,
+            progress = indicator,
             color = theme.colors.primary,
             backgroundColor = theme.colors.background,
             modifier = Modifier

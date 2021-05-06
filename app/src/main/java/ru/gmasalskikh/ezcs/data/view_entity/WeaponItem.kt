@@ -10,5 +10,5 @@ class WeaponItem(
     val teamTypes: List<TeamType>,
     val sprayDeferred: Deferred<Bitmap>,
     val recoilDeferred: Deferred<Bitmap>,
-    val listDetails: MutableList<Pair<String, String>>
+    val listDetails: MutableList<Triple<String, String, Float>>
 ) : AppEntity

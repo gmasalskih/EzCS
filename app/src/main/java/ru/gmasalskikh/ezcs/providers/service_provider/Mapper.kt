@@ -148,18 +148,19 @@ class Mapper(
                     fileName = firestoreEntity.recoil
                 )
             },
-            listDetails = mutableListOf<Pair<String, String>>().apply {
-                add(Pair(context.getString(R.string.mapper_cost), firestoreEntity.inGamePrice.toString() + "$"))
+            listDetails = mutableListOf<Triple<String, String, Float>>().apply {
+                add(Triple(context.getString(R.string.mapper_cost), firestoreEntity.inGamePrice.toString() + "$", firestoreEntity.inGamePrice / 5200f))
                 add(
-                    Pair(
+                    Triple(
                         context.getString(R.string.mapper_ammo),
                         firestoreEntity.primaryClipSize.toString() +
                                 "/" +
-                                firestoreEntity.primaryReserveAmmoMax.toString()
+                                firestoreEntity.primaryReserveAmmoMax.toString(),
+                        firestoreEntity.primaryReserveAmmoMax / 300f
                     )
                 )
-                add(Pair(context.getString(R.string.mapper_kill_award), firestoreEntity.killAward.toString() + "$"))
-                add(Pair(context.getString(R.string.mapper_damage), firestoreEntity.damage.toString()))
+                add(Triple(context.getString(R.string.mapper_kill_award), firestoreEntity.killAward.toString() + "$", firestoreEntity.killAward / 900f))
+                add(Triple(context.getString(R.string.mapper_damage), firestoreEntity.damage.toString(), firestoreEntity.damage / 115f))
             }
         )
     }

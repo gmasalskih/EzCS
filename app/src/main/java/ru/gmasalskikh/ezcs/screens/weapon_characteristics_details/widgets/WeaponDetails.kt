@@ -21,7 +21,7 @@ import java.util.*
 @Composable
 fun WeaponDetails(
     modifier: Modifier = Modifier,
-    weaponDetails: List<Pair<String, String>>
+    weaponDetails: List<Triple<String, String, Float>>
 ){
     val theme = LocalAppTheme.current
     Column(
@@ -49,7 +49,7 @@ fun WeaponDetails(
             )
         }
         weaponDetails.forEach {
-            WeaponDetailsItem(title = it.first, value = it.second)
+            WeaponDetailsItem(title = it.first, value = it.second, indicator = it.third)
         }
     }
 }
