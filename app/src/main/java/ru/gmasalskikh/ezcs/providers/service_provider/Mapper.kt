@@ -1,8 +1,10 @@
 package ru.gmasalskikh.ezcs.providers.service_provider
 
+import android.content.Context
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.async
 import kotlinx.coroutines.job
+import ru.gmasalskikh.ezcs.R
 import ru.gmasalskikh.ezcs.data.app_entity.*
 import ru.gmasalskikh.ezcs.data.firestore_entities.*
 import ru.gmasalskikh.ezcs.data.view_entity.WeaponItem
@@ -12,7 +14,8 @@ import kotlin.coroutines.coroutineContext
 
 class Mapper(
     private val cs: CoroutineScope,
-    private val contentRepository: ContentRepository
+    private val contentRepository: ContentRepository,
+    private val context: Context
 ) {
     val competitive: suspend (CompetitiveFirestoreEntity) -> Competitive = { firestoreEntity ->
         Competitive(
@@ -146,20 +149,22 @@ class Mapper(
                 )
             },
             listDetails = mutableListOf<Pair<String, String>>().apply {
-                add(Pair("COST:", firestoreEntity.inGamePrice.toString() + "$"))
+                add(Pair(context.getString(R.string.mapper_cost), firestoreEntity.inGamePrice.toString() + "$"))
                 add(
                     Pair(
-                        "AMMO:",
+                        context.getString(R.string.mapper_ammo),
                         firestoreEntity.primaryClipSize.toString() +
                                 "/" +
                                 firestoreEntity.primaryReserveAmmoMax.toString()
                     )
                 )
-                add(Pair("KILL AWARD:", firestoreEntity.killAward.toString() + "$"))
-                add(Pair("DAMAGE:", firestoreEntity.damage.toString()))
+                add(Pair(context.getString(R.string.mapper_kill_award), firestoreEntity.killAward.toString() + "$"))
+                add(Pair(context.getString(R.string.mapper_damage), firestoreEntity.damage.toString()))
             }
         )
     }
+
+
 
     val weapon: suspend (WeaponFirestoreEntity) -> Weapon = { firestoreEntity ->
         Weapon(

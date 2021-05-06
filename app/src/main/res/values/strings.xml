@@ -40,4 +40,8 @@
     <string name="app_top_bar_title_grenades_practice_type_of_grenade_smoke" translatable="false">smoke</string>
     <string name="app_top_bar_title_grenades_practice_type_of_grenade_molotov" translatable="false">molotov</string>
     <string name="app_top_bar_title_grenades_practice_type_of_grenade_flash" translatable="false">flash</string>
+    <string name="mapper_cost">COST:</string>
+    <string name="mapper_ammo">AMMO:</string>
+    <string name="mapper_kill_award">KILL AWARD:</string>
+    <string name="mapper_damage">DAMAGE:</string>
 </resources>

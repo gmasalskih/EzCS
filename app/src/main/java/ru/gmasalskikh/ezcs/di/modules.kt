@@ -9,6 +9,7 @@ import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
+import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.core.parameter.parametersOf
 import org.koin.core.qualifier.named
@@ -128,7 +129,8 @@ val providerModule = module {
     factory {
         Mapper(
             contentRepository = get(),
-            cs = get<CustomCoroutineScope> { parametersOf(Dispatchers.IO) }
+            cs = get<CustomCoroutineScope> { parametersOf(Dispatchers.IO) },
+            context = androidContext()
         )
     }
     factory<ServiceProvider> {
