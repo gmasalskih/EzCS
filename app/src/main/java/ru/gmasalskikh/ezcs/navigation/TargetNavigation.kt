@@ -66,6 +66,22 @@ sealed class TargetNavigation(
         override val params: NavigationParams? = null
     ) : TargetNavigation(GRENADE_PRACTICE_FLASH)
 
+    data class TickRates(
+        override val params: NavigationParams? = null
+    ) : TargetNavigation(GRENADE_PRACTICE_TICKRATE)
+
+    data class TickRate64(
+        override val params: NavigationParams? = null
+    ) : TargetNavigation(GRENADE_PRACTICE_TICKRATE_64)
+
+    data class TickRate128(
+        override val params: NavigationParams? = null
+    ) : TargetNavigation(GRENADE_PRACTICE_TICKRATE_128)
+
+    data class GrenadePracticeDetails(
+        override val params: NavigationParams? = null
+    ) : TargetNavigation(GRENADE_PRACTICE_DETAILS)
+
     object Ranks : TargetNavigation(RANKS)
 
     data class RanksCompetitive(
@@ -100,6 +116,7 @@ enum class TargetNavigationPath {
     GRENADE_PRACTICE_SMOKE,
     GRENADE_PRACTICE_MOLOTOV,
     GRENADE_PRACTICE_FLASH,
+    GRENADE_PRACTICE_TICKRATE,
     GRENADE_PRACTICE_TICKRATE_64,
     GRENADE_PRACTICE_TICKRATE_128,
     GRENADE_PRACTICE_DETAILS,

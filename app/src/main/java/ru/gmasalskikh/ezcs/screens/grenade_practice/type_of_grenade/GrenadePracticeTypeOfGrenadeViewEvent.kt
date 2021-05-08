@@ -1,4 +1,4 @@
-package ru.gmasalskikh.ezcs.screens.grenade_practice_type_of_grenade
+package ru.gmasalskikh.ezcs.screens.grenade_practice.type_of_grenade
 
 import ru.gmasalskikh.ezcs.data.app_entity.MapHolder
 import ru.gmasalskikh.ezcs.screens.ViewEvent

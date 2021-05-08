@@ -37,7 +37,9 @@ import ru.gmasalskikh.ezcs.providers.scope_manager.ScopeManagerImpl
 import ru.gmasalskikh.ezcs.providers.service_provider.Mapper
 import ru.gmasalskikh.ezcs.providers.service_provider.ServiceProvider
 import ru.gmasalskikh.ezcs.providers.service_provider.ServiceProviderImpl
-import ru.gmasalskikh.ezcs.screens.grenade_practice_type_of_grenade.GrenadePracticeTypeOfGrenadeViewModel
+import ru.gmasalskikh.ezcs.screens.grenade_practice.grenade_practice_details.GrenadePracticeDetailsViewModel
+import ru.gmasalskikh.ezcs.screens.grenade_practice.places_on_maps.PlacesOnMapsViewModel
+import ru.gmasalskikh.ezcs.screens.grenade_practice.type_of_grenade.GrenadePracticeTypeOfGrenadeViewModel
 import ru.gmasalskikh.ezcs.screens.map_callouts.MapCalloutsViewModel
 import ru.gmasalskikh.ezcs.screens.map_callouts_details.MapCalloutsDetailsViewModel
 import ru.gmasalskikh.ezcs.screens.ranks.competitive.CompetitiveViewModel
@@ -51,6 +53,7 @@ import java.util.*
 enum class ScopeName(
     private var _id: UUID = UUID.randomUUID()
 ) {
+    TICKRATE_SCOPE,
     GRENADES_PRACTICE_SCOPE,
     WEAPON_CHARACTERISTICS_SCOPE;
 
@@ -173,6 +176,7 @@ val viewModelModule = module {
             GrenadePracticeTypeOfGrenadeViewModel(
                 serviceProvider = get(),
                 appEventCollector = get(named(APP_EVENT_COLLECTOR)),
+                appEventEmitter = get(named(APP_EVENT_EMITTER)),
                 cs = get { parametersOf(Dispatchers.Main) }
             )
         }
@@ -185,6 +189,24 @@ val viewModelModule = module {
     viewModel { (mapName: String) ->
         MapCalloutsDetailsViewModel(
             mapName = mapName,
+            serviceProvider = get()
+        )
+    }
+
+    scope(named(ScopeName.TICKRATE_SCOPE)) {
+        scoped {
+            PlacesOnMapsViewModel(
+//                mapName = get(),
+                serviceProvider = get(),
+                appEventCollector = get(named(APP_EVENT_COLLECTOR)),
+                appEventEmitter = get(named(APP_EVENT_EMITTER)),
+                cs = get { parametersOf(Dispatchers.Main) }
+            )
+        }
+    }
+    viewModel { (mapPointName: String) ->
+        GrenadePracticeDetailsViewModel(
+            mapPointName = mapPointName,
             serviceProvider = get()
         )
     }

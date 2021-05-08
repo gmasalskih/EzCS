@@ -102,14 +102,17 @@ class AppStateHolderImpl(
                 GRENADE_PRACTICE_FLASH -> {
                     GrenadesPracticeStrategyFlash(appViewState)
                 }
+                GRENADE_PRACTICE_TICKRATE -> {
+                    GrenadesPracticeStrategyTickrate(appViewState, _appViewEvent)
+                }
                 GRENADE_PRACTICE_TICKRATE_64 -> {
-                    TODO()
+                    GrenadesPracticeStrategyTickrate64(appViewState)
                 }
                 GRENADE_PRACTICE_TICKRATE_128 -> {
-                    TODO()
+                    GrenadesPracticeStrategyTickrate128(appViewState)
                 }
                 GRENADE_PRACTICE_DETAILS -> {
-                    TODO()
+                    GrenadesPracticeStrategyDetails(appViewState, _appViewEvent)
                 }
                 RANKS -> {
                     RanksStrategy(appViewState, _appViewEvent)

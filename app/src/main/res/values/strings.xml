@@ -37,6 +37,7 @@
     <string name="app_bottom_bar_grenade_practice_type_of_grenade_smoke" translatable="false">smoke</string>
     <string name="app_bottom_bar_grenade_practice_type_of_grenade_molotov" translatable="false">molotov</string>
     <string name="app_bottom_bar_grenade_practice_type_of_grenade_flash" translatable="false">flash</string>
+    <string name="app_bottom_bar_grenades_practice_tickrate" translatable="false">tickrate</string>
     <string name="app_top_bar_title_grenades_practice_type_of_grenade_smoke" translatable="false">smoke</string>
     <string name="app_top_bar_title_grenades_practice_type_of_grenade_molotov" translatable="false">molotov</string>
     <string name="app_top_bar_title_grenades_practice_type_of_grenade_flash" translatable="false">flash</string>

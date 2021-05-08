@@ -9,6 +9,13 @@
         <entry key="..\:/Android/App/EzCS2/app/src/main/res/drawable/ic_smg.xml" value="0.26458333333333334" />
         <entry key="..\:/Android/App/EzCS2/app/src/main/res/drawable/icon_competitive.xml" value="0.2791666666666667" />
         <entry key="..\:/Android/App/EzCS2/app/src/main/res/drawable/icon_smoke.xml" value="0.24259259259259258" />
+        <entry key="..\:/Development/Workspace/EzCS/app/src/main/res/drawable/icon_flash.xml" value="0.21822916666666667" />
+        <entry key="..\:/Development/Workspace/EzCS/app/src/main/res/drawable/icon_heavy.xml" value="0.21822916666666667" />
+        <entry key="..\:/Development/Workspace/EzCS/app/src/main/res/drawable/icon_molotov.xml" value="0.21822916666666667" />
+        <entry key="..\:/Development/Workspace/EzCS/app/src/main/res/drawable/icon_rifle.xml" value="0.21822916666666667" />
+        <entry key="..\:/Development/Workspace/EzCS/app/src/main/res/drawable/icon_smoke.xml" value="0.21822916666666667" />
+        <entry key="..\:/Development/Workspace/EzCS/app/src/main/res/drawable/icon_tickrate_128.xml" value="0.21822916666666667" />
+        <entry key="..\:/Development/Workspace/EzCS/app/src/main/res/drawable/icon_tickrate_64.xml" value="0.21822916666666667" />
       </map>
     </option>
   </component>
