@@ -76,27 +76,44 @@ class AppStateHolderImpl(
                         MapCalloutsDetailsStrategy(appViewState, topAppBarTitle)
                     }
                 }
+                WEAPON_CHARACTERISTICS_PISTOL,
+                WEAPON_CHARACTERISTICS_HEAVY,
+                WEAPON_CHARACTERISTICS_SMG,
+                WEAPON_CHARACTERISTICS_RIFLE,
                 WEAPON_CHARACTERISTICS -> {
-                    WeaponCharacteristicsStrategy(appViewState, _appViewEvent)
+                    if (navEvent.path != WEAPON_CHARACTERISTICS) {
+                        appViewState =
+                            WeaponCharacteristicsStrategy(
+                                appViewState,
+                                _appViewEvent
+                            ).applyStrategy()
+                    }
+                    when (navEvent.path) {
+                        WEAPON_CHARACTERISTICS_PISTOL -> {
+                            WeaponCharacteristicsPistolStrategy(appViewState)
+                        }
+                        WEAPON_CHARACTERISTICS_HEAVY -> {
+                            WeaponCharacteristicsHeavyStrategy(appViewState)
+                        }
+                        WEAPON_CHARACTERISTICS_SMG -> {
+                            WeaponCharacteristicsSMGStrategy(appViewState)
+                        }
+                        WEAPON_CHARACTERISTICS_RIFLE -> {
+                            WeaponCharacteristicsRifleStrategy(appViewState)
+                        }
+                        else -> WeaponCharacteristicsStrategy(appViewState, _appViewEvent)
+                    }
                 }
                 WEAPON_CHARACTERISTICS_DETAILS -> {
                     navEvent.bundle?.getString(
                         WeaponCharacteristicsDetailsViewModel.WEAPON_NAME
                     )?.let { topAppBarTitle ->
-                        WeaponCharacteristicsDetailsStrategy(appViewState, _appViewEvent, topAppBarTitle)
+                        WeaponCharacteristicsDetailsStrategy(
+                            appViewState,
+                            _appViewEvent,
+                            topAppBarTitle
+                        )
                     }
-                }
-                WEAPON_CHARACTERISTICS_PISTOL -> {
-                    WeaponCharacteristicsPistolStrategy(appViewState, _appViewEvent)
-                }
-                WEAPON_CHARACTERISTICS_HEAVY -> {
-                    WeaponCharacteristicsHeavyStrategy(appViewState, _appViewEvent)
-                }
-                WEAPON_CHARACTERISTICS_SMG -> {
-                    WeaponCharacteristicsSMGStrategy(appViewState, _appViewEvent)
-                }
-                WEAPON_CHARACTERISTICS_RIFLE -> {
-                    WeaponCharacteristicsRifleStrategy(appViewState, _appViewEvent)
                 }
                 GRENADE_PRACTICE -> {
                     GrenadesPracticeStrategy(appViewState, _appViewEvent)
@@ -140,6 +157,3 @@ class AppStateHolderImpl(
         }
     }
 }
-
-
-

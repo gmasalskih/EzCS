@@ -10,6 +10,7 @@ import ru.gmasalskikh.ezcs.data.firestore_entities.*
 import ru.gmasalskikh.ezcs.data.view_entity.WeaponItem
 import ru.gmasalskikh.ezcs.providers.content_repository.ContentRepository
 import ru.gmasalskikh.ezcs.utils.toValidId
+import java.util.*
 import kotlin.coroutines.coroutineContext
 
 class Mapper(
@@ -149,22 +150,39 @@ class Mapper(
                 )
             },
             listDetails = mutableListOf<Triple<String, String, Float>>().apply {
-                add(Triple(context.getString(R.string.mapper_cost), firestoreEntity.inGamePrice.toString() + "$", firestoreEntity.inGamePrice / 5200f))
                 add(
                     Triple(
-                        context.getString(R.string.mapper_ammo),
+                        context.getString(R.string.mapper_cost).toUpperCase(Locale.getDefault()) + ":",
+                        firestoreEntity.inGamePrice.toString() + "$",
+                        firestoreEntity.inGamePrice / MAX_COST
+                    )
+                )
+                add(
+                    Triple(
+                        context.getString(R.string.mapper_ammo).toUpperCase(Locale.getDefault()) + ":",
                         firestoreEntity.primaryClipSize.toString() +
                                 "/" +
                                 firestoreEntity.primaryReserveAmmoMax.toString(),
-                        firestoreEntity.primaryReserveAmmoMax / 300f
+                        firestoreEntity.primaryReserveAmmoMax / MAX_AMMO
                     )
                 )
-                add(Triple(context.getString(R.string.mapper_kill_award), firestoreEntity.killAward.toString() + "$", firestoreEntity.killAward / 900f))
-                add(Triple(context.getString(R.string.mapper_damage), firestoreEntity.damage.toString(), firestoreEntity.damage / 115f))
+                add(
+                    Triple(
+                        context.getString(R.string.mapper_kill_award).toUpperCase(Locale.getDefault()) + ":",
+                        firestoreEntity.killAward.toString() + "$",
+                        firestoreEntity.killAward / MAX_KILL_AWARD
+                    )
+                )
+                add(
+                    Triple(
+                        context.getString(R.string.mapper_damage).toUpperCase(Locale.getDefault()) + ":",
+                        firestoreEntity.damage.toString(),
+                        firestoreEntity.damage / MAX_DAMAGE
+                    )
+                )
             }
         )
     }
-
 
 
     val weapon: suspend (WeaponFirestoreEntity) -> Weapon = { firestoreEntity ->
@@ -235,5 +253,12 @@ class Mapper(
             },
             order = firestoreEntity.order
         )
+    }
+
+    companion object {
+        private const val MAX_COST = 5200f
+        private const val MAX_AMMO = 300f
+        private const val MAX_KILL_AWARD = 900f
+        private const val MAX_DAMAGE = 115f
     }
 }

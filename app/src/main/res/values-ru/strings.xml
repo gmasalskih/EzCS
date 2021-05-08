@@ -35,8 +35,8 @@
     <string name="app_bottom_bar_weapon_characteristics_pistol">пистолет</string>
     <string name="app_bottom_bar_weapon_characteristics_rifle">винтовка</string>
     <string name="app_bottom_bar_weapon_characteristics_smg">пп</string>
-    <string name="mapper_cost">СТОИМОСТЬ:</string>
-    <string name="mapper_ammo">БОЕПРИПАСЫ:</string>
+    <string name="mapper_cost">стоимость</string>
+    <string name="mapper_ammo">боеприпасы</string>
     <string name="mapper_kill_award">НАГРАДА ЗА УБИЙСТВО:</string>
-    <string name="mapper_damage">ПОВРЕЖДЕНИЕ:</string>
+    <string name="mapper_damage">повреждение</string>
 </resources>

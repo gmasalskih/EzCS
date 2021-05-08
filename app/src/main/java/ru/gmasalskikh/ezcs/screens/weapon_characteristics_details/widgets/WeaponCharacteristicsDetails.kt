@@ -4,21 +4,23 @@ import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import ru.gmasalskikh.ezcs.data.view_entity.WeaponItem
 
 @Composable
 fun WeaponCharacteristicsDetails(weaponItem: WeaponItem) {
-    Box(modifier = Modifier
-        .fillMaxWidth()
-        .verticalScroll(state = ScrollState(0))
+    Box(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(horizontal = 10.dp)
+            .verticalScroll(state = ScrollState(0))
     ) {
         Column(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(10.dp),
-            verticalArrangement = Arrangement.spacedBy(5.dp)
+            modifier = Modifier.fillMaxSize(),
+            verticalArrangement = Arrangement.spacedBy(5.dp),
+            horizontalAlignment = Alignment.CenterHorizontally
         ) {
             WeaponAppearanceImage(
                 modifier = Modifier.height(200.dp),
@@ -26,7 +28,7 @@ fun WeaponCharacteristicsDetails(weaponItem: WeaponItem) {
                 teamTypes = weaponItem.teamTypes
             )
             WeaponRecoilDiagram(
-                modifier = Modifier.wrapContentSize(),
+                modifier = Modifier.aspectRatio(2f),
                 sprayDeferred = weaponItem.sprayDeferred,
                 recoilDeferred = weaponItem.recoilDeferred
             )
