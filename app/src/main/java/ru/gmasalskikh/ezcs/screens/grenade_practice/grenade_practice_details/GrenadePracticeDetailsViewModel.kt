@@ -18,7 +18,7 @@ import ru.gmasalskikh.ezcs.screens.SideEffect
 import ru.gmasalskikh.ezcs.utils.toValidId
 
 class GrenadePracticeDetailsViewModel(
-    private val mapPointName: String,
+    private val fairName: String,
     private val serviceProvider: ServiceProvider,
 )
     : BaseViewModel<GrenadePracticeDetailsViewState, Nothing>() {
@@ -42,7 +42,7 @@ class GrenadePracticeDetailsViewModel(
     private fun initState() = viewModelScope.launch(ceh) {
         serviceProvider.getEntity(
             entityType = EntityType.MAP_POINT,
-            entityName = mapPointName.toValidId(),
+            entityName = fairName.toValidId(),
             clazz = MapPointFirestoreEntity::class.java,
             mapper = serviceProvider.mapper.mapPoint
         ).let { mapPoint ->

@@ -88,7 +88,7 @@ class PlacesOnMapsViewModel(
                     args = Bundle().apply {
                         putString(
                             GrenadePracticeDetailsViewModel.GRENADE_PRACTICE_DETAILS_MAPPOINT_NAME,
-                            viewEvent.mapPoint.name
+                            viewEvent.mapPoint.fairName
                         )
                     }
                 )

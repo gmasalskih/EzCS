@@ -7,6 +7,7 @@ import ru.gmasalskikh.ezcs.data.type.TickrateType
 
 class MapPoint(
     val name: String,
+    val fairName: String,
     val mapId:String,
     val grenadeType: GrenadeType,
     val tickrateTypes: List<TickrateType>,
