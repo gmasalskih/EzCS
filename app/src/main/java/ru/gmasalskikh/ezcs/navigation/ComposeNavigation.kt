@@ -2,7 +2,6 @@ package ru.gmasalskikh.ezcs.navigation
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
-import androidx.lifecycle.viewModelScope
 import androidx.navigation.compose.*
 import org.koin.androidx.compose.get
 import org.koin.androidx.compose.getViewModel
@@ -117,20 +116,26 @@ fun ComposeNavigation(
                 ).let { vm-> GrenadePracticeTypeOfGrenadeView(vm).Screen() }
             }
             navigation(
-                startDestination = TickRate64().path,
-                route = TickRates().path
+                startDestination = GrenadePracticeTickRate64().path,
+                route = GrenadePracticeTickRates().path
             ){
-                composable(TickRate64().path) {
+                composable(GrenadePracticeTickRate64().path) {
+                    val mapNameArg = it.arguments?.getString(
+                        PlacesOnMapsViewModel.GRENADE_PRACTICE_MAP_NAME
+                    )
                     scopeManager.getScopedInstance(
-                        ScopeName.TICKRATE_SCOPE,
+                        ScopeName.GRENADE_PRACTICE_TICKRATE_SCOPE,
                         PlacesOnMapsViewModel::class
-                    ).let { vm -> PlacesOnMapsView(vm).Screen() }
+                    ).let { vm -> PlacesOnMapsView(vm.apply { mapName = mapNameArg }).Screen() }
                 }
-                composable(TickRate128().path) {
+                composable(GrenadePracticeTickRate128().path) {
+                    val mapNameArg = it.arguments?.getString(
+                        PlacesOnMapsViewModel.GRENADE_PRACTICE_MAP_NAME
+                    )
                     scopeManager.getScopedInstance(
-                        ScopeName.TICKRATE_SCOPE,
+                        ScopeName.GRENADE_PRACTICE_TICKRATE_SCOPE,
                         PlacesOnMapsViewModel::class
-                    ).let { vm -> PlacesOnMapsView(vm).Screen()}
+                    ).let { vm -> PlacesOnMapsView(vm.apply { mapName = mapNameArg }).Screen()}
                 }
                 composable(GrenadePracticeDetails().path) {
                     it.arguments

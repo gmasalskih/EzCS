@@ -24,10 +24,10 @@ import ru.gmasalskikh.ezcs.providers.service_provider.ServiceProvider
 import ru.gmasalskikh.ezcs.screens.BaseViewModel
 import ru.gmasalskikh.ezcs.screens.SideEffect
 import ru.gmasalskikh.ezcs.screens.grenade_practice.grenade_practice_details.GrenadePracticeDetailsViewModel
-import ru.gmasalskikh.ezcs.screens.grenade_practice.grenade_practice_details.GrenadePracticeDetailsViewState
+import java.util.*
 
 class PlacesOnMapsViewModel(
-//    private val mapName: String?,
+    var mapName: String? = "",
     private val serviceProvider: ServiceProvider,
     private val appEventCollector: SharedFlow<AppController.AppEvent>,
     private val appEventEmitter: FlowCollector<AppController.AppEvent>,
@@ -48,9 +48,9 @@ class PlacesOnMapsViewModel(
             entityType = EntityType.MAP_POINT,
             clazz = MapPointFirestoreEntity::class.java,
             mapper = serviceProvider.mapper.mapPoint
-        )/*.filter { mapPoint ->
+        ).filter { mapPoint ->
             mapPoint.mapId == mapName?.toLowerCase(Locale.getDefault())
-        }*/.apply {
+        }.apply {
             setMapPointList(this)
         }
         setSideEffect(SideEffect.Data)

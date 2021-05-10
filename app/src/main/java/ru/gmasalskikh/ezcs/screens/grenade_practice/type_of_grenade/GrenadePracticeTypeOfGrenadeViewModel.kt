@@ -83,7 +83,7 @@ class GrenadePracticeTypeOfGrenadeViewModel(
                 )
                 appEventEmitter.emit(
                     AppController.AppEvent.NavigateTo(
-                        TargetNavigation.TickRates(
+                        TargetNavigation.GrenadePracticeTickRates(
                             params = navParams)
                     )
                 )

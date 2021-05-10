@@ -1,13 +1,15 @@
 package ru.gmasalskikh.ezcs.screens.app_screen
 
 import androidx.compose.material.ScaffoldState
-import androidx.compose.runtime.*
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import ru.gmasalskikh.ezcs.navigation.TargetNavigationPath.*
 import ru.gmasalskikh.ezcs.providers.app_controller.AppController
 import ru.gmasalskikh.ezcs.providers.custom_coroutine_scope.CustomCoroutineScope
-import ru.gmasalskikh.ezcs.screens.app_screen.AppStateHolder.*
+import ru.gmasalskikh.ezcs.screens.app_screen.AppStateHolder.AppViewEvent
 import ru.gmasalskikh.ezcs.screens.app_screen.app_state_strategies.*
 import ru.gmasalskikh.ezcs.screens.grenade_practice.grenade_practice_details.GrenadePracticeDetailsViewModel
 import ru.gmasalskikh.ezcs.screens.grenade_practice.places_on_maps.PlacesOnMapsViewModel
@@ -92,8 +94,10 @@ class AppStateHolderImpl(
                 WEAPON_CHARACTERISTICS_RIFLE -> {
                     WeaponCharacteristicsRifleStrategy(appViewState)
                 }
-                GRENADE_PRACTICE, GRENADE_PRACTICE_SMOKE,
-                GRENADE_PRACTICE_MOLOTOV, GRENADE_PRACTICE_FLASH -> {
+                GRENADE_PRACTICE_SMOKE,
+                GRENADE_PRACTICE_MOLOTOV,
+                GRENADE_PRACTICE_FLASH,
+                GRENADE_PRACTICE -> {
                     if (navEvent.path != GRENADE_PRACTICE) {
                         appViewState = GrenadesPracticeStrategy(
                             appViewState = appViewState,
@@ -113,13 +117,15 @@ class AppStateHolderImpl(
                         else -> null
                     }
                 }
-                GRENADE_PRACTICE_TICKRATE, GRENADE_PRACTICE_TICKRATE_64,
-                GRENADE_PRACTICE_TICKRATE_128 -> {
+
+                GRENADE_PRACTICE_TICKRATE_64,
+                GRENADE_PRACTICE_TICKRATE_128,
+                GRENADE_PRACTICE_TICKRATE -> {
                     val mapName =
                         navEvent.bundle?.getString(PlacesOnMapsViewModel.GRENADE_PRACTICE_MAP_NAME)
                     val grenadeTypeName =
                         navEvent.bundle?.getString(PlacesOnMapsViewModel.GRENADE_PRACTICE_GRENADE_TYPE)
-                    if(navEvent.path != GRENADE_PRACTICE_TICKRATE) {
+                    if (navEvent.path != GRENADE_PRACTICE_TICKRATE) {
                         appViewState = GrenadesPracticeStrategyTickrate(
                             appViewState = appViewState,
                             appViewEventEmitter = _appViewEvent,
@@ -127,17 +133,19 @@ class AppStateHolderImpl(
                             grenadeTypeName = grenadeTypeName
                         ).applyStrategy()
                     }
-                    when(navEvent.path) {
+                    when (navEvent.path) {
                         GRENADE_PRACTICE_TICKRATE_64 ->
                             GrenadesPracticeStrategyTickrate64(
                                 appViewState = appViewState,
                                 mapName = mapName,
-                                grenadeTypeName = grenadeTypeName)
+                                grenadeTypeName = grenadeTypeName
+                            )
                         GRENADE_PRACTICE_TICKRATE_128 ->
                             GrenadesPracticeStrategyTickrate128(
                                 appViewState = appViewState,
                                 mapName = mapName,
-                                grenadeTypeName = grenadeTypeName)
+                                grenadeTypeName = grenadeTypeName
+                            )
                         else -> null
                     }
                 }

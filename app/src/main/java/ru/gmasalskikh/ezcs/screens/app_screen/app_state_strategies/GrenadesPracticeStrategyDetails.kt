@@ -4,7 +4,6 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.KeyboardArrowLeft
 import androidx.navigation.NavOptions
 import kotlinx.coroutines.flow.FlowCollector
-import ru.gmasalskikh.ezcs.R
 import ru.gmasalskikh.ezcs.navigation.NavigationParams
 import ru.gmasalskikh.ezcs.navigation.TargetNavigation
 import ru.gmasalskikh.ezcs.screens.app_screen.AppStateHolder
@@ -19,7 +18,7 @@ class GrenadesPracticeStrategyDetails(
     override fun applyStrategy(): AppViewState {
         val navParams = NavigationParams(
             navOptions = NavOptions.Builder()
-                .setPopUpTo(TargetNavigation.TickRates().navId, true)
+                .setPopUpTo(TargetNavigation.GrenadePracticeTickRates().navId, true)
                 .build()
         )
         return appViewState.copy(

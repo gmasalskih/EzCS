@@ -66,15 +66,15 @@ sealed class TargetNavigation(
         override val params: NavigationParams? = null
     ) : TargetNavigation(GRENADE_PRACTICE_FLASH)
 
-    data class TickRates(
+    data class GrenadePracticeTickRates(
         override val params: NavigationParams? = null
     ) : TargetNavigation(GRENADE_PRACTICE_TICKRATE)
 
-    data class TickRate64(
+    data class GrenadePracticeTickRate64(
         override val params: NavigationParams? = null
     ) : TargetNavigation(GRENADE_PRACTICE_TICKRATE_64)
 
-    data class TickRate128(
+    data class GrenadePracticeTickRate128(
         override val params: NavigationParams? = null
     ) : TargetNavigation(GRENADE_PRACTICE_TICKRATE_128)
 

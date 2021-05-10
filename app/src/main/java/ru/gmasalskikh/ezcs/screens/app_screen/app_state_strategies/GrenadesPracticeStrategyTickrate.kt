@@ -22,7 +22,7 @@ class GrenadesPracticeStrategyTickrate(
     override fun applyStrategy(): AppViewState {
         val navParams = NavigationParams(
             navOptions = NavOptions.Builder()
-                .setPopUpTo(TargetNavigation.GrenadesPractice.navId, false)
+                .setPopUpTo(TargetNavigation.GrenadePracticeTickRates().navId, false)
                 .build(),
             args = Bundle().apply {
                 putString(
@@ -51,20 +51,20 @@ class GrenadesPracticeStrategyTickrate(
                     AppViewState.AppBottomBarItem(
                         label = R.string.app_bottom_bar_grenades_practice_tickrate,
                         icon = R.drawable.icon_tickrate_64,
-                        route = TargetNavigation.TickRate64().path,
+                        route = TargetNavigation.GrenadePracticeTickRate64().path,
                         onClick = {
                             navigateTo(
-                                TargetNavigation.TickRate64(navParams)
+                                TargetNavigation.GrenadePracticeTickRate64(navParams)
                             )
                         }
                     ),
                     AppViewState.AppBottomBarItem(
                         label = R.string.app_bottom_bar_grenades_practice_tickrate,
                         icon = R.drawable.icon_tickrate_128,
-                        route = TargetNavigation.TickRate128().path,
+                        route = TargetNavigation.GrenadePracticeTickRate128().path,
                         onClick = {
                             navigateTo(
-                                TargetNavigation.TickRate128(navParams)
+                                TargetNavigation.GrenadePracticeTickRate128(navParams)
                             )
                         }
                     )

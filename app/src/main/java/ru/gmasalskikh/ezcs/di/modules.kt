@@ -53,7 +53,7 @@ import java.util.*
 enum class ScopeName(
     private var _id: UUID = UUID.randomUUID()
 ) {
-    TICKRATE_SCOPE,
+    GRENADE_PRACTICE_TICKRATE_SCOPE,
     GRENADES_PRACTICE_SCOPE,
     WEAPON_CHARACTERISTICS_SCOPE;
 
@@ -193,10 +193,9 @@ val viewModelModule = module {
         )
     }
 
-    scope(named(ScopeName.TICKRATE_SCOPE)) {
+    scope(named(ScopeName.GRENADE_PRACTICE_TICKRATE_SCOPE)) {
         scoped {
             PlacesOnMapsViewModel(
-//                mapName = get(),
                 serviceProvider = get(),
                 appEventCollector = get(named(APP_EVENT_COLLECTOR)),
                 appEventEmitter = get(named(APP_EVENT_EMITTER)),
