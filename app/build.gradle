@@ -85,6 +85,8 @@ dependencies {
     implementation "org.orbit-mvi:orbit-viewmodel:$orbitMVI_version"
     testImplementation "org.orbit-mvi:orbit-test:$orbitMVI_version"
 
+    // ExoPlayer
+    implementation 'com.google.android.exoplayer:exoplayer:2.13.3'
 
     //Firebase
     implementation platform('com.google.firebase:firebase-bom:26.6.0')

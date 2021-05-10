@@ -34,7 +34,9 @@ import ru.gmasalskikh.ezcs.providers.service_provider.ServiceProvider
 import ru.gmasalskikh.ezcs.providers.service_provider.ServiceProviderImpl
 import ru.gmasalskikh.ezcs.screens.app_screen.AppStateHolder
 import ru.gmasalskikh.ezcs.screens.app_screen.AppStateHolderImpl
-import ru.gmasalskikh.ezcs.screens.grenade_practice_type_of_grenade.GrenadePracticeTypeOfGrenadeViewModel
+import ru.gmasalskikh.ezcs.screens.grenade_practice.grenade_practice_details.GrenadePracticeDetailsViewModel
+import ru.gmasalskikh.ezcs.screens.grenade_practice.places_on_maps.PlacesOnMapsViewModel
+import ru.gmasalskikh.ezcs.screens.grenade_practice.type_of_grenade.GrenadePracticeTypeOfGrenadeViewModel
 import ru.gmasalskikh.ezcs.screens.main_menu.MainMenuViewModel
 import ru.gmasalskikh.ezcs.screens.map_callouts.MapCalloutsViewModel
 import ru.gmasalskikh.ezcs.screens.map_callouts_details.MapCalloutsDetailsViewModel
@@ -129,8 +131,7 @@ val providerModule = module {
     factory {
         Mapper(
             contentRepository = get(),
-            cs = get<CustomCoroutineScope> { parametersOf(Dispatchers.IO) },
-            context = androidContext()
+            cs = get<CustomCoroutineScope> { parametersOf(Dispatchers.IO) }
         )
     }
     factory<ServiceProvider> {
@@ -195,6 +196,23 @@ val viewModelModule = module {
     viewModel { (weaponName: String) ->
         WeaponCharacteristicsDetailsViewModel(
             weaponName = weaponName,
+            serviceProvider = get()
+        )
+    }
+
+    scope(named(ScopeName.GRENADE_PRACTICE_TICKRATE_SCOPE)) {
+        scoped {
+            PlacesOnMapsViewModel(
+                serviceProvider = get(),
+                appEventCollector = get(named(APP_EVENT_COLLECTOR)),
+                appEventEmitter = get(named(APP_EVENT_EMITTER)),
+                cs = get { parametersOf(Dispatchers.Main) }
+            )
+        }
+    }
+    viewModel { (mapPointName: String) ->
+        GrenadePracticeDetailsViewModel(
+            fairName = mapPointName,
             serviceProvider = get()
         )
     }

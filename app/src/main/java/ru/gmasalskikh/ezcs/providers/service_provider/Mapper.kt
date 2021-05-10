@@ -77,6 +77,7 @@ class Mapper(
     val mapPoint: suspend (MapPointFirestoreEntity) -> MapPoint = { firestoreEntity ->
         MapPoint(
             name = firestoreEntity.name,
+            fairName = firestoreEntity.getFairName(),
             mapId = firestoreEntity.mapDocumentName.substringAfterLast("/").toValidId(),
             grenadeType = firestoreEntity.grenadeType,
             tickrateTypes = firestoreEntity.tickrateTypes,
