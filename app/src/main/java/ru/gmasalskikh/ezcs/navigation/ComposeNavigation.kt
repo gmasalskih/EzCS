@@ -125,12 +125,6 @@ fun ComposeNavigation(
                         ScopeName.TICKRATE_SCOPE,
                         PlacesOnMapsViewModel::class
                     ).let { vm -> PlacesOnMapsView(vm).Screen() }
-
-//                    it.arguments
-//                        ?.getString(PlacesOnMapsViewModel.GRENADE_PRACTICE_MAP_NAME)
-//                        ?.let { mapName ->
-//                            PlacesOnMapsView(getViewModel { parametersOf(mapName) }).Screen()
-//                        }
                 }
                 composable(TickRate128().path) {
                     scopeManager.getScopedInstance(
@@ -140,10 +134,10 @@ fun ComposeNavigation(
                 }
                 composable(GrenadePracticeDetails().path) {
                     it.arguments
-                        ?.getString(GrenadePracticeDetailsViewModel.GRENADE_PRACTICE_DETAILS_MAPPOINT_NAME)
-                        ?.let { mapPointName ->
+                        ?.getString(GrenadePracticeDetailsViewModel.GRENADE_PRACTICE_DETAILS_MAPPOINT_FAIR_NAME)
+                        ?.let { mapPointFairName ->
                             GrenadePracticeDetailsView(getViewModel {
-                                parametersOf(mapPointName)
+                                parametersOf(mapPointFairName)
                             }).Screen()
                         }
                 }

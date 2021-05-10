@@ -30,6 +30,7 @@ class GrenadePracticeDetailsViewModel(
 
     companion object {
         const val GRENADE_PRACTICE_DETAILS_MAPPOINT_NAME = "GRENADE_PRACTICE_MAPPOINT_NAME"
+        const val GRENADE_PRACTICE_DETAILS_MAPPOINT_FAIR_NAME = "GRENADE_PRACTICE_MAPPOINT_FAIR_NAME"
     }
 
     override val container: Container<GrenadePracticeDetailsViewState, SideEffect> = container(

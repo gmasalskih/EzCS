@@ -75,6 +75,10 @@ class GrenadePracticeTypeOfGrenadeViewModel(
                             PlacesOnMapsViewModel.GRENADE_PRACTICE_MAP_NAME,
                             viewEvent.mapHolder.name
                         )
+                        putString(
+                            PlacesOnMapsViewModel.GRENADE_PRACTICE_GRENADE_TYPE,
+                            viewEvent.grenadeTypeName
+                        )
                     }
                 )
                 appEventEmitter.emit(
@@ -120,5 +124,9 @@ class GrenadePracticeTypeOfGrenadeViewModel(
         cs.onStop()
         onCleared()
         Log.d("---", "GrenadesPracticeViewModel onCleared $this")
+    }
+
+    companion object {
+        const val GRENADE_TYPE_NAME: String = "GRENADE_TYPE_NAME"
     }
 }

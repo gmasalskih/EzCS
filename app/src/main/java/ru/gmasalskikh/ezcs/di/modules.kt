@@ -206,7 +206,7 @@ val viewModelModule = module {
     }
     viewModel { (mapPointName: String) ->
         GrenadePracticeDetailsViewModel(
-            mapPointName = mapPointName,
+            fairName = mapPointName,
             serviceProvider = get()
         )
     }

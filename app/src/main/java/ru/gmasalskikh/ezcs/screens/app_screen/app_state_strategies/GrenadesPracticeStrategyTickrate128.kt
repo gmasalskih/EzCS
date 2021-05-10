@@ -4,12 +4,14 @@ import ru.gmasalskikh.ezcs.R
 import ru.gmasalskikh.ezcs.screens.app_screen.AppViewState
 
 class GrenadesPracticeStrategyTickrate128(
-    override val appViewState: AppViewState
+    override val appViewState: AppViewState,
+    private val mapName: String?,
+    private val grenadeTypeName: String?
 ) : AppStateStrategy() {
 
     override fun applyStrategy(): AppViewState = getAppStateWithNewTopBarTitle(
-        AppViewState.StringResourceType.StringIdRes(
-            res = R.string.app_top_bar_title_grenades_practice_type_of_grenade_smoke
+        AppViewState.StringResourceType.StringNative(
+            res = "$mapName $grenadeTypeName"
         )
     )
 }

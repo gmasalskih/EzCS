@@ -24,6 +24,7 @@ import ru.gmasalskikh.ezcs.providers.service_provider.ServiceProvider
 import ru.gmasalskikh.ezcs.screens.BaseViewModel
 import ru.gmasalskikh.ezcs.screens.SideEffect
 import ru.gmasalskikh.ezcs.screens.grenade_practice.grenade_practice_details.GrenadePracticeDetailsViewModel
+import ru.gmasalskikh.ezcs.screens.grenade_practice.grenade_practice_details.GrenadePracticeDetailsViewState
 
 class PlacesOnMapsViewModel(
 //    private val mapName: String?,
@@ -87,8 +88,12 @@ class PlacesOnMapsViewModel(
                 val navParams = NavigationParams(
                     args = Bundle().apply {
                         putString(
-                            GrenadePracticeDetailsViewModel.GRENADE_PRACTICE_DETAILS_MAPPOINT_NAME,
+                            GrenadePracticeDetailsViewModel.GRENADE_PRACTICE_DETAILS_MAPPOINT_FAIR_NAME,
                             viewEvent.mapPoint.fairName
+                        )
+                        putString(
+                            GrenadePracticeDetailsViewModel.GRENADE_PRACTICE_DETAILS_MAPPOINT_NAME,
+                            viewEvent.mapPoint.name
                         )
                     }
                 )
@@ -111,6 +116,7 @@ class PlacesOnMapsViewModel(
 
     companion object {
         const val GRENADE_PRACTICE_MAP_NAME = "GRENADE_PRACTICE_MAP_NAME"
+        const val GRENADE_PRACTICE_GRENADE_TYPE = "GRENADE_PRACTICE_GRENADE_TYPE"
     }
 
 }
