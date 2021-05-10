@@ -28,9 +28,6 @@ import ru.gmasalskikh.ezcs.utils.LocalNavController
 import org.koin.androidx.compose.get
 import org.koin.androidx.compose.getViewModel
 import org.koin.core.parameter.parametersOf
-import ru.gmasalskikh.ezcs.screens.grenade_practice_type_of_grenade.GrenadePracticeTypeOfGrenadeViewModel
-import ru.gmasalskikh.ezcs.screens.map_callouts_details.MapCalloutsDetailsView
-import ru.gmasalskikh.ezcs.screens.map_callouts_details.MapCalloutsDetailsViewModel
 import ru.gmasalskikh.ezcs.screens.weapon_characteristics_details.WeaponCharacteristicsDetailsView
 import ru.gmasalskikh.ezcs.screens.weapon_characteristics_details.WeaponCharacteristicsDetailsViewModel
 

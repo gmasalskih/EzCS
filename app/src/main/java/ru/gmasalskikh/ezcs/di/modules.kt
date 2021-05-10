@@ -9,7 +9,6 @@ import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
-import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.core.parameter.parametersOf
 import org.koin.core.qualifier.named
@@ -56,6 +55,7 @@ enum class ScopeName(
     private var _id: UUID = UUID.randomUUID()
 ) {
     GRENADES_PRACTICE_SCOPE,
+    GRENADE_PRACTICE_TICKRATE_SCOPE,
     WEAPON_CHARACTERISTICS_SCOPE;
 
     val id: String
@@ -131,7 +131,8 @@ val providerModule = module {
     factory {
         Mapper(
             contentRepository = get(),
-            cs = get<CustomCoroutineScope> { parametersOf(Dispatchers.IO) }
+            cs = get<CustomCoroutineScope> { parametersOf(Dispatchers.IO) },
+            context = get()
         )
     }
     factory<ServiceProvider> {
@@ -178,7 +179,8 @@ val viewModelModule = module {
             GrenadePracticeTypeOfGrenadeViewModel(
                 serviceProvider = get(),
                 appEventCollector = get(named(APP_EVENT_COLLECTOR)),
-                cs = get { parametersOf(Dispatchers.Main) }
+                cs = get { parametersOf(Dispatchers.Main) },
+                appEventEmitter = get(named(APP_EVENT_EMITTER))
             )
         }
     }
