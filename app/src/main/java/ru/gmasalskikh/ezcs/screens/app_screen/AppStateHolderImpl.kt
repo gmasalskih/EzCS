@@ -114,7 +114,10 @@ class AppStateHolderImpl(
                         GRENADE_PRACTICE_FLASH -> {
                             GrenadesPracticeStrategyFlash(appViewState)
                         }
-                        else -> null
+                        else -> GrenadesPracticeStrategy(
+                            appViewState = appViewState,
+                            appViewEventEmitter = _appViewEvent
+                        )
                     }
                 }
 
@@ -146,7 +149,12 @@ class AppStateHolderImpl(
                                 mapName = mapName,
                                 grenadeTypeName = grenadeTypeName
                             )
-                        else -> null
+                        else -> GrenadesPracticeStrategyTickrate(
+                            appViewState = appViewState,
+                            appViewEventEmitter = _appViewEvent,
+                            mapName = mapName,
+                            grenadeTypeName = grenadeTypeName
+                        )
                     }
                 }
                 GRENADE_PRACTICE_DETAILS -> {
