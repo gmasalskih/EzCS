@@ -105,7 +105,7 @@ class AppStateHolderImpl(
                         WEAPON_CHARACTERISTICS_RIFLE -> {
                             WeaponCharacteristicsRifleStrategy(appViewState)
                         }
-                        else -> WeaponCharacteristicsStrategy(appViewState, _appViewEvent)
+                        else -> null
                     }
                 }
                 WEAPON_CHARACTERISTICS_DETAILS -> {
@@ -139,13 +139,9 @@ class AppStateHolderImpl(
                         GRENADE_PRACTICE_FLASH -> {
                             GrenadesPracticeStrategyFlash(appViewState)
                         }
-                        else -> GrenadesPracticeStrategy(
-                            appViewState = appViewState,
-                            appViewEventEmitter = _appViewEvent
-                        )
+                        else -> null
                     }
                 }
-
                 GRENADE_PRACTICE_TICKRATE_64,
                 GRENADE_PRACTICE_TICKRATE_128,
                 GRENADE_PRACTICE_TICKRATE -> {
@@ -174,12 +170,7 @@ class AppStateHolderImpl(
                                 mapName = mapName,
                                 grenadeTypeName = grenadeTypeName
                             )
-                        else -> GrenadesPracticeStrategyTickrate(
-                            appViewState = appViewState,
-                            appViewEventEmitter = _appViewEvent,
-                            mapName = mapName,
-                            grenadeTypeName = grenadeTypeName
-                        )
+                        else -> null
                     }
                 }
                 GRENADE_PRACTICE_DETAILS -> {
