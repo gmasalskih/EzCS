@@ -1,6 +1,8 @@
 package ru.gmasalskikh.ezcs.screens.weapon_characteristics
 
+import android.os.Bundle
 import android.util.Log
+import kotlinx.coroutines.flow.FlowCollector
 import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
@@ -12,6 +14,8 @@ import ru.gmasalskikh.ezcs.data.app_entity.Weapon
 import ru.gmasalskikh.ezcs.data.firestore_entities.WeaponFirestoreEntity
 import ru.gmasalskikh.ezcs.data.type.EntityType
 import ru.gmasalskikh.ezcs.data.type.WeaponType
+import ru.gmasalskikh.ezcs.navigation.NavigationParams
+import ru.gmasalskikh.ezcs.navigation.TargetNavigation
 import ru.gmasalskikh.ezcs.navigation.TargetNavigationPath
 import ru.gmasalskikh.ezcs.providers.app_controller.AppController
 import ru.gmasalskikh.ezcs.providers.custom_coroutine_scope.CustomCoroutineScope
@@ -19,10 +23,12 @@ import ru.gmasalskikh.ezcs.providers.scope_manager.ScopeClosable
 import ru.gmasalskikh.ezcs.providers.service_provider.ServiceProvider
 import ru.gmasalskikh.ezcs.screens.BaseViewModel
 import ru.gmasalskikh.ezcs.screens.SideEffect
+import ru.gmasalskikh.ezcs.screens.weapon_characteristics_details.WeaponCharacteristicsDetailsViewModel
 
 class WeaponCharacteristicsViewModel(
     private val serviceProvider: ServiceProvider,
     private val appEventCollector: SharedFlow<AppController.AppEvent>,
+    private val appEventEmitter: FlowCollector<AppController.AppEvent>,
     private val cs: CustomCoroutineScope
 ) :
     BaseViewModel<WeaponCharacteristicsViewState, WeaponCharacteristicsViewEvent>(), ScopeClosable {
@@ -37,6 +43,29 @@ class WeaponCharacteristicsViewModel(
     )
 
     override suspend fun onViewEvent(viewEvent: WeaponCharacteristicsViewEvent) {
+        when (viewEvent) {
+            is WeaponCharacteristicsViewEvent.NavigateTo -> {
+                val navParams = NavigationParams(
+                    args = Bundle().apply {
+                        putString(
+                            WeaponCharacteristicsDetailsViewModel.WEAPON_ID,
+                            viewEvent.weapon.externalId
+                        )
+                        putString(
+                            WeaponCharacteristicsDetailsViewModel.WEAPON_NAME,
+                            viewEvent.weapon.name
+                        )
+                    }
+                )
+                appEventEmitter.emit(
+                    AppController.AppEvent.NavigateTo(
+                        TargetNavigation.WeaponCharacteristicsDetails(
+                            params = navParams
+                        )
+                    )
+                )
+            }
+        }
     }
 
     private fun subscribeToAppEvent() = cs.launch {

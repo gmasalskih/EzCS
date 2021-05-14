@@ -13,45 +13,49 @@ import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.core.parameter.parametersOf
 import org.koin.core.qualifier.named
 import org.koin.dsl.module
-import ru.gmasalskikh.ezcs.providers.custom_coroutine_scope.CustomCoroutineScope
-import ru.gmasalskikh.ezcs.providers.custom_coroutine_scope.CustomCoroutineScopeImpl
-import ru.gmasalskikh.ezcs.providers.lifecycle_holder.LifecycleHolder
-import ru.gmasalskikh.ezcs.providers.lifecycle_holder.LifecycleHolderImpl
-import ru.gmasalskikh.ezcs.screens.app_screen.AppStateHolderImpl
-import ru.gmasalskikh.ezcs.screens.main_menu.MainMenuViewModel
-import ru.gmasalskikh.ezcs.screens.preview.PreviewViewModel
-import ru.gmasalskikh.ezcs.screens.splash_screen.SplashScreenViewModel
-import ru.gmasalskikh.ezcs.utils.SHARED_PREFERENCES_NAME
-import ru.gmasalskikh.ezcs.screens.app_screen.AppStateHolder
+import ru.gmasalskikh.ezcs.di.DependencyName.*
 import ru.gmasalskikh.ezcs.navigation.Navigator
 import ru.gmasalskikh.ezcs.navigation.NavigatorImpl
-import ru.gmasalskikh.ezcs.di.DependencyName.*
 import ru.gmasalskikh.ezcs.providers.app_controller.AppController
 import ru.gmasalskikh.ezcs.providers.app_controller.AppControllerImpl
 import ru.gmasalskikh.ezcs.providers.content_repository.ContentRepository
 import ru.gmasalskikh.ezcs.providers.content_repository.ContentRepositoryImpl
+import ru.gmasalskikh.ezcs.providers.custom_coroutine_scope.CustomCoroutineScope
+import ru.gmasalskikh.ezcs.providers.custom_coroutine_scope.CustomCoroutineScopeImpl
 import ru.gmasalskikh.ezcs.providers.data_repository.DataRepository
 import ru.gmasalskikh.ezcs.providers.data_repository.DataRepositoryImpl
+import ru.gmasalskikh.ezcs.providers.lifecycle_holder.LifecycleHolder
+import ru.gmasalskikh.ezcs.providers.lifecycle_holder.LifecycleHolderImpl
 import ru.gmasalskikh.ezcs.providers.scope_manager.ScopeManager
 import ru.gmasalskikh.ezcs.providers.scope_manager.ScopeManagerImpl
 import ru.gmasalskikh.ezcs.providers.service_provider.Mapper
 import ru.gmasalskikh.ezcs.providers.service_provider.ServiceProvider
 import ru.gmasalskikh.ezcs.providers.service_provider.ServiceProviderImpl
-import ru.gmasalskikh.ezcs.screens.grenade_practice_type_of_grenade.GrenadePracticeTypeOfGrenadeViewModel
+import ru.gmasalskikh.ezcs.screens.app_screen.AppStateHolder
+import ru.gmasalskikh.ezcs.screens.app_screen.AppStateHolderImpl
+import ru.gmasalskikh.ezcs.screens.grenade_practice.grenade_practice_details.GrenadePracticeDetailsViewModel
+import ru.gmasalskikh.ezcs.screens.grenade_practice.places_on_maps.PlacesOnMapsViewModel
+import ru.gmasalskikh.ezcs.screens.grenade_practice.type_of_grenade.GrenadePracticeTypeOfGrenadeViewModel
+import ru.gmasalskikh.ezcs.screens.main_menu.MainMenuViewModel
 import ru.gmasalskikh.ezcs.screens.map_callouts.MapCalloutsViewModel
 import ru.gmasalskikh.ezcs.screens.map_callouts_details.MapCalloutsDetailsViewModel
+import ru.gmasalskikh.ezcs.screens.preview.PreviewViewModel
 import ru.gmasalskikh.ezcs.screens.ranks.competitive.CompetitiveViewModel
 import ru.gmasalskikh.ezcs.screens.ranks.danger_zone.DangerZoneViewModel
 import ru.gmasalskikh.ezcs.screens.ranks.profile_rank.ProfileRankViewModel
 import ru.gmasalskikh.ezcs.screens.ranks.wingman.WingmanViewModel
+import ru.gmasalskikh.ezcs.screens.splash_screen.SplashScreenViewModel
 import ru.gmasalskikh.ezcs.screens.weapon_characteristics.WeaponCharacteristicsViewModel
+import ru.gmasalskikh.ezcs.screens.weapon_characteristics_details.WeaponCharacteristicsDetailsViewModel
 import ru.gmasalskikh.ezcs.utils.DROPBOX_TOKEN
+import ru.gmasalskikh.ezcs.utils.SHARED_PREFERENCES_NAME
 import java.util.*
 
 enum class ScopeName(
     private var _id: UUID = UUID.randomUUID()
 ) {
     GRENADES_PRACTICE_SCOPE,
+    GRENADE_PRACTICE_TICKRATE_SCOPE,
     WEAPON_CHARACTERISTICS_SCOPE;
 
     val id: String
@@ -127,7 +131,8 @@ val providerModule = module {
     factory {
         Mapper(
             contentRepository = get(),
-            cs = get<CustomCoroutineScope> { parametersOf(Dispatchers.IO) }
+            cs = get<CustomCoroutineScope> { parametersOf(Dispatchers.IO) },
+            context = get()
         )
     }
     factory<ServiceProvider> {
@@ -163,6 +168,7 @@ val viewModelModule = module {
             WeaponCharacteristicsViewModel(
                 serviceProvider = get(),
                 appEventCollector = get(named(APP_EVENT_COLLECTOR)),
+                appEventEmitter = get(named(APP_EVENT_EMITTER)),
                 cs = get { parametersOf(Dispatchers.Main) }
             )
         }
@@ -173,7 +179,8 @@ val viewModelModule = module {
             GrenadePracticeTypeOfGrenadeViewModel(
                 serviceProvider = get(),
                 appEventCollector = get(named(APP_EVENT_COLLECTOR)),
-                cs = get { parametersOf(Dispatchers.Main) }
+                cs = get { parametersOf(Dispatchers.Main) },
+                appEventEmitter = get(named(APP_EVENT_EMITTER))
             )
         }
     }
@@ -185,6 +192,29 @@ val viewModelModule = module {
     viewModel { (mapName: String) ->
         MapCalloutsDetailsViewModel(
             mapName = mapName,
+            serviceProvider = get()
+        )
+    }
+    viewModel { (weaponName: String) ->
+        WeaponCharacteristicsDetailsViewModel(
+            weaponName = weaponName,
+            serviceProvider = get()
+        )
+    }
+
+    scope(named(ScopeName.GRENADE_PRACTICE_TICKRATE_SCOPE)) {
+        scoped {
+            PlacesOnMapsViewModel(
+                serviceProvider = get(),
+                appEventCollector = get(named(APP_EVENT_COLLECTOR)),
+                appEventEmitter = get(named(APP_EVENT_EMITTER)),
+                cs = get { parametersOf(Dispatchers.Main) }
+            )
+        }
+    }
+    viewModel { (mapPointName: String) ->
+        GrenadePracticeDetailsViewModel(
+            fairName = mapPointName,
             serviceProvider = get()
         )
     }

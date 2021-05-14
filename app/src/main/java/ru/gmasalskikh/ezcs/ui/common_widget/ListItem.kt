@@ -11,7 +11,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.Dp
 
 @Composable
-fun MenuItem(
+fun ListItem(
     modifier: Modifier = Modifier,
     backgroundColor: Color,
     elevation: Dp,

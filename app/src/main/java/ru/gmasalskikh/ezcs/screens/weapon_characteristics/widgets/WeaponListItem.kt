@@ -4,6 +4,7 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.Button
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -18,6 +19,9 @@ import ru.gmasalskikh.ezcs.data.type.TeamType
 import ru.gmasalskikh.ezcs.ui.common_widget.ImageLoader
 import ru.gmasalskikh.ezcs.utils.LocalAppTheme
 import ru.gmasalskikh.ezcs.R
+import ru.gmasalskikh.ezcs.screens.BaseView
+import ru.gmasalskikh.ezcs.screens.BaseViewModel
+import ru.gmasalskikh.ezcs.screens.weapon_characteristics.WeaponCharacteristicsViewEvent
 import ru.gmasalskikh.ezcs.utils.bitmapFromResources
 
 @Composable
@@ -74,4 +78,5 @@ fun WeaponListItem(
             colorFilter = ColorFilter.tint(if (isSelected) theme.colors.primary else theme.colors.secondary)
         )
     }
+
 }

@@ -36,6 +36,10 @@ sealed class TargetNavigation(
 
     object WeaponCharacteristics : TargetNavigation(WEAPON_CHARACTERISTICS)
 
+    data class  WeaponCharacteristicsDetails(
+        override val params: NavigationParams? = null
+    ) : TargetNavigation(WEAPON_CHARACTERISTICS_DETAILS)
+
     data class WeaponCharacteristicsPistol(
         override val params: NavigationParams? = null
     ) : TargetNavigation(WEAPON_CHARACTERISTICS_PISTOL)
@@ -66,6 +70,22 @@ sealed class TargetNavigation(
         override val params: NavigationParams? = null
     ) : TargetNavigation(GRENADE_PRACTICE_FLASH)
 
+    data class GrenadePracticeTickRates(
+        override val params: NavigationParams? = null
+    ) : TargetNavigation(GRENADE_PRACTICE_TICKRATE)
+
+    data class GrenadePracticeTickRate64(
+        override val params: NavigationParams? = null
+    ) : TargetNavigation(GRENADE_PRACTICE_TICKRATE_64)
+
+    data class GrenadePracticeTickRate128(
+        override val params: NavigationParams? = null
+    ) : TargetNavigation(GRENADE_PRACTICE_TICKRATE_128)
+
+    data class GrenadePracticeDetails(
+        override val params: NavigationParams? = null
+    ) : TargetNavigation(GRENADE_PRACTICE_DETAILS)
+
     object Ranks : TargetNavigation(RANKS)
 
     data class RanksCompetitive(
@@ -92,6 +112,7 @@ enum class TargetNavigationPath {
     MAP_CALLOUTS,
     MAP_CALLOUTS_DETAILS,
     WEAPON_CHARACTERISTICS,
+    WEAPON_CHARACTERISTICS_DETAILS,
     WEAPON_CHARACTERISTICS_PISTOL,
     WEAPON_CHARACTERISTICS_HEAVY,
     WEAPON_CHARACTERISTICS_SMG,
@@ -100,6 +121,7 @@ enum class TargetNavigationPath {
     GRENADE_PRACTICE_SMOKE,
     GRENADE_PRACTICE_MOLOTOV,
     GRENADE_PRACTICE_FLASH,
+    GRENADE_PRACTICE_TICKRATE,
     GRENADE_PRACTICE_TICKRATE_64,
     GRENADE_PRACTICE_TICKRATE_128,
     GRENADE_PRACTICE_DETAILS,

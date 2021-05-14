@@ -12,13 +12,13 @@ import ru.gmasalskikh.ezcs.screens.app_screen.AppViewState
 
 class WeaponCharacteristicsStrategy(
     override val appViewState: AppViewState,
-    override val appViewEventEmitter: FlowCollector<AppStateHolder.AppViewEvent>,
+    override val appViewEventEmitter: FlowCollector<AppStateHolder.AppViewEvent>
 ) : AppStateStrategy() {
 
     override fun applyStrategy(): AppViewState {
         val navParams = NavigationParams(
             navOptions = NavOptions.Builder()
-                .setPopUpTo(TargetNavigation.MainMenu().navId, false)
+                .setPopUpTo(TargetNavigation.WeaponCharacteristics.navId, false)
                 .build()
         )
         return appViewState.copy(
@@ -32,6 +32,13 @@ class WeaponCharacteristicsStrategy(
                     onClick = {
                         navigateTo(TargetNavigation.Back)
                     }
+                ),
+                appTopBarExtraItem = AppViewState.AppTopBarExtraItem(
+                    icon = R.drawable.icon_vs,
+                    isEnable = false,
+                    onClick = {
+                        // TODO: 17.04.2021 click VS Weapon goto screen VS (navigationTo TargetNavigation...)
+                    }
                 )
             ),
             appBottomBarState = AppViewState.AppBottomBarState.AppBottomBar(
@@ -42,9 +49,7 @@ class WeaponCharacteristicsStrategy(
                         route = TargetNavigation.WeaponCharacteristicsPistol().path,
                         onClick = {
                             navigateTo(
-                                TargetNavigation.WeaponCharacteristicsPistol(
-                                    navParams
-                                )
+                                TargetNavigation.WeaponCharacteristicsPistol(navParams)
                             )
                         }
                     ),

@@ -42,7 +42,7 @@ data class AppViewState(
     )
 
     data class AppTopBarExtraItem(
-        val icon: ImageVector,
+        val icon: Int,
         val isEnable: Boolean,
         val onClick: suspend () -> Unit
     )

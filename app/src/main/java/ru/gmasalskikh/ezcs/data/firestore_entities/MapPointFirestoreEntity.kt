@@ -31,4 +31,17 @@ data class MapPointFirestoreEntity(
         }
         append(name.toValidId())
     }.toString()
+
+    fun getFairName(): String = StringBuilder().apply {
+        append(mapDocumentName.substringAfterLast("/").toLowerCase(Locale.getDefault()))
+        append("_")
+        append(grenadeType.name.toLowerCase(Locale.getDefault()))
+        append("_")
+        tickrateTypes.forEach {
+            append(it.value)
+            append("_")
+        }
+        append(name.toValidId())
+    }.toString()
+
 }

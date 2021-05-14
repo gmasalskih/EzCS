@@ -3,7 +3,7 @@ package ru.gmasalskikh.ezcs.screens.main_menu
 import androidx.compose.runtime.Composable
 import ru.gmasalskikh.ezcs.screens.BaseView
 import ru.gmasalskikh.ezcs.screens.main_menu.widget.MainMenuItemContent
-import ru.gmasalskikh.ezcs.ui.common_widget.MenuContent
+import ru.gmasalskikh.ezcs.ui.common_widget.ListContent
 import ru.gmasalskikh.ezcs.utils.LocalAppTheme
 
 class MainMenuView(
@@ -13,12 +13,12 @@ class MainMenuView(
     @Composable
     override fun SetContent(viewState: MainMenuViewState) {
         val theme = LocalAppTheme.current
-        MenuContent(
-            menuItemSurfaceColor = theme.colors.surface,
-            menuItemElevation = theme.elevations.medium,
-            menuItemShape = theme.shapes.medium,
-            menuItemBorder = theme.borders.medium,
-            onMenuItemClick = { mainMenuItemType ->
+        ListContent(
+            listItemSurfaceColor = theme.colors.surface,
+            listItemElevation = theme.elevations.medium,
+            listItemShape = theme.shapes.medium,
+            listItemBorder = theme.borders.medium,
+            onListItemClick = { mainMenuItemType ->
                 emit(MainMenuViewEvent.NavigateTo(mainMenuItemType.mainMenuItemType))
             },
             items = viewState.menuListItem

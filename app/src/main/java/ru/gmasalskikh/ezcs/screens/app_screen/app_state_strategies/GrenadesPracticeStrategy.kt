@@ -18,7 +18,7 @@ class GrenadesPracticeStrategy(
     override fun applyStrategy(): AppViewState {
         val navParams = NavigationParams(
             navOptions = NavOptions.Builder()
-                .setPopUpTo(TargetNavigation.MainMenu().navId, false)
+                .setPopUpTo(TargetNavigation.GrenadesPractice.navId, false)
                 .build()
         )
 
